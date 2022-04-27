@@ -73,11 +73,14 @@ class PdfControlller extends Controller
                                 'kishan_credit_card.KCC_sponsored', 
                                 'kishan_credit_card.KCC_sanctioned', 
                                 'kishan_credit_card.Percentage_sponsored',
-                                'kishan_mandi.KM_operational','mgnregs.tot_person_days_generate', 
-                                'mgnregs.KCC_sponsored', 'mgnregs.avg_persondays_per_household', 
+                                'kishan_mandi.KM_operational',
+                                'mgnregs.tot_person_days_generate', 
+                                'mgnregs.KCC_sponsored', 
+                                'mgnregs.avg_persondays_per_household', 
                                 'mgnregs.percentage_of_labour_budget_achieved',
+                                'mgnregs.expenditure_made_under_mgnrega',
                                 'anandadhara.tot_SHGs_formed', 
-                                'anandadhara.tot_SHGs_credit_linkage',)
+                                'anandadhara.tot_SHGs_credit_linkage')
                       ->leftJoin('kishan_credit_card','block_muni.blockminicd','=','kishan_credit_card.blockminicd')
                       ->leftJoin('kishan_mandi','block_muni.blockminicd','=','kishan_mandi.blockminicd')
                       ->leftJoin('mgnregs','block_muni.blockminicd','=','mgnregs.blockminicd')

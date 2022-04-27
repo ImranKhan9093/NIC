@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\FromArray;
-
-
-
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,9 +13,10 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class CMExport implements FromArray,WithHeadings,WithEvents,WithStyles
+class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,WithCustomStartCell
 {
    private $headings1='Financial year ';
    private $headings2='Reporting month';
@@ -28,67 +26,95 @@ class CMExport implements FromArray,WithHeadings,WithEvents,WithStyles
 
         return [
 
-            [$this->headings1],
-            [$this->headings2],
-            [$this->headings3],
+            // [$this->headings1],
+            // [$this->headings2],
+            // [$this->headings3],
 
         ];
     }
-    public function array():array
-    { 
-        
-        $currentMonth=date('n');
-        //  dd(gettype($currentMonth));
-       
-        
-        // $kccReport = DB::table('kishan_credit_card')
-        //                 ->select( 'block_muni.blockmuni', 'kishan_credit_card.KCC_target', 'kishan_credit_card.KCC_sponsored', 'kishan_credit_card.KCC_sanctioned', 'kishan_credit_card.Percentage_sponsored')
-                        // ->join('user', 'user.code', '=', 'kishan_credit_card.user_code')
-                        // ->join('district', 'district.districtcd', '=', 'kishan_credit_card.districtcd')
-                        // ->join('subdivision', 'subdivision.subdivisioncd', '=', 'kishan_credit_card.subdivisioncd')
-                        // ->leftJoin('block_muni', 'block_muni.blockminicd', '=', 'kishan_credit_card.blockminicd')
-                        // ->join('month_tbl', 'month_tbl.month', '=', 'kishan_credit_card.reporting_month')
-                        //   ->where('reporting_month','=',$currentMonth)
-                        // ->where('kishan_credit_card.reporting_month', '=',$currentMonth )
-                        // ->get();
-        // dd($kccReport);
-        $kcc=DB::table('block_muni')
-              ->select('block_muni.blockmuni', 'kishan_credit_card.KCC_target', 'kishan_credit_card.KCC_sponsored', 'kishan_credit_card.KCC_sanctioned', 'kishan_credit_card.Percentage_sponsored')
-              ->leftJoin('kishan_credit_card','block_muni.blockminicd','=','kishan_credit_card.blockminicd')
-
-              ->get();
-        // dd($kcc);
-        $km=DB::table('block_muni')
-                ->select('block_muni.blockmuni','kishan_mandi.KM_operational')
-                
-                ->leftJoin('kishan_mandi','block_muni.blockminicd','=','kishan_mandi.blockminicd')
-             
-                ->get();
-        // dd($km);        
-    $mgnregs=DB::table('block_muni')
-            ->select('block_muni.blockmuni', 'mgnregs.tot_person_days_generate', 'mgnregs.KCC_sponsored', 'mgnregs.avg_persondays_per_household', 'mgnregs.percentage_of_labour_budget_achieved')
-            ->leftJoin('mgnregs','block_muni.blockminicd','=','mgnregs.blockminicd')
-           
-            ->get();
-    //  dd($mgnregs);       
-    $anandadhara=DB::table('block_muni')
-            ->select('block_muni.blockmuni','anandadhara.tot_SHGs_formed', 'anandadhara.tot_SHGs_credit_linkage')
-            
-            ->leftJoin('anandadhara','block_muni.blockminicd','=','anandadhara.blockminicd')
-            ->get();
-        
-    // dd($anandadhara);
-    
-    // dd(['kcc'=>$kcc,'km'=>$km,'mgnregs'=>$mgnregs,'anandadhara'=>$anandadhara]);
-    $data=['Kishan Credit Card'=>$kcc,'Kishan Mandi'=>$km,'MGNREGS'=>$mgnregs,'Anandadhara'=>$anandadhara];
-        
-    return [];
-      return [$data]; 
-
-       dd($data);
-        // return $data;
-    
+    public function startCell(): string
+    {
+        return 'A9';
     }
+    
+    public function collection()
+    {
+        $excelData=DB::table('block_muni')
+                        ->select('block_muni.blockmuni', 
+                        'kishan_credit_card.KCC_target', 
+                        'kishan_credit_card.KCC_sponsored', 
+                        'kishan_credit_card.KCC_sanctioned', 
+                        'kishan_credit_card.Percentage_sponsored',
+                        'block_muni.blockmuni', 
+                        'kishan_credit_card.KCC_target', 
+                        'kishan_credit_card.KCC_sponsored', 
+                        'kishan_credit_card.KCC_sanctioned', 
+                        'kishan_credit_card.Percentage_sponsored',
+                        'kishan_mandi.KM_operational',
+                        'mgnregs.tot_person_days_generate', 
+                        'mgnregs.KCC_sponsored', 
+                        'mgnregs.avg_persondays_per_household', 
+                        'mgnregs.expenditure_made_under_mgnrega',
+                        'mgnregs.percentage_of_labour_budget_achieved',
+                        'anandadhara.tot_SHGs_formed', 
+                        'anandadhara.tot_SHGs_credit_linkage')
+                        ->leftJoin('kishan_credit_card','block_muni.blockminicd','=','kishan_credit_card.blockminicd')
+                ->leftJoin('kishan_mandi','block_muni.blockminicd','=','kishan_mandi.blockminicd')
+                ->leftJoin('mgnregs','block_muni.blockminicd','=','mgnregs.blockminicd')
+                ->leftJoin('anandadhara','block_muni.blockminicd','=','anandadhara.blockminicd')
+                ->get();
+         
+        return  $excelData;              
+
+    }
+
+    // public function array():array
+    // { 
+        
+    //     $currentMonth=date('n');
+    //     //  dd(gettype($currentMonth));
+       
+    
+    //     $kcc=DB::table('block_muni')
+    //           ->select('block_muni.blockmuni', 'kishan_credit_card.KCC_target', 'kishan_credit_card.KCC_sponsored', 'kishan_credit_card.KCC_sanctioned', 'kishan_credit_card.Percentage_sponsored')
+    //           ->leftJoin('kishan_credit_card','block_muni.blockminicd','=','kishan_credit_card.blockminicd')
+
+    //           ->get();
+    //     // dd($kcc);
+    //     $km=DB::table('block_muni')
+    //             ->select('block_muni.blockmuni','kishan_mandi.KM_operational')
+                
+    //             ->leftJoin('kishan_mandi','block_muni.blockminicd','=','kishan_mandi.blockminicd')
+             
+    //             ->get();
+    //     // dd($km);        
+    // $mgnregs=DB::table('block_muni')
+    //         ->select('block_muni.blockmuni', 'mgnregs.tot_person_days_generate', 'mgnregs.KCC_sponsored', 'mgnregs.avg_persondays_per_household', 'mgnregs.percentage_of_labour_budget_achieved')
+    //         ->leftJoin('mgnregs','block_muni.blockminicd','=','mgnregs.blockminicd')
+           
+    //         ->get();
+    // //  dd($mgnregs);       
+    // $anandadhara=DB::table('block_muni')
+    //         ->select('block_muni.blockmuni','anandadhara.tot_SHGs_formed', 'anandadhara.tot_SHGs_credit_linkage')
+            
+    //         ->leftJoin('anandadhara','block_muni.blockminicd','=','anandadhara.blockminicd')
+    //         ->get();
+        
+    // // dd($anandadhara);
+    
+    // // dd(['kcc'=>$kcc,'km'=>$km,'mgnregs'=>$mgnregs,'anandadhara'=>$anandadhara]);
+    // $data=['Kishan Credit Card'=>$kcc,'Kishan Mandi'=>$km,'MGNREGS'=>$mgnregs,'Anandadhara'=>$anandadhara];
+        
+    // return [];
+    //   return [$data]; 
+
+    //    dd($data);
+    //     // return $data;
+       
+   
+    // }
+
+
     public function registerEvents(): array
     {
         return [
@@ -99,7 +125,13 @@ class CMExport implements FromArray,WithHeadings,WithEvents,WithStyles
                 $event->sheet->getDelegate()->mergeCells('B5:E5');
                 $event->sheet->getDelegate()->mergeCells('G5:J5');
                 $event->sheet->getDelegate()->mergeCells('K5:L5');
-
+                $event->sheet->getDelegate()->mergeCells('J9:J23');
+                 
+                //set headings
+                $event->sheet->setCellValue('B1','Financial year');
+                $event->sheet->setCellValue('B2','Reporting month');
+                $event->sheet->setCellValue('B3','Name of the district-Jalpaiguri');
+                // $event->sheet->setCellValue('J9',124);
 
 
                 //assigning titles to cells
@@ -118,7 +150,7 @@ class CMExport implements FromArray,WithHeadings,WithEvents,WithStyles
                 $event->sheet->setCellValue('G7','Number of Person days generated under MGNREGA(2021-22)');
                 $event->sheet->setCellValue('H7',' Average Number of Person days generated per  household(2021-22)');
                 $event->sheet->setCellValue('I7','Expenditure made under MGNREGA(2021-22)');
-                $event->sheet->setCellValue('J7',' of labour budget achieved so far (2021-22)');
+                $event->sheet->setCellValue('J7','% of labour budget achieved so far (2021-22)');
                 $event->sheet->setCellValue('K7','Total number of SHGs formed in the district ');
                 $event->sheet->setCellValue('L7','Total number of SHGs got credit linkage ');
                 
@@ -128,10 +160,14 @@ class CMExport implements FromArray,WithHeadings,WithEvents,WithStyles
                 $cellRangeForHeadingsOfData='A7:L7';
                 $event->sheet->getDelegate()->getStyle($cellRangeForTitles)->getFont()->setSize(14);
                 $event->sheet->getDelegate()->getStyle($cellRangeForHeadingsOfData)->getFont()->setSize(9);
+                $event->sheet->getDelegate()->getStyle('A7:A20')->getFont()->setSize(9);
+                $event->sheet->getDelegate()->getStyle('A7:A20')->getAlignment()->setWrapText(true);
+                $event->sheet->getDelegate()->getStyle('A7:A20')->getFont()->setBold(true);
                 // $event->sheet->getDelegate()->getStyle($cellRangeForHeadingsOfData)->getFont()->setBold(true);
                 $event->sheet->getDelegate()->getStyle($cellRangeForHeadingsOfData)->getAlignment()->setWrapText(true);
                 $event->sheet->getDelegate()->getStyle($cellRangeForTitles)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER)->setHorizontal(Alignment::HORIZONTAL_CENTER);
                 $event->sheet->getDelegate()->getStyle($cellRangeForHeadingsOfData)->getAlignment()->setVertical(Alignment::VERTICAL_TOP)->setHorizontal(Alignment::HORIZONTAL_CENTER);
+                $event->sheet->getDelegate()->getStyle('J9')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER)->setHorizontal(Alignment::HORIZONTAL_CENTER);
                 // $event->sheet->getDelegate()->getStyle('B5')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER)->setHorizontal(Alignment::HORIZONTAL_CENTER);
                 // $event->sheet->getDelegate()->getStyle('F5')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER)->setHorizontal(Alignment::HORIZONTAL_CENTER);
                 // $event->sheet->getDelegate()->getStyle('G5')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER)->setHorizontal(Alignment::HORIZONTAL_CENTER);
@@ -143,8 +179,10 @@ class CMExport implements FromArray,WithHeadings,WithEvents,WithStyles
                 $event->sheet->getDelegate()->getRowDimension('5')->setRowHeight(40);
                 $event->sheet->getDelegate()->getRowDimension('7')->setRowHeight(90);
                 $event->sheet->getDelegate()->getColumnDimension('F')->setWidth(20);
-
-                
+                $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(12);
+               
+                //freeze row
+                $event->sheet->getDelegate()->freezePane('A8');
             }
 
         ];

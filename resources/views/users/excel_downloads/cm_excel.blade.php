@@ -66,7 +66,7 @@
                 <td>{{ $data->KM_operational }}</td>
                 <td>{{ $data->tot_person_days_generate }}</td>
                 <td>{{ $data->avg_persondays_per_household }}</td>
-                <td>{{ 'Expenditure dummy data '}}586954</td>
+                <td>{{ $data->expenditure_made_under_mgnrega}}</td>
                 <td>{{ number_format($data->percentage_of_labour_budget_achieved, 2) }}%</td>
                 <td>{{ $data->tot_SHGs_formed }}</td>
                 <td>{{ $data->tot_SHGs_credit_linkage }}</td>
