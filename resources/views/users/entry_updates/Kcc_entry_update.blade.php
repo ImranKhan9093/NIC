@@ -36,6 +36,11 @@
                         </span>
                     </div>
                 @endif
+                    
+                    <div class="" id="dataAlreadyExists">
+                      
+                    </div>
+               
                 <div class="contact-form">
                     <form action="{{ route('users.insertKcc') }}" method="POST">
                         @csrf
@@ -90,9 +95,82 @@
 @endsection
 
 @section('scripts')
-    <script defer type="text/javascript" src="{{ URL('js/jQuery.min.js') }}"></script>
+    <script  type="text/javascript" src="{{ URL('js/jQuery.min.js') }}"></script>
 
     <script defer type="text/javascript" src="{{ URL('js/dropdown.js') }}"> </script>
+
+    <script defer  type="text/javascript" >
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $(document).ready(function(){
+            // $('#dataAlreadyExists').hide();
+            
+            $('#month').on('change',function(){
+               var monthDataExists=$('#month').val();
+               var districtDataExists=$('#district').val();
+               var subdivisionDataExists=$('#subdivision').val();
+               var municipalityDataExists=$('#municipality').val();
+            //    console.log(districtDataExists);
+            //    console.log(subdivisionDataExists);
+            //    console.log(municipalityDataExists);
+            //    console.log(monthDataExists);
+           
+               if(monthDataExists&&districtDataExists&&subdivisionDataExists&&municipalityDataExists){
+                $('#dataAlreadyExists').removeClass('alert alert-danger');
+                $('#dataAlreadyExists').empty();
+                  $.ajax({
+                        url: '/users/kccinsert',
+                        type: "POST",
+                        data: {
+                            check:true,
+                            district: districtDataExists,
+                            subdivision:subdivisionDataExists,
+                            municipality:municipalityDataExists,
+                            month:monthDataExists,
+                            target:1000,
+                            kcc_sponsored:3000,
+                            kcc_sanctioned:3000,
+
+
+                        },
+                        success: function (result) {
+                        //    alert('Data for the entered district subdivision block already exists for this month');
+                          $('#dataAlreadyExists').addClass('alert alert-danger');
+                        
+                          $('#dataAlreadyExists').append('<span>Data for the entered district subdivision block already exists for this month</span>');
+                          $('#dataAlreadyExists').show();
+                          
+                           $('#dataAlreadyExists').slideUp(1800);
+                         
+                            
+
+                            console.log('Data received');
+                            console.log(result);
+                            
+
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus);
+                            alert("Error: " + errorThrown);
+                        },
+                     });
+               
+               }
+           });
+
+
+
+
+        });
+        
+        
+        
+    </script> 
 
 
 @endsection

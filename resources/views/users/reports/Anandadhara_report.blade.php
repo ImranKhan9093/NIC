@@ -30,12 +30,13 @@
 
 
     <h1>Anandadhara Report</h1>
-    <a href="{{ url("users/anandadharaDownload/$anandadharaReport") }}"
-        onclick="event.preventDefault();document.getElementById('anandadharaDownload').submit();">Download PDF Report</a>
-    <form action="{{ URL("users/anandadharaDownload/$anandadharaReport") }}" method="POST" id="anandadharaDownload">
+   
+    <form action="{{ route('users.anandadharaDownload')}}" method="POST" id="anandadharaDownload">
         @csrf
+        <button type="submit">Download Pdf Report</button>
     </form>
-    <a href="{{ route('users.AnandharaReport') }}">Download Excel Report</a>
+    <a href="{{ route('users.AnandharaExcelReport') }}">Download Excel Report</a>
+
     <table>
         <tr>
             <th>District</th>

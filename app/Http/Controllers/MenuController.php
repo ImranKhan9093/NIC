@@ -34,6 +34,7 @@ class MenuController extends Controller
         }
         return ['userMenus' => $userMenus, 'submenus' => $submenus];
     }
+    
     public function getDropdownContent()
     {
         $districts = DB::table('district')
@@ -102,7 +103,7 @@ class MenuController extends Controller
     public function insertToKccTable(Request $request)
     {
         //  dd($request->all());
-
+     
         $request->validate([
             'district' => 'exists:district,districtcd',
             'subdivision' => 'exists:subdivision,subdivisioncd',
@@ -113,31 +114,76 @@ class MenuController extends Controller
             'kcc_sanctioned' => ['required', 'integer', 'min:1'],
         ]);
 
-    
-
         $percentageSponsored = number_format(($request->post('kcc_sponsored') * 100) / $request->post('target'), 2);
 
-        $inserted = DB::table('kishan_credit_card')
-                        ->insert([
-                            "districtcd" => $request->post('district'),
-                            "subdivisioncd" => $request->post('subdivision'),
-                            "blockminicd" => $request->post('municipality'),
-                            "reporting_month" => $request->post('month'),
-                            "reporting_year" => date("Y"),
-                            "KCC_target" => $request->post('target'),
-                            "KCC_sponsored" => $request->post('kcc_sponsored'),
-                            "KCC_sanctioned" => $request->post('kcc_sanctioned'),
-                            "Percentage_sponsored" => $percentageSponsored,
-                            "user_code" => auth()->user()->id,
-                            "posted_date" => date("Y/m/d"),
+       
+        
+        $conditions=[ 
+            "districtcd" => $request->post('district'),
+            "subdivisioncd" => $request->post('subdivision'),
+            "blockminicd" => $request->post('municipality'),
+            "reporting_month" => $request->post('month'),
+            "reporting_year" => date("Y")
+        ];
+        
 
-                        ]);
+        
+        $data=DB::table('kishan_credit_card')
+              ->where($conditions)
+              ->first();
 
-        if ($inserted) {
-            return redirect()->back()->with('success', 'Data inserted successfully');
-        } else {
-            return redirect()->back()->with('fail', 'Failed to insert data');
-        }
+        if($data){
+
+        // session()->flash('exists','Data for the entered district subdivision block already exists for this month');
+         return response()->json($data);
+
+         
+         $updated= DB::table('kishan_credit_card')
+             ->where($conditions)
+             ->update([
+                "KCC_target" => $request->post('target'),
+                "KCC_sponsored" => $request->post('kcc_sponsored'),
+                "KCC_sanctioned" => $request->post('kcc_sanctioned'),
+                "Percentage_sponsored" => $percentageSponsored,
+                "posted_date" => date("Y/m/d"),
+             ]);
+           
+            if($updated){
+
+                return redirect()->back()->with('success', 'Data updated successfully');
+            }
+
+
+        }else{
+
+ 
+            $percentageSponsored = number_format(($request->post('kcc_sponsored') * 100) / $request->post('target'), 2);
+
+            $inserted = DB::table('kishan_credit_card')
+                            ->insert([
+                                "districtcd" => $request->post('district'),
+                                "subdivisioncd" => $request->post('subdivision'),
+                                "blockminicd" => $request->post('municipality'),
+                                "reporting_month" => $request->post('month'),
+                                "reporting_year" => date("Y"),
+                                "KCC_target" => $request->post('target'),
+                                "KCC_sponsored" => $request->post('kcc_sponsored'),
+                                "KCC_sanctioned" => $request->post('kcc_sanctioned'),
+                                "Percentage_sponsored" => $percentageSponsored,
+                                "user_code" => auth()->user()->id,
+                                "posted_date" => date("Y/m/d"),
+    
+                            ]);
+    
+            if ($inserted) {
+                return redirect()->back()->with('success', 'Data inserted successfully');
+            } else {
+                return redirect()->back()->with('fail', 'Failed to insert data');
+            }
+
+
+        }        
+       
 
    }
 

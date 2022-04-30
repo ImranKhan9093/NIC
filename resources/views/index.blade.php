@@ -142,7 +142,6 @@
 <script>
     swal({
         title: "{{ session()->get('error') }}",
-        
         icon: "{{ session()->get('sweetAlertIcon') }}",
         button: "Ok",
     });

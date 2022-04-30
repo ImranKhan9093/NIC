@@ -30,11 +30,13 @@
 
   @section('content')
     <h1>Mgnregs Report</h1>
-    <a href="{{ url("users/mgnregsDownload/$mgnregsReport") }}" onclick="event.preventDefault();document.getElementById('mgnregsDownload').submit();">Download PDF Report</a>
-    <form action="{{ URL("users/mgnregsDownload/$mgnregsReport") }}" method="POST" id="mgnregsDownload">
+    <form action="{{ route('users.mgnregsDownload') }}" method="POST" id="mgnregsDownload">
         @csrf
-    </form>
-    <a href="{{ route('users.MGNREGSReport') }}">Download Excel Report</a>
+    
+        <button type="submit">Download pdf report</button>
+    </form> 
+    
+    <a href="{{ route('users.MGNREGSExcelReport') }}">Download Excel Report</a>
     <table>
         <tr>
             <th>District</th>

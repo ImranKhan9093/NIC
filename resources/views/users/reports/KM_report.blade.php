@@ -28,11 +28,12 @@
 @endsection
 @section('content')
     <h1>KM Report</h1>
-    <a href="{{ url("users/kmDownload/$kmReport") }}"
-        onclick="event.preventDefault();document.getElementById('kmDownload').submit();">Download PDF Report</a>
-    <form action="{{ URL("users/kmDownload/$kmReport") }}" method="POST" id="kmDownload">
+    <form action="{{ route('users.kmDownload') }}" method="POST" id="kmDownload">
         @csrf
-    </form>
+    
+        <button type="submit">Download pdf report</button>
+    </form> 
+    
     <a href="{{ route('users.KMExcelReport') }}">Download Excel Report</a>
     <table>
         <tr>

@@ -6,7 +6,7 @@ $.ajaxSetup({
 });
 
 $(document).ready(function () {
-  
+   
     $('#district').on('change', function (e) {
         
         $('#municipality').empty();

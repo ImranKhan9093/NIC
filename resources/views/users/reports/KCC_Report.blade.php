@@ -28,14 +28,17 @@
 @endsection
 @section('content')
 
+
     <h1>KCC_Report</h1>
-    {{-- <a href="{{ url("users/kccDownload/$kccReport") }}"
-        onclick="event.preventDefault();document.getElementById('kccDownload').submit();">Download PDF Report</a> --}}
+    
+       
+
     <form action="{{ route('users.kccDownload') }}" method="POST" id="kccDownload">
         @csrf
-        <button type="submit">Download Kcc report</button>
+    
+        <button type="submit">Download pdf report</button>
     </form> 
-    {{-- <a href="{{ route('users.kccDownload') }}">Download Kcc report</a> --}}
+    
     <a href="{{ route('users.KCCExcelReport') }}">Download Excel Report</a>
     <table>
         <tr>
@@ -52,9 +55,7 @@
             <th>Posted Date</th>
         </tr>
         @foreach ($kccReport as $report)
-            <tr>
-
-
+            <tr> 
                 <td>{{ $report->district }}</td>
                 <td>{{ $report->subdivision }}</td>
                 <td>{{ $report->blockmuni }}</td>

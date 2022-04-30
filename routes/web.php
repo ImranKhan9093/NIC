@@ -62,16 +62,16 @@ Route::prefix('users')->name('users.')->group(function(){
 
             //pdf
             Route::post('/kccDownload',[PdfControlller::class,'kccDownload'])->name('kccDownload');
-            Route::post('/kmDownload/{kmReport}',[PdfControlller::class,'kmDownload'])->name('kmDownload');
-            Route::post('/anandadharaDownload/{anandadharaReport}',[PdfControlller::class,'anandadharaDownload'])->name('anandadharaDownload');
-            Route::post('/mgnregsDownload/{mgnregsReport}',[PdfControlller::class,'mgnregsDownload'])->name('mgnregsDownload');
+            Route::post('/kmDownload',[PdfControlller::class,'kmDownload'])->name('kmDownload');
+            Route::post('/anandadharaDownload',[PdfControlller::class,'anandadharaDownload'])->name('anandadharaDownload');
+            Route::post('/mgnregsDownload',[PdfControlller::class,'mgnregsDownload'])->name('mgnregsDownload');
 
             //excel
             Route::get('/cmReportDownload',[ExcelReportController::class,'downloadCMSReport'])->name('downloadCMReport');
             Route::get('/KCCExcelReport',[ExcelReportController::class,'KCCExcelReport'])->name('KCCExcelReport');
             Route::get('/KMExcelReport',[ExcelReportController::class,'KMExcelReport'])->name('KMExcelReport');
-            Route::get('/MGNREGSReport',[ExcelReportController::class,'MGNREGSReport'])->name('MGNREGSReport');
-            Route::get('/AnandharaReport',[ExcelReportController::class,'AnandharaReport'])->name('AnandharaReport');
+            Route::get('/MGNREGSReport',[ExcelReportController::class,'MGNREGSReport'])->name('MGNREGSExcelReport');
+            Route::get('/AnandharaReport',[ExcelReportController::class,'AnandharaReport'])->name('AnandharaExcelReport');
 
             Route::get('/showExceldata',[PdfControlller::class,'showExceldata'])->name('showExceldata');
    });

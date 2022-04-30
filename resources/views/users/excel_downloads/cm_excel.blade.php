@@ -36,9 +36,9 @@
             <tr>
                 <th></th>
                 <th  style="text-align: center" colspan="4"><h2>Kisan Credit Card</h2></th>
-                <th  style="text-align: center" colspan="2"><h2>Kishan Mandi</h2></th>
-                <th  style="text-align: center" colspan="2"><h2>MGNREGS</h2></th>
-                <th  style="text-align: center" colspan="3"><h2>Anandadhara</h2></th>
+                <th  style="text-align: center" colspan="1"><h2>Kishan Mandi</h2></th>
+                <th  style="text-align: center" colspan="4"><h2>MGNREGS</h2></th>
+                <th  style="text-align: center" colspan="2"><h2>Anandadhara</h2></th>
             </tr>
             <tr>
                 <th>Name of the Block/Muncipality</th>

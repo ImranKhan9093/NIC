@@ -40,7 +40,7 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
     public function collection()
     {
        $excelData=DB::table('block_muni')
-                        ->select('block_muni.blockmuni', 
+                ->select('block_muni.blockmuni', 
                         'kishan_credit_card.KCC_target', 
                         'kishan_credit_card.KCC_sponsored', 
                         'kishan_credit_card.KCC_sanctioned', 
@@ -52,7 +52,7 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
                         'mgnregs.percentage_of_labour_budget_achieved',
                         'anandadhara.tot_SHGs_formed', 
                         'anandadhara.tot_SHGs_credit_linkage')
-                        ->leftJoin('kishan_credit_card','block_muni.blockminicd','=','kishan_credit_card.blockminicd')
+                ->leftJoin('kishan_credit_card','block_muni.blockminicd','=','kishan_credit_card.blockminicd')
                 ->leftJoin('kishan_mandi','block_muni.blockminicd','=','kishan_mandi.blockminicd')
                 ->leftJoin('mgnregs','block_muni.blockminicd','=','mgnregs.blockminicd')
                 ->leftJoin('anandadhara','block_muni.blockminicd','=','anandadhara.blockminicd')
@@ -125,7 +125,7 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
                 $event->sheet->setCellValue('B1','Financial year');
                 $event->sheet->setCellValue('B2','Reporting month');
                 $event->sheet->setCellValue('B3','Name of the district-Jalpaiguri');
-                // $event->sheet->setCellValue('J9',124);
+                //$event->sheet->setCellValue('J9',124);
 
 
                 //assigning titles to cells
