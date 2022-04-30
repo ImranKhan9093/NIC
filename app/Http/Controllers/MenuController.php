@@ -38,12 +38,12 @@ class MenuController extends Controller
     public function getDropdownContent()
     {
         $districts = DB::table('district')
-                        ->orderBy('district')
-                        ->get();
-        $months = DB::table('month_tbl')
-                      ->get();
+        ->orderBy('district')
+        ->get();
+$months = DB::table('month_tbl')->get();
+$years = DB::table('years')->get();
 
-        return ['districts' => $districts, 'months' => $months];
+return ['districts' => $districts, 'months' => $months , 'years' => $years];
     }
 
 
@@ -66,7 +66,8 @@ class MenuController extends Controller
         $data = $this->getDropdownContent();
         $districts = $data['districts'];
         $months = $data['months'];
-        return view('users.entry_updates.Kcc_entry_update', compact('districts', 'months'));
+        $years = $data['years'];
+        return view('users.entry_updates.Kcc_entry_update', compact('districts', 'months','years'));
     }
 
 
@@ -78,7 +79,8 @@ class MenuController extends Controller
         $data = $this->getDropdownContent();
         $districts = $data['districts'];
         $months = $data['months'];
-        return view('users.entry_updates.KM_entry_update', compact('districts', 'months'));
+        $years = $data['years'];
+        return view('users.entry_updates.KM_entry_update', compact('districts', 'months','years'));
     }
 
 
@@ -87,7 +89,8 @@ class MenuController extends Controller
         $data = $this->getDropdownContent();
         $districts = $data['districts'];
         $months = $data['months'];
-        return view('users.entry_updates.MGNREGS_Entry_update', compact('districts', 'months'));
+        $years = $data['years'];
+        return view('users.entry_updates.MGNREGS_Entry_update', compact('districts', 'months','years'));
     }
 
     public function Anandadhara_Entry_Update()
@@ -96,7 +99,8 @@ class MenuController extends Controller
         $data = $this->getDropdownContent();
         $districts = $data['districts'];
         $months = $data['months'];
-        return view('users.entry_updates.Anandadhara_Entry_Update', compact('districts', 'months'));
+        $years = $data['years'];
+        return view('users.entry_updates.Anandadhara_Entry_Update', compact('districts', 'months','years'));
     }
 
     //code for inserting data into tables
@@ -108,6 +112,7 @@ class MenuController extends Controller
             'district' => 'exists:district,districtcd',
             'subdivision' => 'exists:subdivision,subdivisioncd',
             'month' => 'exists:month_tbl,month',
+            'year' => 'exists:years,year',
             'municipality' => 'exists:block_muni,blockminicd',
             'target' => ['required', 'integer', 'min:1'],
             'kcc_sponsored' => ['required', 'integer', 'min:1'],
@@ -123,6 +128,7 @@ class MenuController extends Controller
             "subdivisioncd" => $request->post('subdivision'),
             "blockminicd" => $request->post('municipality'),
             "reporting_month" => $request->post('month'),
+            "reporting_year" => $request->post('year'),
             "reporting_year" => date("Y")
         ];
         
@@ -165,7 +171,7 @@ class MenuController extends Controller
                                 "subdivisioncd" => $request->post('subdivision'),
                                 "blockminicd" => $request->post('municipality'),
                                 "reporting_month" => $request->post('month'),
-                                "reporting_year" => date("Y"),
+                                "reporting_year" => $request->post('year'),
                                 "KCC_target" => $request->post('target'),
                                 "KCC_sponsored" => $request->post('kcc_sponsored'),
                                 "KCC_sanctioned" => $request->post('kcc_sanctioned'),
@@ -194,6 +200,7 @@ class MenuController extends Controller
                 'district' => 'exists:district,districtcd',
                 'subdivision' => 'exists:subdivision,subdivisioncd',
                 'month' => 'exists:month_tbl,month',
+                'year' => 'exists:years,year',
                 'municipality' => 'exists:block_muni,blockminicd',
                 'KM_operational' => 'required',
                 'KM_sanctioned' => ['required', 'integer', 'min:1'],
@@ -205,7 +212,7 @@ class MenuController extends Controller
                             "subdivisioncd" => $request->post('subdivision'),
                             "blockminicd" => $request->post('municipality'),
                             "reporting_month" => $request->post('month'),
-                            "reporting_year" => date("Y"),
+                            "reporting_year" => $request->post('year'),
                             "KM_operational" => $request->post('KM_operational'),
                             "KM_sanctioned" => $request->post('KM_sanctioned'),
                             "user_code" => auth()->user()->id,
@@ -225,6 +232,7 @@ class MenuController extends Controller
                 'district' => 'exists:district,districtcd',
                 'subdivision' => 'exists:subdivision,subdivisioncd',
                 'month' => 'exists:month_tbl,month',
+                'year' => 'exists:years,year',
                 'municipality' => 'exists:block_muni,blockminicd',
                 'tot_SHGs_formed' =>  ['required', 'integer', 'min:1'],
                 'tot_SHGs_credit_linkage' => ['required', 'integer', 'min:1'],
@@ -236,7 +244,7 @@ class MenuController extends Controller
                             "subdivisioncd" => $request->post('subdivision'),
                             "blockminicd" => $request->post('municipality'),
                             "reporting_month" => $request->post('month'),
-                            "reporting_year" => date("Y"),
+                            "reporting_year" => $request->post('year'),
                             "tot_SHGs_formed" => $request->post('tot_SHGs_formed'),
                             "tot_SHGs_credit_linkage" => $request->post('tot_SHGs_credit_linkage'),
                             "user_code" => auth()->user()->id,
@@ -258,25 +266,29 @@ class MenuController extends Controller
                 'district' => 'exists:district,districtcd',
                 'subdivision' => 'exists:subdivision,subdivisioncd',
                 'month' => 'exists:month_tbl,month',
+                'year' => 'exists:years,year',
                 'municipality' => 'exists:block_muni,blockminicd',
+                'avg_persondays_per_household'=>['required','numeric','min:1'],
+                'percentage_of_labour_budget_achieved'=>['required','numeric','min:1'],
+                'expenditure_made_under_mgnrega'=>['required','numeric','min:1'],
                 'tot_person_days_generate' =>  ['required', 'integer', 'min:1'],
                 'KCC_sponsored' => ['required', 'integer', 'min:1'],
             ]);
+            
 
-
-        $averageData = 2142.5;
-        $percentageLabour = 69.69;
+        
         $inserted = DB::table('mgnregs')
                         ->insert([
                             "districtcd" => $request->post('district'),
                             "subdivisioncd" => $request->post('subdivision'),
                             "blockminicd" => $request->post('municipality'),
                             "reporting_month" => $request->post('month'),
-                            "reporting_year" => date("Y"),
+                            "reporting_year" => $request->post('year'),
                             "tot_person_days_generate" => $request->post('tot_person_days_generate'),
                             "KCC_sponsored" => $request->post('KCC_sponsored'),
-                            "avg_persondays_per_household" => $averageData,
-                            "percentage_of_labour_budget_achieved" => $percentageLabour,
+                            "avg_persondays_per_household" => $request->post('avg_persondays_per_household'),
+                            "percentage_of_labour_budget_achieved" => $request->post('percentage_of_labour_budget_achieved'),
+                            'expenditure_made_under_mgnrega'=>$request->post('expenditure_made_under_mgnrega'),
                             "user_code" => auth()->user()->id,
                             "posted_date" => date("Y/m/d"),
 

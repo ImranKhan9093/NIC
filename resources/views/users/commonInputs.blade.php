@@ -44,3 +44,16 @@
     @enderror
 
 </div>
+<div class="form-group">
+    <label for="Months">Reporting Year</label>
+    <select name="year" id="year" required class="form-control selectpicker">
+        <option value="">Select Year</option>
+        @foreach ($years as $year)
+            <option value="{{ $year->year }}">{{ $year->year }}</option>
+        @endforeach
+    </select>
+    @error('year')
+        <span>{{ $message }}</span><br>
+    @enderror
+
+</div>

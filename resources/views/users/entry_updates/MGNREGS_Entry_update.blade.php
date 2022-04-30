@@ -68,17 +68,36 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-group col-md-6">Average person days per household</label>
-                                    {{-- <div class="col-sm-10">
-                                        <input type="number" min="1" step="1" name="kcc_sanctioned" id="kcc_sanctioned"
-                                            class="form-control" placeholder="Kcc Sanctioned">
+                                    <label class="form-group col-md-10">Average person days per household</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" min="1" step="0.0001" name="avg_persondays_per_household" id="avg_persondays_per_household"
+                                            class="form-control" placeholder="avg_persondays_per_household">
                                     </div>
-                                    @error('kcc_sanctioned')
+                                    @error('avg_persondays_per_household')
                                         <span>{{ $message }}</span><br>
-                                    @enderror --}}
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-group col-md-6">Percentage of labour budget achieved</label>
+                                    <label class="form-group col-md-10">Percentage of labour budget achieved</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" min="1" step="0.0001" name="percentage_of_labour_budget_achieved" id="percentage_of_labour_budget_achieved"
+                                            class="form-control" placeholder="percentage_of_labour_budget_achieved">
+                                    </div>
+                                    @error('percentage_of_labour_budget_achieved')
+                                        <span>{{ $message }}</span><br>
+                                    @enderror
+                               
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-group col-md-10">Expenditure made under Mgnregs</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" min="1" step="0.0001" name="expenditure_made_under_mgnrega" id="expenditure_made_under_mgnrega"
+                                            class="form-control" placeholder="expenditure_made_under_mgnrega">
+                                    </div>
+                                    @error('expenditure_made_under_mgnrega')
+                                        <span>{{ $message }}</span><br>
+                                    @enderror
+                               
                                 </div>
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <button type="submit" value="Submit" id="submit"

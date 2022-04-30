@@ -44,8 +44,8 @@
                             <div class="form-group col-md-6">
                                 @include('users.commonInputs')
                                 <div class="form-group">
-                                    <label for="KM_operational" class="form-group col-md-6">Municipality:</label>
-                                    <div class="col-sm-10">
+                                    <label for="KM_operational" >Kishan Mandi Operational:</label>
+                                    
                                         <select name="KM_operational" id="KM_operational" required
                                             class="form-control selectpicker">
 
@@ -55,7 +55,7 @@
                                             <option value="NA">Not available</option>
 
                                         </select>
-                                    </div>
+                                   
                                     @error('KM_operational')
                                         <span>{{ $message }}</span><br>
                                     @enderror

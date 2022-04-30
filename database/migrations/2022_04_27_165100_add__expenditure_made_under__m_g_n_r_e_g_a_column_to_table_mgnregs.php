@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('mgnregs', function (Blueprint $table) {
-            $table->decimal('expenditure_made_under_mgnrega')->default(5444.435345);
+            $table->decimal('expenditure_made_under_mgnrega');
         });
     }
 
