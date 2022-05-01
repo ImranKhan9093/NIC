@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Auth\UserAuthenticationController;
 use App\Http\Controllers\DropdownController;
 use App\Http\Controllers\ExcelReportController;
+use App\Http\Controllers\Kcc\KccController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PdfControlller;
 use Illuminate\Support\Facades\Route;
@@ -46,9 +47,13 @@ Route::prefix('users')->name('users.')->group(function(){
             Route::get('/KM_entry_update',[MenuController::class,'KM_entry_update'])->name('KM_entry_update');
             Route::get('/MGNREGS_Entry_update',[MenuController::class,'MGNREGS_Entry_update'])->name('MGNREGS_Entry_update');
             Route::get('/Anandadhara_Entry_Update',[MenuController::class,'Anandadhara_Entry_Update'])->name('Anandadhara_Entry_Update');
+           
+
+            //check data
+            Route::post('/checkkccData',[KccController::class,'checkKccData'])->name('checkKccData');
 
             //insert data into tables
-            Route::post('/kccinsert',[MenuController::class,'insertToKccTable'])->name('insertKcc');
+            Route::post('/kccinsert',[KccController::class,'insertToKccTable'])->name('insertKcc');
             Route::post('/insertKishanMandi',[MenuController::class,'insertKishanMandi'])->name('insertKishanMandi');
             Route::post('/insertAnandhara',[MenuController::class,'insertAnandhara'])->name('insertAnandhara');
             Route::post('/insertMgnregs',[MenuController::class,'insertMgnregs'])->name('insertMgnregs');

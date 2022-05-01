@@ -58,7 +58,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-group col-md-6">No. of Kcc Sponsored</label>
+                                    <label class="form-group col-md-10">No. of Kcc Sponsored</label>
                                     <div class="col-sm-10">
                                         <input type="number" min="1" step="1" name="KCC_sponsored" id="KCC_sponsored"
                                             class="form-control" placeholder="KCC_sponsored">

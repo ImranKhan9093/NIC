@@ -62,7 +62,7 @@
                                 <div class="form-group">
                                     <label class="form-group col-md-6">No. of Kcc Sponsored</label>
                                     <div class="col-sm-10">
-                                        <input type="number" min="1" step="1" name="kcc_sponsored" id="kcc_sponsored"
+                                        <input type="number" min="1" step="0.0001" name="kcc_sponsored" id="kcc_sponsored"
                                             class="form-control" placeholder="Kcc Sponsored">
                                     </div>
                                     @error('kcc_sponsored')
@@ -80,8 +80,8 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" value="Submit" id="submit"
-                                        style="float: right ; width:fit-content" class="btn btn-default">Submit</button>
+                                    <button type="submit" value="Insert" id="submit"
+                                        style="float: right ; width:fit-content" class="btn btn-default">Insert</button>
                                 </div>
                             </div>
                         </div>
@@ -109,49 +109,42 @@
 
         $(document).ready(function(){
             // $('#dataAlreadyExists').hide();
-            
-            $('#month').on('change',function(){
+            $('#year').on('change',function(){
                var monthDataExists=$('#month').val();
                var districtDataExists=$('#district').val();
                var subdivisionDataExists=$('#subdivision').val();
                var municipalityDataExists=$('#municipality').val();
-            //    console.log(districtDataExists);
-            //    console.log(subdivisionDataExists);
-            //    console.log(municipalityDataExists);
-            //    console.log(monthDataExists);
+               var yearDataExists=$('#year').val();
            
-               if(monthDataExists&&districtDataExists&&subdivisionDataExists&&municipalityDataExists){
+               if(monthDataExists&&districtDataExists&&subdivisionDataExists&&municipalityDataExists&&yearDataExists){
                 $('#dataAlreadyExists').removeClass('alert alert-danger');
                 $('#dataAlreadyExists').empty();
                   $.ajax({
-                        url: '/users/kccinsert',
+                        url: '/users/checkkccData',
                         type: "POST",
                         data: {
-                            check:true,
                             district: districtDataExists,
                             subdivision:subdivisionDataExists,
                             municipality:municipalityDataExists,
                             month:monthDataExists,
-                            target:1000,
-                            kcc_sponsored:3000,
-                            kcc_sanctioned:3000,
-
-
+                            year:yearDataExists, 
                         },
                         success: function (result) {
                         //    alert('Data for the entered district subdivision block already exists for this month');
-                          $('#dataAlreadyExists').addClass('alert alert-danger');
+                          if(result){
+                            $('#dataAlreadyExists').addClass('alert alert-danger');
                         
-                          $('#dataAlreadyExists').append('<span>Data for the entered district subdivision block already exists for this month</span>');
-                          $('#dataAlreadyExists').show();
+                            $('#dataAlreadyExists').append('<span>Data for the entered district subdivision block already exists for this month</span>');
+                            $('#dataAlreadyExists').show();
+                            
+                            $('#dataAlreadyExists').slideUp(1800);
+                        
                           
-                           $('#dataAlreadyExists').slideUp(1800);
-                         
-                            
-
-                            console.log('Data received');
-                            console.log(result);
-                            
+                           $('#target').val(result['KCC_target']);
+                           $('#kcc_sanctioned').val(result['KCC_sanctioned']);
+                           $('#kcc_sponsored').val(result['Percentage_sponsored']);
+                           $('#submit').html('Update');
+                          }
 
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {

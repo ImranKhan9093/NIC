@@ -39,6 +39,7 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
     
     public function collection()
     {
+
        $excelData=DB::table('block_muni')
                 ->select('block_muni.blockmuni', 
                         'kishan_credit_card.KCC_target', 

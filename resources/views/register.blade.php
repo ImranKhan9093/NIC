@@ -53,7 +53,7 @@
             position: relative;
             width: 300px;
             height: 50px;
-            margin-bottom: 50px;
+            margin-bottom: 10px;
         }
 
         .center .inputbox input {
@@ -104,42 +104,46 @@
 
 <body>
     <div class="center">
+
         @if (session()->has('error'))
-            <span>{{ session()->get('error') }}</span>
-        @else
-            @if (session()->has('success'))
-             <span>{{ session()->get('success') }}</span>
-            @endif
+            <div class="alert alert-danger">
+                <span>{{ session()->get('error') }}</span>
+            </div>
+        @endif
+        @if (session()->has('success'))
+            <div class="alert alert-success">
+                <span>{{ session()->get('success') }}</span>
+            </div>
         @endif
         <form id="formId" action="{{ route('register') }}" method="POST">
             @csrf
             <label for="name"> Enter your full name:</label>
             <div class="inputbox">
-                <input type="text" name="name" id="name" value="{{ old('name') }}"><br>
+                <input type="text" name="name" id="name" value="{{ old('name') }}">
             </div>
             @error('name')
-                <span>{{ $message }}</span><br>
+                <span>{{ $message }}</span>
             @enderror
             <label for="email"> Enter your email:</label>
             <div class="inputbox">
                 <input type="email" name="email" id="email" value="{{ old('email') }}"><br>
             </div>
             @error('email')
-                <span>{{ $message }}</span><br>
+                <span>{{ $message }}</span>
             @enderror
             <label for="password">Enter password:</label>
             <div class="inputbox">
-                <input type="password" name="password" id="password" value="{{ old('password') }}"><br>
+                <input type="password" name="password" id="password" value="{{ old('password') }}">
             </div>
             @error('password')
-                <span>{{ $message }}</span><br>
+                <span>{{ $message }}</span>
             @enderror
             <label for="cpassword">Confirm password:</label>
             <div class="inputbox">
-                <input type="password" name="cpassword" id="cpassword"><br>
+                <input type="password" name="cpassword" id="cpassword">
             </div>
             @error('cpassword')
-                <span>{{ $message }}</span><br>
+                <span>{{ $message }}</span>
             @enderror
             <div class="inputbox">
                 <input type="submit" value="Register" id="register">
