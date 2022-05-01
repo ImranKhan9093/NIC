@@ -38,10 +38,10 @@ class MenuController extends Controller
     public function getDropdownContent()
     {
         $districts = DB::table('district')
-        ->orderBy('district')
-        ->get();
-$months = DB::table('month_tbl')->get();
-$years = DB::table('years')->get();
+                    ->orderBy('district')
+                    ->get();
+        $months = DB::table('month_tbl')->get();
+        $years = DB::table('years')->get();
 
 return ['districts' => $districts, 'months' => $months , 'years' => $years];
     }
