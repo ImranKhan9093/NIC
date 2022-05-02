@@ -97,7 +97,7 @@
 @endsection
 
 @section('scripts')
-<script defer type="text/javascript" src="{{ URL('js/jQuery.min.js') }}"></script>
+<script  type="text/javascript" src="{{ URL('js/jQuery.min.js') }}"></script>
 
 <script defer type="text/javascript" src="{{ URL('js/dropdown.js') }}"> </script>
 

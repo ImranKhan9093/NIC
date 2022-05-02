@@ -67,7 +67,7 @@
         </div>
     </div>
    
-    <script  defer src="{{ URL('js/jquery-3.5.1.slim.min.js') }}"></script>
+    <script  src="{{ URL('js/jquery-3.5.1.slim.min.js') }}"></script>
     
-    <script defer src="{{ URL('js/bootstrap.bundle.min.js') }}"></script>
+    <script  src="{{ URL('js/bootstrap.bundle.min.js') }}"></script>
 @endsection
