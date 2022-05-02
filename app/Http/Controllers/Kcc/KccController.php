@@ -94,7 +94,7 @@ class KccController extends Controller
                              ]);
      
              if ($inserted) {
-                 return redirect()->back()->with('success', 'Data submission successfully');
+                 return redirect()->back()->with('success', 'Data submitted successfully');
              } else {
                  return redirect()->back()->with('fail', 'Failed to insert data');
              }
