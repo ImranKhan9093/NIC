@@ -56,7 +56,7 @@
 
                         <ul class="nav navbar-nav navbar-right">
                             
-                            <li><a href="{{ route('users.downloadCMReport') }}" >CM Report</a></li>
+                            {{-- <li><a href="{{ route('users.downloadCMReport') }}" >CM Report</a></li> --}}
                             <li><a href="{{ route('users.showExcelReportCritera') }}">Show Excel Report</a></li>
                             <li><a href="{{ route('users.logout') }}" >Logout</a></li>
 

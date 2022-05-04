@@ -53,7 +53,7 @@
             position: relative;
             width: 300px;
             height: 50px;
-            margin-bottom: 10px;
+            /* margin-bottom: 10px; */
         }
 
         .center .inputbox input {
@@ -99,6 +99,10 @@
             background: linear-gradient(45deg, greenyellow, dodgerblue);
         }
 
+        .section {
+            margin-bottom: 25px;
+        }
+
     </style>
 </head>
 
@@ -117,34 +121,42 @@
         @endif
         <form id="formId" action="{{ route('register') }}" method="POST">
             @csrf
-            <label for="name"> Enter your full name:</label>
-            <div class="inputbox">
-                <input type="text" name="name" id="name" value="{{ old('name') }}">
+            <div class="section">
+                <label for="name"> Enter your full name:</label>
+                <div class="inputbox">
+                    <input type="text" name="name" id="name" value="{{ old('name') }}">
+                </div>
+                @error('name')
+                    <span>{{ $message }}</span>
+                @enderror
             </div>
-            @error('name')
-                <span>{{ $message }}</span>
-            @enderror
-            <label for="email"> Enter your email:</label>
-            <div class="inputbox">
-                <input type="email" name="email" id="email" value="{{ old('email') }}"><br>
+            <div class="section">
+                <label for="email"> Enter your email:</label>
+                <div class="inputbox">
+                    <input type="email" name="email" id="email" value="{{ old('email') }}"><br>
+                </div>
+                @error('email')
+                    <span>{{ $message }}</span>
+                @enderror
             </div>
-            @error('email')
-                <span>{{ $message }}</span>
-            @enderror
-            <label for="password">Enter password:</label>
-            <div class="inputbox">
-                <input type="password" name="password" id="password" value="{{ old('password') }}">
+            <div class="section">
+                <label for="password">Enter password:</label>
+                <div class="inputbox">
+                    <input type="password" name="password" id="password" value="{{ old('password') }}">
+                </div>
+                @error('password')
+                    <span>{{ $message }}</span>
+                @enderror
             </div>
-            @error('password')
-                <span>{{ $message }}</span>
-            @enderror
-            <label for="cpassword">Confirm password:</label>
-            <div class="inputbox">
-                <input type="password" name="cpassword" id="cpassword">
+            <div class="section">
+                <label for="cpassword">Confirm password:</label>
+                <div class="inputbox">
+                    <input type="password" name="cpassword" id="cpassword">
+                </div>
+                @error('cpassword')
+                    <span>{{ $message }}</span>
+                @enderror
             </div>
-            @error('cpassword')
-                <span>{{ $message }}</span>
-            @enderror
             <div class="inputbox">
                 <input type="submit" value="Register" id="register">
             </div>

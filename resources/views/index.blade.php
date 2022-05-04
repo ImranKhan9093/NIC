@@ -53,7 +53,7 @@
             position: relative;
             width: 300px;
             height: 50px;
-            margin-bottom: 50px;
+            /* margin-bottom: 50px; */
         }
 
         .center .inputbox input {
@@ -98,34 +98,41 @@
         .center .inputbox:hover [type="submit"] {
             background: linear-gradient(45deg, greenyellow, dodgerblue);
         }
+        .section{
+            margin-bottom: 25px;
+        }
 
     </style>
 </head>
 
 <body>
     <div class="center">
-        
+
 
         <form id="formId" action="{{ route('login') }}" method="POST">
             @csrf
             <label for="name"> Enter your name:</label>
-            <div class="inputbox">
+            <div class="section">
+                <div class="inputbox">
 
-                <input type="text" name="name" id="name" value="{{ old('name') }}"><br>
+                    <input type="text" name="name" id="name" value="{{ old('name') }}"><br>
+                </div>
+                @error('name')
+                    <span>{{ $message }}</span><br>
+                @enderror
             </div>
-            @error('name')
-                <span>{{ $message }}</span><br>
-            @enderror
-            <label for="password">Enter your password:</label>
-            <div class="inputbox">
+            <div class="section">
+                <label for="password">Enter your password:</label>
+                <div class="inputbox">
 
-                <input type="password" name="password" id="password"><br>
+                    <input type="password" name="password" id="password"><br>
+                </div>
+                @error('password')
+                    <span>{{ $message }}</span><br>
+                @enderror
             </div>
-            @error('password')
-                <span>{{ $message }}</span><br>
-            @enderror
 
-          
+
             <div class="inputbox">
                 <input type="submit" value="Login" id="login">
             </div>
@@ -139,13 +146,13 @@
 <script src="{{ URL('js/sweet-alert.js') }}"></script>
 
 @if (session()->has('error'))
-<script>
-    swal({
-        title: "{{ session()->get('error') }}",
-        icon: "{{ session()->get('sweetAlertIcon') }}",
-        button: "Ok",
-    });
-</script>
-    
+    <script>
+        swal({
+            title: "{{ session()->get('error') }}",
+            icon: "{{ session()->get('sweetAlertIcon') }}",
+            button: "Ok",
+        });
+    </script>
 @endif
+
 </html>
