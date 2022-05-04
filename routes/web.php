@@ -77,7 +77,9 @@ Route::prefix('users')->name('users.')->group(function(){
             Route::get('/KMExcelReport',[ExcelReportController::class,'KMExcelReport'])->name('KMExcelReport');
             Route::get('/MGNREGSReport',[ExcelReportController::class,'MGNREGSReport'])->name('MGNREGSExcelReport');
             Route::get('/AnandharaReport',[ExcelReportController::class,'AnandharaReport'])->name('AnandharaExcelReport');
-
+            
+              
+            Route::get('/showExcelReportCritera',[PdfControlller::class,'showExcelReportCritera'])->name('showExcelReportCritera');
             Route::get('/showExceldata',[PdfControlller::class,'showExceldata'])->name('showExceldata');
    });
 

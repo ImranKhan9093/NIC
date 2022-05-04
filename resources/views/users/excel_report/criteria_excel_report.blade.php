@@ -37,7 +37,7 @@
                     </div>
                 @endif
                 <div class="contact-form">
-                    <form action="{{ route('users.downloadCMReport') }}" method="GET">
+                    <form action="{{ route('users.showExceldata') }}" method="GET">
                       
                         <div class="form-row">
                             <div class="form-group col-md-6">
