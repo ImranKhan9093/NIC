@@ -72,7 +72,7 @@ Route::prefix('users')->name('users.')->group(function(){
             Route::post('/mgnregsDownload',[PdfControlller::class,'mgnregsDownload'])->name('mgnregsDownload');
 
             //excel
-            Route::get('/cmReportDownload',[ExcelReportController::class,'downloadCMSReport'])->name('downloadCMReport');
+            Route::post('/cmReportDownload',[ExcelReportController::class,'downloadCMSReport'])->name('downloadCMReport');
             Route::get('/KCCExcelReport',[ExcelReportController::class,'KCCExcelReport'])->name('KCCExcelReport');
             Route::get('/KMExcelReport',[ExcelReportController::class,'KMExcelReport'])->name('KMExcelReport');
             Route::get('/MGNREGSReport',[ExcelReportController::class,'MGNREGSReport'])->name('MGNREGSExcelReport');

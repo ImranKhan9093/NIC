@@ -54,19 +54,6 @@
                                     @enderror
                                 </div> --}}
                                 <div class="form-group">
-                                    <label for="Months">Reporting Month</label>
-                                    <select name="month" id="month" required class="form-control selectpicker">
-                                        <option value="">Select Month</option>
-                                        @foreach ($months as $month)
-                                            <option value="{{ $month->month }}">{{ $month->month_name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('month')
-                                        <span>{{ $message }}</span><br>
-                                    @enderror
-                                
-                                </div>
-                                <div class="form-group">
                                     <label for="Months">Reporting Year</label>
                                     <select name="year" id="year" required class="form-control selectpicker">
                                         <option value="">Select Year</option>
@@ -75,6 +62,19 @@
                                         @endforeach
                                     </select>
                                     @error('year')
+                                        <span>{{ $message }}</span><br>
+                                    @enderror
+                                
+                                </div>
+                                <div class="form-group">
+                                    <label for="Months">Reporting Month</label>
+                                    <select name="month" id="month" required class="form-control selectpicker">
+                                        <option value="">Select Month</option>
+                                        @foreach ($months as $month)
+                                            <option value="{{ $month->month }}">{{ $month->month_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('month')
                                         <span>{{ $message }}</span><br>
                                     @enderror
                                 

@@ -134,7 +134,7 @@ class PdfControlller extends Controller
                     })
                     ->get();
     //    dd($excelData);
-        return view('users.excel_downloads.cm_excel',compact('excelData'));
+        return view('users.excel_downloads.cm_excel',compact('excelData','reportingMonth','reportingYear'));
     }
     public function showExcelReportCritera(){
         $districts = DB::table('district')
