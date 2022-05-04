@@ -47,24 +47,6 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
     public function collection()
     {
 
-    //    $excelData=DB::table('block_muni')
-    //             ->select('block_muni.blockmuni', 
-    //                     'kishan_credit_card.KCC_target', 
-    //                     'kishan_credit_card.KCC_sponsored', 
-    //                     'kishan_credit_card.KCC_sanctioned', 
-    //                     'kishan_credit_card.Percentage_sponsored',
-    //                     'kishan_mandi.KM_operational',
-    //                     'mgnregs.tot_person_days_generate', 
-    //                     'mgnregs.avg_persondays_per_household', 
-    //                     'mgnregs.expenditure_made_under_mgnrega',
-    //                     'mgnregs.percentage_of_labour_budget_achieved',
-    //                     'anandadhara.tot_SHGs_formed', 
-    //                     'anandadhara.tot_SHGs_credit_linkage')
-    //             ->leftJoin('kishan_credit_card','block_muni.blockminicd','=','kishan_credit_card.blockminicd')
-    //             ->leftJoin('kishan_mandi','block_muni.blockminicd','=','kishan_mandi.blockminicd')
-    //             ->leftJoin('mgnregs','block_muni.blockminicd','=','mgnregs.blockminicd')
-    //             ->leftJoin('anandadhara','block_muni.blockminicd','=','anandadhara.blockminicd')
-    //             ->get();
          
         return  $this->excelData;              
 
@@ -141,7 +123,32 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
                 $event->sheet->setCellValue('F5','Kishan Mandi');
                 $event->sheet->setCellValue('G5','MGNREGS');
                 $event->sheet->setCellValue('K5','Anandadhara');
+                $event->sheet->setCellValue('A23','Grand Total of District');
+                $event->sheet->setCellValue('B23','=SUM(B9:B22)');
+                $event->sheet->setCellValue('C23','=SUM(C9:C22)');
+                $event->sheet->setCellValue('D23','=SUM(D9:D22)');
+                $event->sheet->setCellValue('G23','=SUM(G9:G22)');
+                $event->sheet->setCellValue('H23','=SUM(H9:H22)');
+                $event->sheet->setCellValue('I23','=SUM(I9:I22)');
+                $event->sheet->setCellValue('K23','=SUM(K9:K22)');
+                $event->sheet->setCellValue('L23','=SUM(L9:L22)');
+                $event->sheet->setCellValue('E23','=((C23)*100)/(B23)');
                       
+                //KM operational
+                $sum=0;
+              
+                for($i=9;$i<=14;$i++){
+                    $cell='F';
+                    $cell.=$i;
+                //   dd($event->sheet->getDelegate()->getCell($cell)->getValue());
+                    if($event->sheet->getDelegate()->getCell($cell)->getValue()==='FO'){
+                       $sum++;
+                    }
+                }
+                $event->sheet->setCellValue('F23',$sum);
+
+
+            
                 //assigning headings for data
                 $event->sheet->setCellValue('A7','Name of the block/Municipality');
                 $event->sheet->setCellValue('B7','Target(New)');
@@ -162,9 +169,9 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
                 $cellRangeForHeadingsOfData='A7:L7';
                 $event->sheet->getDelegate()->getStyle($cellRangeForTitles)->getFont()->setSize(14);
                 $event->sheet->getDelegate()->getStyle($cellRangeForHeadingsOfData)->getFont()->setSize(9);
-                $event->sheet->getDelegate()->getStyle('A7:A20')->getFont()->setSize(9);
-                $event->sheet->getDelegate()->getStyle('A7:A20')->getAlignment()->setWrapText(true);
-                $event->sheet->getDelegate()->getStyle('A7:A20')->getFont()->setBold(true);
+                $event->sheet->getDelegate()->getStyle('A7:A23')->getFont()->setSize(9);
+                $event->sheet->getDelegate()->getStyle('A7:A23')->getAlignment()->setWrapText(true);
+                $event->sheet->getDelegate()->getStyle('A7:A23')->getFont()->setBold(true);
                 // $event->sheet->getDelegate()->getStyle($cellRangeForHeadingsOfData)->getFont()->setBold(true);
                 $event->sheet->getDelegate()->getStyle($cellRangeForHeadingsOfData)->getAlignment()->setWrapText(true);
                 $event->sheet->getDelegate()->getStyle($cellRangeForTitles)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER)->setHorizontal(Alignment::HORIZONTAL_CENTER);
