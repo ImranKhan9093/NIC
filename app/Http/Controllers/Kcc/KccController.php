@@ -2,23 +2,16 @@
 
 namespace App\Http\Controllers\Kcc;
 
-use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
+use App\Classes\DropdownContent;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class KccController extends Controller
 {
    
-    public function getDropdownContent()
-    {
-        $districts = DB::table('district')
-                    ->orderBy('district')
-                    ->get();
-        $months = DB::table('month_tbl')->get();
-        $years = DB::table('years')->get();
 
-return ['districts' => $districts, 'months' => $months , 'years' => $years];
-    }
       
       
  
@@ -26,7 +19,7 @@ return ['districts' => $districts, 'months' => $months , 'years' => $years];
     public function KCC_entry_update()
     {
 
-        $data = $this->getDropdownContent();
+        $data=DropdownContent::getDropdownContent();
         $districts = $data['districts'];
         $months = $data['months'];
         $years = $data['years'];

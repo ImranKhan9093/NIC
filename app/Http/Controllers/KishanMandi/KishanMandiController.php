@@ -2,35 +2,29 @@
 
 namespace App\Http\Controllers\KishanMandi;
 
-use App\Http\Controllers\Controller;
+
+
 use Illuminate\Http\Request;
+use App\Classes\DropdownContent;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class KishanMandiController extends Controller
 {
      
-    public function getDropdownContent()
-    {
-        $districts = DB::table('district')
-                    ->orderBy('district')
-                    ->get();
-        $months = DB::table('month_tbl')->get();
-        $years = DB::table('years')->get();
-
-return ['districts' => $districts, 'months' => $months , 'years' => $years];
-    }
+  
      
     public function KM_entry_update()
     {
 
-        $data = $this->getDropdownContent();
+        $data=DropdownContent::getDropdownContent();
         $districts = $data['districts'];
         $months = $data['months'];
         $years = $data['years'];
         return view('users.entry_updates.KM_entry_update', compact('districts', 'months','years'));
     }
 
-    public function checkKisanMandiData(Request $request){
+    public function checkKishanMandiData(Request $request){
 
 
         $request->validate([

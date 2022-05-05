@@ -109,7 +109,7 @@
 
         $(document).ready(function()
         {
-            // $('#dataAlreadyExists').hide();
+           
 
             $('#month').on('change',function(){
                 var monthDataExists=$('#month').val();
@@ -132,7 +132,7 @@
                                 year:yearDataExists,
                             },
                             success: function (result) {
-                            //    alert('Data for the entered district subdivision block already exists for this month');
+                            
                             if(result){
                                 $('#dataAlreadyExists').addClass('alert alert-danger');
 

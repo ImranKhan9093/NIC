@@ -140,7 +140,6 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
                 for($i=9;$i<=14;$i++){
                     $cell='F';
                     $cell.=$i;
-                //   dd($event->sheet->getDelegate()->getCell($cell)->getValue());
                     if($event->sheet->getDelegate()->getCell($cell)->getValue()==='FO'){
                        $sum++;
                     }
