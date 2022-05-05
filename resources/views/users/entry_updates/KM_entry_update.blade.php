@@ -1,10 +1,9 @@
-
 @extends('users.master')
 @section('title', 'KM Entry update')
 @section('style')
 
-<link rel="stylesheet" href="{{ URL('css/bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ URL('css/entry_update/insert_form.css') }}">
+    <link rel="stylesheet" href="{{ URL('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ URL('css/entry_update/insert_form.css') }}">
 
 @endsection
 
@@ -47,17 +46,17 @@
                             <div class="form-group col-md-6">
                                 @include('users.commonInputs')
                                 <div class="form-group">
-                                    <label for="KM_operational" >Kishan Mandi Operational:</label>
+                                    <label for="KM_operational">Kishan Mandi Operational:</label>
 
-                                        <select name="KM_operational" id="KM_operational" required
-                                            class="form-control selectpicker">
+                                    <select name="KM_operational" id="KM_operational" required
+                                        class="form-control selectpicker">
 
-                                            <option value="">Select KM_operational</option>
-                                            <option value="FO">Fully Operational</option>
-                                            <option value="PO">Partially Operational</option>
-                                            <option value="NA">Not available</option>
+                                        <option value="">Select KM_operational</option>
+                                        <option value="FO">Fully Operational</option>
+                                        <option value="PO">Partially Operational</option>
+                                        <option value="NA">Not available</option>
 
-                                        </select>
+                                    </select>
 
                                     @error('KM_operational')
                                         <span>{{ $message }}</span><br>
@@ -90,84 +89,300 @@
 @endsection
 
 @section('scripts')
-<script  type="text/javascript" src="{{ URL('js/jQuery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL('js/jQuery.min.js') }}"></script>
 
-<script defer type="text/javascript" src="{{ URL('js/dropdown.js') }}"> </script>
+    <script defer type="text/javascript" src="{{ URL('js/dropdown.js') }}"> </script>
 
-<script defer  type="text/javascript" >
+    <script defer type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+        $(document).ready(function() {
 
-    $(document).ready(function()
-    {
-       
 
-        $('#month').on('change',function(){
-            var monthDataExists=$('#month').val();
-            var districtDataExists=$('#district').val();
-            var subdivisionDataExists=$('#subdivision').val();
-            var municipalityDataExists=$('#municipality').val();
-            var yearDataExists=$('#year').val();
+            $('#month').on('change', function() {
+                var monthDataExists = $('#month').val();
+                var districtDataExists = $('#district').val();
+                var subdivisionDataExists = $('#subdivision').val();
+                var municipalityDataExists = $('#municipality').val();
+                var yearDataExists = $('#year').val();
 
-            if(monthDataExists&&districtDataExists&&subdivisionDataExists&&municipalityDataExists&&yearDataExists){
-                $('#dataAlreadyExists').removeClass('alert alert-danger');
-                $('#dataAlreadyExists').empty();
-                $.ajax({
+                if (monthDataExists && districtDataExists && subdivisionDataExists &&
+                    municipalityDataExists && yearDataExists) {
+                    $('#dataAlreadyExists').removeClass('alert alert-danger');
+                    $('#dataAlreadyExists').empty();
+                    $.ajax({
                         url: '/users/checkKishanMandiData',
                         type: "POST",
                         data: {
                             district: districtDataExists,
-                            subdivision:subdivisionDataExists,
-                            municipality:municipalityDataExists,
-                            month:monthDataExists,
-                            year:yearDataExists,
+                            subdivision: subdivisionDataExists,
+                            municipality: municipalityDataExists,
+                            month: monthDataExists,
+                            year: yearDataExists,
                         },
-                        success: function (result) {
-                      
-                        if(result){
-                            $('#dataAlreadyExists').addClass('alert alert-danger');
+                        success: function(result) {
 
-                            $('#dataAlreadyExists').append('<span>Data for the entered district subdivision block already exists for this month</span>');
-                            $('#dataAlreadyExists').show();
+                            if (result) {
+                                $('#dataAlreadyExists').addClass('alert alert-danger');
 
-                            $('#dataAlreadyExists').slideUp(1800);
+                                $('#dataAlreadyExists').append(
+                                    '<span>Data for the entered district subdivision block already exists for this month</span>'
+                                    );
+                                $('#dataAlreadyExists').show();
+
+                                $('#dataAlreadyExists').slideUp(1800);
 
 
 
-                        $('#KM_operational').val(result['KM_operational']);
-                        $('#KM_sanctioned').val(result['KM_sanctioned']); 
-                        $('#submit').html('Update');
-                        }
-                        else{
-                            $('#target').val(null);
-                            $('#KM_operational').val(null);
-                            $('#Percentage_sponsored').val(null);
-                            $('#submit').html('Insert');
-                        }
+                                $('#KM_operational').val(result['KM_operational']);
+                                $('#KM_sanctioned').val(result['KM_sanctioned']);
+                                $('#submit').html('Update');
+                            } else {
+                                $('#target').val(null);
+                                $('#KM_operational').val(null);
+                                $('#Percentage_sponsored').val(null);
+                                $('#submit').html('Insert');
+                            }
 
                         },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
                             alert("Status: " + textStatus);
                             alert("Error: " + errorThrown);
                         },
                     });
 
-            }
+                }
 
-    });
+            });
+            $('#year').on('change', function() {
+                var monthDataExists = $('#month').val();
+                var districtDataExists = $('#district').val();
+                var subdivisionDataExists = $('#subdivision').val();
+                var municipalityDataExists = $('#municipality').val();
+                var yearDataExists = $('#year').val();
+
+                if (monthDataExists && districtDataExists && subdivisionDataExists &&
+                    municipalityDataExists && yearDataExists) {
+                    $('#dataAlreadyExists').removeClass('alert alert-danger');
+                    $('#dataAlreadyExists').empty();
+                    $.ajax({
+                        url: '/users/checkKishanMandiData',
+                        type: "POST",
+                        data: {
+                            district: districtDataExists,
+                            subdivision: subdivisionDataExists,
+                            municipality: municipalityDataExists,
+                            month: monthDataExists,
+                            year: yearDataExists,
+                        },
+                        success: function(result) {
+
+                            if (result) {
+                                $('#dataAlreadyExists').addClass('alert alert-danger');
+
+                                $('#dataAlreadyExists').append(
+                                    '<span>Data for the entered district subdivision block already exists for this month</span>'
+                                    );
+                                $('#dataAlreadyExists').show();
+
+                                $('#dataAlreadyExists').slideUp(1800);
 
 
 
+                                $('#KM_operational').val(result['KM_operational']);
+                                $('#KM_sanctioned').val(result['KM_sanctioned']);
+                                $('#submit').html('Update');
+                            } else {
+                                $('#target').val(null);
+                                $('#KM_operational').val(null);
+                                $('#Percentage_sponsored').val(null);
+                                $('#submit').html('Insert');
+                            }
 
-    });
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus);
+                            alert("Error: " + errorThrown);
+                        },
+                    });
+
+                }
+
+            });
+            $('#district').on('change', function() {
+                var monthDataExists = $('#month').val();
+                var districtDataExists = $('#district').val();
+                var subdivisionDataExists = $('#subdivision').val();
+                var municipalityDataExists = $('#municipality').val();
+                var yearDataExists = $('#year').val();
+
+                if (monthDataExists && districtDataExists && subdivisionDataExists &&
+                    municipalityDataExists && yearDataExists) {
+                    $('#dataAlreadyExists').removeClass('alert alert-danger');
+                    $('#dataAlreadyExists').empty();
+                    $.ajax({
+                        url: '/users/checkKishanMandiData',
+                        type: "POST",
+                        data: {
+                            district: districtDataExists,
+                            subdivision: subdivisionDataExists,
+                            municipality: municipalityDataExists,
+                            month: monthDataExists,
+                            year: yearDataExists,
+                        },
+                        success: function(result) {
+
+                            if (result) {
+                                $('#dataAlreadyExists').addClass('alert alert-danger');
+
+                                $('#dataAlreadyExists').append(
+                                    '<span>Data for the entered district subdivision block already exists for this month</span>'
+                                    );
+                                $('#dataAlreadyExists').show();
+
+                                $('#dataAlreadyExists').slideUp(1800);
 
 
 
-</script>
+                                $('#KM_operational').val(result['KM_operational']);
+                                $('#KM_sanctioned').val(result['KM_sanctioned']);
+                                $('#submit').html('Update');
+                            } else {
+                                $('#target').val(null);
+                                $('#KM_operational').val(null);
+                                $('#Percentage_sponsored').val(null);
+                                $('#submit').html('Insert');
+                            }
+
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus);
+                            alert("Error: " + errorThrown);
+                        },
+                    });
+
+                }
+
+            });
+            $('#subdivision').on('change', function() {
+                var monthDataExists = $('#month').val();
+                var districtDataExists = $('#district').val();
+                var subdivisionDataExists = $('#subdivision').val();
+                var municipalityDataExists = $('#municipality').val();
+                var yearDataExists = $('#year').val();
+
+                if (monthDataExists && districtDataExists && subdivisionDataExists &&
+                    municipalityDataExists && yearDataExists) {
+                    $('#dataAlreadyExists').removeClass('alert alert-danger');
+                    $('#dataAlreadyExists').empty();
+                    $.ajax({
+                        url: '/users/checkKishanMandiData',
+                        type: "POST",
+                        data: {
+                            district: districtDataExists,
+                            subdivision: subdivisionDataExists,
+                            municipality: municipalityDataExists,
+                            month: monthDataExists,
+                            year: yearDataExists,
+                        },
+                        success: function(result) {
+
+                            if (result) {
+                                $('#dataAlreadyExists').addClass('alert alert-danger');
+
+                                $('#dataAlreadyExists').append(
+                                    '<span>Data for the entered district subdivision block already exists for this month</span>'
+                                    );
+                                $('#dataAlreadyExists').show();
+
+                                $('#dataAlreadyExists').slideUp(1800);
+
+
+
+                                $('#KM_operational').val(result['KM_operational']);
+                                $('#KM_sanctioned').val(result['KM_sanctioned']);
+                                $('#submit').html('Update');
+                            } else {
+                                $('#target').val(null);
+                                $('#KM_operational').val(null);
+                                $('#Percentage_sponsored').val(null);
+                                $('#submit').html('Insert');
+                            }
+
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus);
+                            alert("Error: " + errorThrown);
+                        },
+                    });
+
+                }
+
+            });
+            $('#municipality').on('change', function() {
+                var monthDataExists = $('#month').val();
+                var districtDataExists = $('#district').val();
+                var subdivisionDataExists = $('#subdivision').val();
+                var municipalityDataExists = $('#municipality').val();
+                var yearDataExists = $('#year').val();
+
+                if (monthDataExists && districtDataExists && subdivisionDataExists &&
+                    municipalityDataExists && yearDataExists) {
+                    $('#dataAlreadyExists').removeClass('alert alert-danger');
+                    $('#dataAlreadyExists').empty();
+                    $.ajax({
+                        url: '/users/checkKishanMandiData',
+                        type: "POST",
+                        data: {
+                            district: districtDataExists,
+                            subdivision: subdivisionDataExists,
+                            municipality: municipalityDataExists,
+                            month: monthDataExists,
+                            year: yearDataExists,
+                        },
+                        success: function(result) {
+
+                            if (result) {
+                                $('#dataAlreadyExists').addClass('alert alert-danger');
+
+                                $('#dataAlreadyExists').append(
+                                    '<span>Data for the entered district subdivision block already exists for this month</span>'
+                                    );
+                                $('#dataAlreadyExists').show();
+
+                                $('#dataAlreadyExists').slideUp(1800);
+
+
+
+                                $('#KM_operational').val(result['KM_operational']);
+                                $('#KM_sanctioned').val(result['KM_sanctioned']);
+                                $('#submit').html('Update');
+                            } else {
+                                $('#target').val(null);
+                                $('#KM_operational').val(null);
+                                $('#Percentage_sponsored').val(null);
+                                $('#submit').html('Insert');
+                            }
+
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus);
+                            alert("Error: " + errorThrown);
+                        },
+                    });
+
+                }
+
+            });
+
+
+
+        });
+    </script>
 
 
 @endsection

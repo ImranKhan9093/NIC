@@ -1,10 +1,9 @@
-
 @extends('users.master')
 @section('title', 'MGNREGS Entry update')
 @section('style')
 
-<link rel="stylesheet" href="{{ URL('css/bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ URL('css/entry_update/insert_form.css') }}">
+    <link rel="stylesheet" href="{{ URL('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ URL('css/entry_update/insert_form.css') }}">
 
 @endsection
 
@@ -73,8 +72,9 @@
                                 <div class="form-group">
                                     <label class="form-group col-md-10">Average person days per household</label>
                                     <div class="col-sm-10">
-                                        <input type="number" min="1" step="0.0001" name="avg_persondays_per_household" id="avg_persondays_per_household"
-                                            class="form-control" placeholder="avg_persondays_per_household">
+                                        <input type="number" min="1" step="0.0001" name="avg_persondays_per_household"
+                                            id="avg_persondays_per_household" class="form-control"
+                                            placeholder="avg_persondays_per_household">
                                     </div>
                                     @error('avg_persondays_per_household')
                                         <span>{{ $message }}</span><br>
@@ -83,8 +83,10 @@
                                 <div class="form-group">
                                     <label class="form-group col-md-10">Percentage of labour budget achieved</label>
                                     <div class="col-sm-10">
-                                        <input type="number" min="1" step="0.0001" name="percentage_of_labour_budget_achieved" id="percentage_of_labour_budget_achieved"
-                                            class="form-control" placeholder="percentage_of_labour_budget_achieved">
+                                        <input type="number" min="1" step="0.0001"
+                                            name="percentage_of_labour_budget_achieved"
+                                            id="percentage_of_labour_budget_achieved" class="form-control"
+                                            placeholder="percentage_of_labour_budget_achieved">
                                     </div>
                                     @error('percentage_of_labour_budget_achieved')
                                         <span>{{ $message }}</span><br>
@@ -94,8 +96,9 @@
                                 <div class="form-group">
                                     <label class="form-group col-md-10">Expenditure made under Mgnregs</label>
                                     <div class="col-sm-10">
-                                        <input type="number" min="1" step="0.0001" name="expenditure_made_under_mgnrega" id="expenditure_made_under_mgnrega"
-                                            class="form-control" placeholder="expenditure_made_under_mgnrega">
+                                        <input type="number" min="1" step="0.0001" name="expenditure_made_under_mgnrega"
+                                            id="expenditure_made_under_mgnrega" class="form-control"
+                                            placeholder="expenditure_made_under_mgnrega">
                                     </div>
                                     @error('expenditure_made_under_mgnrega')
                                         <span>{{ $message }}</span><br>
@@ -118,84 +121,321 @@
 @endsection
 
 @section('scripts')
-<script  type="text/javascript" src="{{ URL('js/jQuery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL('js/jQuery.min.js') }}"></script>
 
-<script defer type="text/javascript" src="{{ URL('js/dropdown.js') }}"> </script>
+    <script defer type="text/javascript" src="{{ URL('js/dropdown.js') }}"> </script>
 
-<script defer  type="text/javascript" >
+    <script defer type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+        $(document).ready(function() {
 
-    $(document).ready(function()
-    {
-       
 
-        $('#month').on('change',function(){
-            var monthDataExists=$('#month').val();
-            var districtDataExists=$('#district').val();
-            var subdivisionDataExists=$('#subdivision').val();
-            var municipalityDataExists=$('#municipality').val();
-            var yearDataExists=$('#year').val();
+            $('#month').on('change', function() {
+                var monthDataExists = $('#month').val();
+                var districtDataExists = $('#district').val();
+                var subdivisionDataExists = $('#subdivision').val();
+                var municipalityDataExists = $('#municipality').val();
+                var yearDataExists = $('#year').val();
 
-            if(monthDataExists&&districtDataExists&&subdivisionDataExists&&municipalityDataExists&&yearDataExists){
-                $('#dataAlreadyExists').removeClass('alert alert-danger');
-                $('#dataAlreadyExists').empty();
-                $.ajax({
+                if (monthDataExists && districtDataExists && subdivisionDataExists &&
+                    municipalityDataExists && yearDataExists) {
+                    $('#dataAlreadyExists').removeClass('alert alert-danger');
+                    $('#dataAlreadyExists').empty();
+                    $.ajax({
                         url: '/users/checkMgnregsData',
                         type: "POST",
                         data: {
                             district: districtDataExists,
-                            subdivision:subdivisionDataExists,
-                            municipality:municipalityDataExists,
-                            month:monthDataExists,
-                            year:yearDataExists,
+                            subdivision: subdivisionDataExists,
+                            municipality: municipalityDataExists,
+                            month: monthDataExists,
+                            year: yearDataExists,
                         },
-                        success: function (result) {
-                        
-                        if(result){
-                        $('#dataAlreadyExists').addClass('alert alert-danger');
-                        $('#dataAlreadyExists').append('<span>Data for the entered district subdivision block already exists for this month</span>');
-                        $('#dataAlreadyExists').show();
-                        $('#dataAlreadyExists').slideUp(1800);
-                        $('#tot_person_days_generate').val(result['tot_person_days_generate']);
-                        $('#KCC_sponsored').val(result['KCC_sponsored']);
-                        $('#avg_persondays_per_household').val(result['avg_persondays_per_household']);
-                        $('#percentage_of_labour_budget_achieved').val(result['expenditure_made_under_mgnrega']);
-                        $('#expenditure_made_under_mgnrega').val(result['percentage_of_labour_budget_achieved']);
-                        $('#submit').html('Update');
-                        }
-                        else{
-                        $('#tot_person_days_generate').val(null);
-                        $('#KCC_sponsored').val(null);
-                        $('#avg_persondays_per_household').val(null);
-                        $('#percentage_of_labour_budget_achieved').val(null);
-                        $('#expenditure_made_under_mgnrega').val(null);
-                        $('#submit').html('Insert');
-                        }
+                        success: function(result) {
+
+                            if (result) {
+                                $('#dataAlreadyExists').addClass('alert alert-danger');
+                                $('#dataAlreadyExists').append(
+                                    '<span>Data for the entered district subdivision block already exists for this month</span>'
+                                    );
+                                $('#dataAlreadyExists').show();
+                                $('#dataAlreadyExists').slideUp(1800);
+                                $('#tot_person_days_generate').val(result[
+                                    'tot_person_days_generate']);
+                                $('#KCC_sponsored').val(result['KCC_sponsored']);
+                                $('#avg_persondays_per_household').val(result[
+                                    'avg_persondays_per_household']);
+                                $('#percentage_of_labour_budget_achieved').val(result[
+                                    'expenditure_made_under_mgnrega']);
+                                $('#expenditure_made_under_mgnrega').val(result[
+                                    'percentage_of_labour_budget_achieved']);
+                                $('#submit').html('Update');
+                            } else {
+                                $('#tot_person_days_generate').val(null);
+                                $('#KCC_sponsored').val(null);
+                                $('#avg_persondays_per_household').val(null);
+                                $('#percentage_of_labour_budget_achieved').val(null);
+                                $('#expenditure_made_under_mgnrega').val(null);
+                                $('#submit').html('Insert');
+                            }
 
                         },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
                             alert("Status: " + textStatus);
                             alert("Error: " + errorThrown);
                         },
                     });
 
-            }
+                }
 
-    });
+            });
+            $('#year').on('change', function() {
+                var monthDataExists = $('#month').val();
+                var districtDataExists = $('#district').val();
+                var subdivisionDataExists = $('#subdivision').val();
+                var municipalityDataExists = $('#municipality').val();
+                var yearDataExists = $('#year').val();
+
+                if (monthDataExists && districtDataExists && subdivisionDataExists &&
+                    municipalityDataExists && yearDataExists) {
+                    $('#dataAlreadyExists').removeClass('alert alert-danger');
+                    $('#dataAlreadyExists').empty();
+                    $.ajax({
+                        url: '/users/checkMgnregsData',
+                        type: "POST",
+                        data: {
+                            district: districtDataExists,
+                            subdivision: subdivisionDataExists,
+                            municipality: municipalityDataExists,
+                            month: monthDataExists,
+                            year: yearDataExists,
+                        },
+                        success: function(result) {
+
+                            if (result) {
+                                $('#dataAlreadyExists').addClass('alert alert-danger');
+                                $('#dataAlreadyExists').append(
+                                    '<span>Data for the entered district subdivision block already exists for this month</span>'
+                                    );
+                                $('#dataAlreadyExists').show();
+                                $('#dataAlreadyExists').slideUp(1800);
+                                $('#tot_person_days_generate').val(result[
+                                    'tot_person_days_generate']);
+                                $('#KCC_sponsored').val(result['KCC_sponsored']);
+                                $('#avg_persondays_per_household').val(result[
+                                    'avg_persondays_per_household']);
+                                $('#percentage_of_labour_budget_achieved').val(result[
+                                    'expenditure_made_under_mgnrega']);
+                                $('#expenditure_made_under_mgnrega').val(result[
+                                    'percentage_of_labour_budget_achieved']);
+                                $('#submit').html('Update');
+                            } else {
+                                $('#tot_person_days_generate').val(null);
+                                $('#KCC_sponsored').val(null);
+                                $('#avg_persondays_per_household').val(null);
+                                $('#percentage_of_labour_budget_achieved').val(null);
+                                $('#expenditure_made_under_mgnrega').val(null);
+                                $('#submit').html('Insert');
+                            }
+
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus);
+                            alert("Error: " + errorThrown);
+                        },
+                    });
+
+                }
+
+            });
+            $('#district').on('change', function() {
+                var monthDataExists = $('#month').val();
+                var districtDataExists = $('#district').val();
+                var subdivisionDataExists = $('#subdivision').val();
+                var municipalityDataExists = $('#municipality').val();
+                var yearDataExists = $('#year').val();
+
+                if (monthDataExists && districtDataExists && subdivisionDataExists &&
+                    municipalityDataExists && yearDataExists) {
+                    $('#dataAlreadyExists').removeClass('alert alert-danger');
+                    $('#dataAlreadyExists').empty();
+                    $.ajax({
+                        url: '/users/checkMgnregsData',
+                        type: "POST",
+                        data: {
+                            district: districtDataExists,
+                            subdivision: subdivisionDataExists,
+                            municipality: municipalityDataExists,
+                            month: monthDataExists,
+                            year: yearDataExists,
+                        },
+                        success: function(result) {
+
+                            if (result) {
+                                $('#dataAlreadyExists').addClass('alert alert-danger');
+                                $('#dataAlreadyExists').append(
+                                    '<span>Data for the entered district subdivision block already exists for this month</span>'
+                                    );
+                                $('#dataAlreadyExists').show();
+                                $('#dataAlreadyExists').slideUp(1800);
+                                $('#tot_person_days_generate').val(result[
+                                    'tot_person_days_generate']);
+                                $('#KCC_sponsored').val(result['KCC_sponsored']);
+                                $('#avg_persondays_per_household').val(result[
+                                    'avg_persondays_per_household']);
+                                $('#percentage_of_labour_budget_achieved').val(result[
+                                    'expenditure_made_under_mgnrega']);
+                                $('#expenditure_made_under_mgnrega').val(result[
+                                    'percentage_of_labour_budget_achieved']);
+                                $('#submit').html('Update');
+                            } else {
+                                $('#tot_person_days_generate').val(null);
+                                $('#KCC_sponsored').val(null);
+                                $('#avg_persondays_per_household').val(null);
+                                $('#percentage_of_labour_budget_achieved').val(null);
+                                $('#expenditure_made_under_mgnrega').val(null);
+                                $('#submit').html('Insert');
+                            }
+
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus);
+                            alert("Error: " + errorThrown);
+                        },
+                    });
+
+                }
+
+            });
+            $('#subdivision').on('change', function() {
+                var monthDataExists = $('#month').val();
+                var districtDataExists = $('#district').val();
+                var subdivisionDataExists = $('#subdivision').val();
+                var municipalityDataExists = $('#municipality').val();
+                var yearDataExists = $('#year').val();
+
+                if (monthDataExists && districtDataExists && subdivisionDataExists &&
+                    municipalityDataExists && yearDataExists) {
+                    $('#dataAlreadyExists').removeClass('alert alert-danger');
+                    $('#dataAlreadyExists').empty();
+                    $.ajax({
+                        url: '/users/checkMgnregsData',
+                        type: "POST",
+                        data: {
+                            district: districtDataExists,
+                            subdivision: subdivisionDataExists,
+                            municipality: municipalityDataExists,
+                            month: monthDataExists,
+                            year: yearDataExists,
+                        },
+                        success: function(result) {
+
+                            if (result) {
+                                $('#dataAlreadyExists').addClass('alert alert-danger');
+                                $('#dataAlreadyExists').append(
+                                    '<span>Data for the entered district subdivision block already exists for this month</span>'
+                                    );
+                                $('#dataAlreadyExists').show();
+                                $('#dataAlreadyExists').slideUp(1800);
+                                $('#tot_person_days_generate').val(result[
+                                    'tot_person_days_generate']);
+                                $('#KCC_sponsored').val(result['KCC_sponsored']);
+                                $('#avg_persondays_per_household').val(result[
+                                    'avg_persondays_per_household']);
+                                $('#percentage_of_labour_budget_achieved').val(result[
+                                    'expenditure_made_under_mgnrega']);
+                                $('#expenditure_made_under_mgnrega').val(result[
+                                    'percentage_of_labour_budget_achieved']);
+                                $('#submit').html('Update');
+                            } else {
+                                $('#tot_person_days_generate').val(null);
+                                $('#KCC_sponsored').val(null);
+                                $('#avg_persondays_per_household').val(null);
+                                $('#percentage_of_labour_budget_achieved').val(null);
+                                $('#expenditure_made_under_mgnrega').val(null);
+                                $('#submit').html('Insert');
+                            }
+
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus);
+                            alert("Error: " + errorThrown);
+                        },
+                    });
+
+                }
+
+            });
+            $('#municipality').on('change', function() {
+                var monthDataExists = $('#month').val();
+                var districtDataExists = $('#district').val();
+                var subdivisionDataExists = $('#subdivision').val();
+                var municipalityDataExists = $('#municipality').val();
+                var yearDataExists = $('#year').val();
+
+                if (monthDataExists && districtDataExists && subdivisionDataExists &&
+                    municipalityDataExists && yearDataExists) {
+                    $('#dataAlreadyExists').removeClass('alert alert-danger');
+                    $('#dataAlreadyExists').empty();
+                    $.ajax({
+                        url: '/users/checkMgnregsData',
+                        type: "POST",
+                        data: {
+                            district: districtDataExists,
+                            subdivision: subdivisionDataExists,
+                            municipality: municipalityDataExists,
+                            month: monthDataExists,
+                            year: yearDataExists,
+                        },
+                        success: function(result) {
+
+                            if (result) {
+                                $('#dataAlreadyExists').addClass('alert alert-danger');
+                                $('#dataAlreadyExists').append(
+                                    '<span>Data for the entered district subdivision block already exists for this month</span>'
+                                    );
+                                $('#dataAlreadyExists').show();
+                                $('#dataAlreadyExists').slideUp(1800);
+                                $('#tot_person_days_generate').val(result[
+                                    'tot_person_days_generate']);
+                                $('#KCC_sponsored').val(result['KCC_sponsored']);
+                                $('#avg_persondays_per_household').val(result[
+                                    'avg_persondays_per_household']);
+                                $('#percentage_of_labour_budget_achieved').val(result[
+                                    'expenditure_made_under_mgnrega']);
+                                $('#expenditure_made_under_mgnrega').val(result[
+                                    'percentage_of_labour_budget_achieved']);
+                                $('#submit').html('Update');
+                            } else {
+                                $('#tot_person_days_generate').val(null);
+                                $('#KCC_sponsored').val(null);
+                                $('#avg_persondays_per_household').val(null);
+                                $('#percentage_of_labour_budget_achieved').val(null);
+                                $('#expenditure_made_under_mgnrega').val(null);
+                                $('#submit').html('Insert');
+                            }
+
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus);
+                            alert("Error: " + errorThrown);
+                        },
+                    });
+
+                }
+
+            });
 
 
 
 
-    });
 
-
-
-</script>
+        });
+    </script>
 
 @endsection
-

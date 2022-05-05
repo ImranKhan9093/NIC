@@ -109,7 +109,7 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
                 $event->sheet->getDelegate()->mergeCells('B5:E5');
                 $event->sheet->getDelegate()->mergeCells('G5:J5');
                 $event->sheet->getDelegate()->mergeCells('K5:L5');
-                $event->sheet->getDelegate()->mergeCells('J9:J23');
+                // $event->sheet->getDelegate()->mergeCells('J9:J23');
                  
                 //set headings
                 $event->sheet->setCellValue('B1','Financial year');

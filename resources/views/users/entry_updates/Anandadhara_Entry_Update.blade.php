@@ -3,8 +3,8 @@
 
 @section('style')
 
-<link rel="stylesheet" href="{{ URL('css/bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ URL('css/entry_update/insert_form.css') }}">
+    <link rel="stylesheet" href="{{ URL('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ URL('css/entry_update/insert_form.css') }}">
 
 @endsection
 
@@ -85,81 +85,295 @@
 @endsection
 
 @section('scripts')
-<script  type="text/javascript" src="{{ URL('js/jQuery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL('js/jQuery.min.js') }}"></script>
 
-<script defer type="text/javascript" src="{{ URL('js/dropdown.js') }}"> </script>
+    <script defer type="text/javascript" src="{{ URL('js/dropdown.js') }}"> </script>
 
-<script defer  type="text/javascript" >
+    <script defer type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+        $(document).ready(function() {
 
-    $(document).ready(function()
-    {
-      
 
-        $('#month').on('change',function(){
-            var monthDataExists=$('#month').val();
-            var districtDataExists=$('#district').val();
-            var subdivisionDataExists=$('#subdivision').val();
-            var municipalityDataExists=$('#municipality').val();
-            var yearDataExists=$('#year').val();
+            $('#month').on('change', function() {
+                var monthDataExists = $('#month').val();
+                var districtDataExists = $('#district').val();
+                var subdivisionDataExists = $('#subdivision').val();
+                var municipalityDataExists = $('#municipality').val();
+                var yearDataExists = $('#year').val();
 
-            if(monthDataExists&&districtDataExists&&subdivisionDataExists&&municipalityDataExists&&yearDataExists){
-                $('#dataAlreadyExists').removeClass('alert alert-danger');
-                $('#dataAlreadyExists').empty();
-                $.ajax({
+                if (monthDataExists && districtDataExists && subdivisionDataExists &&
+                    municipalityDataExists && yearDataExists) {
+                    $('#dataAlreadyExists').removeClass('alert alert-danger');
+                    $('#dataAlreadyExists').empty();
+                    $.ajax({
                         url: '/users/checkAnandadharaData',
                         type: "POST",
                         data: {
                             district: districtDataExists,
-                            subdivision:subdivisionDataExists,
-                            municipality:municipalityDataExists,
-                            month:monthDataExists,
-                            year:yearDataExists,
+                            subdivision: subdivisionDataExists,
+                            municipality: municipalityDataExists,
+                            month: monthDataExists,
+                            year: yearDataExists,
                         },
-                        success: function (result) {
-                       
-                        if(result){
-                            $('#dataAlreadyExists').addClass('alert alert-danger');
+                        success: function(result) {
 
-                            $('#dataAlreadyExists').append('<span>Data for the entered district subdivision block already exists for this month</span>');
-                            $('#dataAlreadyExists').show();
+                            if (result) {
+                                $('#dataAlreadyExists').addClass('alert alert-danger');
 
-                            $('#dataAlreadyExists').slideUp(1800);
+                                $('#dataAlreadyExists').append(
+                                    '<span>Data for the entered district subdivision block already exists for this month</span>'
+                                    );
+                                $('#dataAlreadyExists').show();
+
+                                $('#dataAlreadyExists').slideUp(1800);
 
 
-                        $('#tot_SHGs').val(result['tot_SHGs_formed']);
-                        $('#tot_SHGs_Credit_Linkage').val(result['tot_SHGs_credit_linkage']);
-                        $('#submit').html('Update');
-                        }
-                        else{
-                            $('#tot_SHGs').val(null);
-                            $('#tot_SHGs_Credit_Linkage').val(null);
-                            $('#submit').html('Insert');
-                        }
+                                $('#tot_SHGs').val(result['tot_SHGs_formed']);
+                                $('#tot_SHGs_Credit_Linkage').val(result[
+                                    'tot_SHGs_credit_linkage']);
+                                $('#submit').html('Update');
+                            } else {
+                                $('#tot_SHGs').val(null);
+                                $('#tot_SHGs_Credit_Linkage').val(null);
+                                $('#submit').html('Insert');
+                            }
 
                         },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
                             alert("Status: " + textStatus);
                             alert("Error: " + errorThrown);
                         },
                     });
 
-            }
+                }
 
-    });
+            });
+            $('#year').on('change', function() {
+                var monthDataExists = $('#month').val();
+                var districtDataExists = $('#district').val();
+                var subdivisionDataExists = $('#subdivision').val();
+                var municipalityDataExists = $('#municipality').val();
+                var yearDataExists = $('#year').val();
+
+                if (monthDataExists && districtDataExists && subdivisionDataExists &&
+                    municipalityDataExists && yearDataExists) {
+                    $('#dataAlreadyExists').removeClass('alert alert-danger');
+                    $('#dataAlreadyExists').empty();
+                    $.ajax({
+                        url: '/users/checkAnandadharaData',
+                        type: "POST",
+                        data: {
+                            district: districtDataExists,
+                            subdivision: subdivisionDataExists,
+                            municipality: municipalityDataExists,
+                            month: monthDataExists,
+                            year: yearDataExists,
+                        },
+                        success: function(result) {
+
+                            if (result) {
+                                $('#dataAlreadyExists').addClass('alert alert-danger');
+
+                                $('#dataAlreadyExists').append(
+                                    '<span>Data for the entered district subdivision block already exists for this month</span>'
+                                    );
+                                $('#dataAlreadyExists').show();
+
+                                $('#dataAlreadyExists').slideUp(1800);
+
+
+                                $('#tot_SHGs').val(result['tot_SHGs_formed']);
+                                $('#tot_SHGs_Credit_Linkage').val(result[
+                                    'tot_SHGs_credit_linkage']);
+                                $('#submit').html('Update');
+                            } else {
+                                $('#tot_SHGs').val(null);
+                                $('#tot_SHGs_Credit_Linkage').val(null);
+                                $('#submit').html('Insert');
+                            }
+
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus);
+                            alert("Error: " + errorThrown);
+                        },
+                    });
+
+                }
+
+            });
+            $('#district').on('change', function() {
+                var monthDataExists = $('#month').val();
+                var districtDataExists = $('#district').val();
+                var subdivisionDataExists = $('#subdivision').val();
+                var municipalityDataExists = $('#municipality').val();
+                var yearDataExists = $('#year').val();
+
+                if (monthDataExists && districtDataExists && subdivisionDataExists &&
+                    municipalityDataExists && yearDataExists) {
+                    $('#dataAlreadyExists').removeClass('alert alert-danger');
+                    $('#dataAlreadyExists').empty();
+                    $.ajax({
+                        url: '/users/checkAnandadharaData',
+                        type: "POST",
+                        data: {
+                            district: districtDataExists,
+                            subdivision: subdivisionDataExists,
+                            municipality: municipalityDataExists,
+                            month: monthDataExists,
+                            year: yearDataExists,
+                        },
+                        success: function(result) {
+
+                            if (result) {
+                                $('#dataAlreadyExists').addClass('alert alert-danger');
+
+                                $('#dataAlreadyExists').append(
+                                    '<span>Data for the entered district subdivision block already exists for this month</span>'
+                                    );
+                                $('#dataAlreadyExists').show();
+
+                                $('#dataAlreadyExists').slideUp(1800);
+
+
+                                $('#tot_SHGs').val(result['tot_SHGs_formed']);
+                                $('#tot_SHGs_Credit_Linkage').val(result[
+                                    'tot_SHGs_credit_linkage']);
+                                $('#submit').html('Update');
+                            } else {
+                                $('#tot_SHGs').val(null);
+                                $('#tot_SHGs_Credit_Linkage').val(null);
+                                $('#submit').html('Insert');
+                            }
+
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus);
+                            alert("Error: " + errorThrown);
+                        },
+                    });
+
+                }
+
+            });
+            $('#subdivision').on('change', function() {
+                var monthDataExists = $('#month').val();
+                var districtDataExists = $('#district').val();
+                var subdivisionDataExists = $('#subdivision').val();
+                var municipalityDataExists = $('#municipality').val();
+                var yearDataExists = $('#year').val();
+
+                if (monthDataExists && districtDataExists && subdivisionDataExists &&
+                    municipalityDataExists && yearDataExists) {
+                    $('#dataAlreadyExists').removeClass('alert alert-danger');
+                    $('#dataAlreadyExists').empty();
+                    $.ajax({
+                        url: '/users/checkAnandadharaData',
+                        type: "POST",
+                        data: {
+                            district: districtDataExists,
+                            subdivision: subdivisionDataExists,
+                            municipality: municipalityDataExists,
+                            month: monthDataExists,
+                            year: yearDataExists,
+                        },
+                        success: function(result) {
+
+                            if (result) {
+                                $('#dataAlreadyExists').addClass('alert alert-danger');
+
+                                $('#dataAlreadyExists').append(
+                                    '<span>Data for the entered district subdivision block already exists for this month</span>'
+                                    );
+                                $('#dataAlreadyExists').show();
+
+                                $('#dataAlreadyExists').slideUp(1800);
+
+
+                                $('#tot_SHGs').val(result['tot_SHGs_formed']);
+                                $('#tot_SHGs_Credit_Linkage').val(result[
+                                    'tot_SHGs_credit_linkage']);
+                                $('#submit').html('Update');
+                            } else {
+                                $('#tot_SHGs').val(null);
+                                $('#tot_SHGs_Credit_Linkage').val(null);
+                                $('#submit').html('Insert');
+                            }
+
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus);
+                            alert("Error: " + errorThrown);
+                        },
+                    });
+
+                }
+
+            });
+            $('#municipality').on('change', function() {
+                var monthDataExists = $('#month').val();
+                var districtDataExists = $('#district').val();
+                var subdivisionDataExists = $('#subdivision').val();
+                var municipalityDataExists = $('#municipality').val();
+                var yearDataExists = $('#year').val();
+
+                if (monthDataExists && districtDataExists && subdivisionDataExists &&
+                    municipalityDataExists && yearDataExists) {
+                    $('#dataAlreadyExists').removeClass('alert alert-danger');
+                    $('#dataAlreadyExists').empty();
+                    $.ajax({
+                        url: '/users/checkAnandadharaData',
+                        type: "POST",
+                        data: {
+                            district: districtDataExists,
+                            subdivision: subdivisionDataExists,
+                            municipality: municipalityDataExists,
+                            month: monthDataExists,
+                            year: yearDataExists,
+                        },
+                        success: function(result) {
+
+                            if (result) {
+                                $('#dataAlreadyExists').addClass('alert alert-danger');
+
+                                $('#dataAlreadyExists').append(
+                                    '<span>Data for the entered district subdivision block already exists for this month</span>'
+                                    );
+                                $('#dataAlreadyExists').show();
+
+                                $('#dataAlreadyExists').slideUp(1800);
+
+
+                                $('#tot_SHGs').val(result['tot_SHGs_formed']);
+                                $('#tot_SHGs_Credit_Linkage').val(result[
+                                    'tot_SHGs_credit_linkage']);
+                                $('#submit').html('Update');
+                            } else {
+                                $('#tot_SHGs').val(null);
+                                $('#tot_SHGs_Credit_Linkage').val(null);
+                                $('#submit').html('Insert');
+                            }
+
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus);
+                            alert("Error: " + errorThrown);
+                        },
+                    });
+
+                }
+
+            });
 
 
 
 
-    });
-
-
-
-</script>
+        });
+    </script>
 
 @endsection
