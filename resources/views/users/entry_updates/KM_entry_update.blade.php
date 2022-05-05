@@ -117,7 +117,7 @@
                 $('#dataAlreadyExists').removeClass('alert alert-danger');
                 $('#dataAlreadyExists').empty();
                 $.ajax({
-                        url: '/users/checkKisanMandiData',
+                        url: '/users/checkKishanMandiData',
                         type: "POST",
                         data: {
                             district: districtDataExists,

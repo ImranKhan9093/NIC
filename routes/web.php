@@ -54,7 +54,7 @@ Route::prefix('users')->name('users.')->group(function(){
 
             //check data
             Route::post('/checkkccData',[KccController::class,'checkKccData'])->name('checkKccData');
-            Route::post('/checkKisanMandiData',[KishanMandiController::class,'checkKisanMandiData'])->name('checkKisanMandiData');
+            Route::post('/checkKishanMandiData',[KishanMandiController::class,'checkKishanMandiData'])->name('checkKishanMandiData');
             Route::post('/checkMgnregsData',[MgnregsController::class,'checkMgnregsData'])->name('checkMgnregsData');
             Route::post('/checkAnandadharaData',[AnandadharaController::class,'checkAnandadharaData'])->name('checkAnandadharaData');
             //insert data into tables
