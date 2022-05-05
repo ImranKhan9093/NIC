@@ -9,8 +9,8 @@
 @endsection
 
 @section('content')
-    
- 
+
+
     <!------ Include the above in your HEAD tag ---------->
 
     <div class="container contact">
@@ -36,6 +36,9 @@
                         </span>
                     </div>
                 @endif
+                <div class="" id="dataAlreadyExists">
+
+                </div>
                 <div class="contact-form">
                     <form action="{{ route('users.insertAnandhara') }}" method="POST">
                         @csrf
@@ -48,7 +51,7 @@
                                     <label for="tot_SHGs_formed" class="form-group col-md-6">Enter tot SHGs formed</label>
                                     <div class="col-sm-10">
                                         <input type="number" placeholder="tot SHGs formed" min="1" step="1"
-                                            name="tot_SHGs_formed" id="tot_SHGs " class="form-control">
+                                            name="tot_SHGs_formed" id="tot_SHGs" class="form-control">
                                     </div>
                                     @error('tot_SHGs_formed')
                                         <span>{{ $message }}</span><br>
@@ -82,8 +85,81 @@
 @endsection
 
 @section('scripts')
-<script defer type="text/javascript" src="{{ URL('js/jQuery.min.js') }}"></script>
+<script  type="text/javascript" src="{{ URL('js/jQuery.min.js') }}"></script>
 
 <script defer type="text/javascript" src="{{ URL('js/dropdown.js') }}"> </script>
+
+<script defer  type="text/javascript" >
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(document).ready(function()
+    {
+        // $('#dataAlreadyExists').hide();
+
+        $('#month').on('change',function(){
+            var monthDataExists=$('#month').val();
+            var districtDataExists=$('#district').val();
+            var subdivisionDataExists=$('#subdivision').val();
+            var municipalityDataExists=$('#municipality').val();
+            var yearDataExists=$('#year').val();
+
+            if(monthDataExists&&districtDataExists&&subdivisionDataExists&&municipalityDataExists&&yearDataExists){
+                $('#dataAlreadyExists').removeClass('alert alert-danger');
+                $('#dataAlreadyExists').empty();
+                $.ajax({
+                        url: '/users/checkAnandadharaData',
+                        type: "POST",
+                        data: {
+                            district: districtDataExists,
+                            subdivision:subdivisionDataExists,
+                            municipality:municipalityDataExists,
+                            month:monthDataExists,
+                            year:yearDataExists,
+                        },
+                        success: function (result) {
+                        //    alert('Data for the entered district subdivision block already exists for this month');
+                        if(result){
+                            $('#dataAlreadyExists').addClass('alert alert-danger');
+
+                            $('#dataAlreadyExists').append('<span>Data for the entered district subdivision block already exists for this month</span>');
+                            $('#dataAlreadyExists').show();
+
+                            $('#dataAlreadyExists').slideUp(1800);
+
+
+                        $('#tot_SHGs').val(result['tot_SHGs_formed']);
+                        $('#tot_SHGs_Credit_Linkage').val(result['tot_SHGs_credit_linkage']);
+                        $('#submit').html('Update');
+                        }
+                        else{
+                            $('#tot_SHGs').val(null);
+                            $('#tot_SHGs_Credit_Linkage').val(null);
+                            $('#submit').html('Insert');
+                        }
+
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus);
+                            alert("Error: " + errorThrown);
+                        },
+                    });
+
+            }
+
+    });
+
+
+
+
+    });
+
+
+
+</script>
 
 @endsection

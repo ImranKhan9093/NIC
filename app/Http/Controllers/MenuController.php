@@ -35,16 +35,7 @@ class MenuController extends Controller
         return ['userMenus' => $userMenus, 'submenus' => $submenus];
     }
     
-    public function getDropdownContent()
-    {
-        $districts = DB::table('district')
-                    ->orderBy('district')
-                    ->get();
-        $months = DB::table('month_tbl')->get();
-        $years = DB::table('years')->get();
-
-return ['districts' => $districts, 'months' => $months , 'years' => $years];
-    }
+    
 
 
 
@@ -60,223 +51,20 @@ return ['districts' => $districts, 'months' => $months , 'years' => $years];
     }
 
 
-    public function KCC_entry_update()
-    {
-
-        $data = $this->getDropdownContent();
-        $districts = $data['districts'];
-        $months = $data['months'];
-        $years = $data['years'];
-        return view('users.entry_updates.Kcc_entry_update', compact('districts', 'months','years'));
-    }
 
 
-
-    //showing forms
-    public function KM_entry_update()
-    {
-
-        $data = $this->getDropdownContent();
-        $districts = $data['districts'];
-        $months = $data['months'];
-        $years = $data['years'];
-        return view('users.entry_updates.KM_entry_update', compact('districts', 'months','years'));
-    }
-
-
-    public function MGNREGS_Entry_update()
-    {
-        $data = $this->getDropdownContent();
-        $districts = $data['districts'];
-        $months = $data['months'];
-        $years = $data['years'];
-        return view('users.entry_updates.MGNREGS_Entry_update', compact('districts', 'months','years'));
-    }
-
-    public function Anandadhara_Entry_Update()
-
-    {
-        $data = $this->getDropdownContent();
-        $districts = $data['districts'];
-        $months = $data['months'];
-        $years = $data['years'];
-        return view('users.entry_updates.Anandadhara_Entry_Update', compact('districts', 'months','years'));
-    }
 
    
 
-    public function insertKishanMandi(Request $request)
-    {
 
-        $request->validate([
-                'district' => 'exists:district,districtcd',
-                'subdivision' => 'exists:subdivision,subdivisioncd',
-                'month' => 'exists:month_tbl,month',
-                'year' => 'exists:years,year',
-                'municipality' => 'exists:block_muni,blockminicd',
-                'KM_operational' => 'required',
-                'KM_sanctioned' => ['required', 'integer', 'min:1'],
-        ]);
+   
 
-        $inserted = DB::table('kishan_mandi')
-                        ->insert([
-                            "districtcd" => $request->post('district'),
-                            "subdivisioncd" => $request->post('subdivision'),
-                            "blockminicd" => $request->post('municipality'),
-                            "reporting_month" => $request->post('month'),
-                            "reporting_year" => $request->post('year'),
-                            "KM_operational" => $request->post('KM_operational'),
-                            "KM_sanctioned" => $request->post('KM_sanctioned'),
-                            "user_code" => auth()->user()->id,
-                            "posted_date" => date("Y/m/d"),
+   
 
-                        ]);
+   
 
-        if ($inserted) {
-            return redirect()->back()->with('success', 'Data inserted successfully');
-        } else {
-            return redirect()->back()->with('fail', 'Failed to insert data');
-        }
-    }
-    public function insertAnandhara(Request $request)
-    {
-        $request->validate([
-                'district' => 'exists:district,districtcd',
-                'subdivision' => 'exists:subdivision,subdivisioncd',
-                'month' => 'exists:month_tbl,month',
-                'year' => 'exists:years,year',
-                'municipality' => 'exists:block_muni,blockminicd',
-                'tot_SHGs_formed' =>  ['required', 'integer', 'min:1'],
-                'tot_SHGs_credit_linkage' => ['required', 'integer', 'min:1'],
-        ]);
-
-        $inserted = DB::table('anandadhara')
-                        ->insert([
-                            "districtcd" => $request->post('district'),
-                            "subdivisioncd" => $request->post('subdivision'),
-                            "blockminicd" => $request->post('municipality'),
-                            "reporting_month" => $request->post('month'),
-                            "reporting_year" => $request->post('year'),
-                            "tot_SHGs_formed" => $request->post('tot_SHGs_formed'),
-                            "tot_SHGs_credit_linkage" => $request->post('tot_SHGs_credit_linkage'),
-                            "user_code" => auth()->user()->id,
-                            "posted_date" => date("Y/m/d"),
-
-                        ]);
-
-        if ($inserted) {
-            return redirect()->back()->with('success', 'Data inserted successfully');
-        } else {
-            return redirect()->back()->with('fail', 'Failed to insert data');
-        }
-    }
-    public function insertMgnregs(Request $request)
-    {
-
-
-        $request->validate([
-                'district' => 'exists:district,districtcd',
-                'subdivision' => 'exists:subdivision,subdivisioncd',
-                'month' => 'exists:month_tbl,month',
-                'year' => 'exists:years,year',
-                'municipality' => 'exists:block_muni,blockminicd',
-                'avg_persondays_per_household'=>['required','numeric','min:1'],
-                'percentage_of_labour_budget_achieved'=>['required','numeric','min:1'],
-                'expenditure_made_under_mgnrega'=>['required','numeric','min:1'],
-                'tot_person_days_generate' =>  ['required', 'integer', 'min:1'],
-                'KCC_sponsored' => ['required', 'integer', 'min:1'],
-            ]);
-            
-
-        
-        $inserted = DB::table('mgnregs')
-                        ->insert([
-                            "districtcd" => $request->post('district'),
-                            "subdivisioncd" => $request->post('subdivision'),
-                            "blockminicd" => $request->post('municipality'),
-                            "reporting_month" => $request->post('month'),
-                            "reporting_year" => $request->post('year'),
-                            "tot_person_days_generate" => $request->post('tot_person_days_generate'),
-                            "KCC_sponsored" => $request->post('KCC_sponsored'),
-                            "avg_persondays_per_household" => $request->post('avg_persondays_per_household'),
-                            "percentage_of_labour_budget_achieved" => $request->post('percentage_of_labour_budget_achieved'),
-                            'expenditure_made_under_mgnrega'=>$request->post('expenditure_made_under_mgnrega'),
-                            "user_code" => auth()->user()->id,
-                            "posted_date" => date("Y/m/d"),
-
-                        ]);
-
-        if ($inserted) {
-            return redirect()->back()->with('success', 'Data inserted successfully');
-        } else {
-            return redirect()->back()->with('fail', 'Failed to insert data');
-        }
-    }
-
-    //code for reports 
-    public function KCC_Report()
-    {
-
-        $kccReport = DB::table('kishan_credit_card')
-                        ->select('district.district', 'subdivision.subdivision', 'block_muni.blockmuni', 'month_tbl.month_name', 'kishan_credit_card.reporting_year', 'kishan_credit_card.KCC_target', 'kishan_credit_card.KCC_sponsored', 'kishan_credit_card.KCC_sanctioned', 'kishan_credit_card.Percentage_sponsored', 'kishan_credit_card.posted_date', 'users.name')
-                        ->join('users', 'users.id', '=', 'kishan_credit_card.user_code')
-                        ->join('district', 'district.districtcd', '=', 'kishan_credit_card.districtcd')
-                        ->join('subdivision', 'subdivision.subdivisioncd', '=', 'kishan_credit_card.subdivisioncd')
-                        ->join('block_muni', 'block_muni.blockminicd', '=', 'kishan_credit_card.blockminicd')
-                        ->join('month_tbl', 'month_tbl.month', '=', 'kishan_credit_card.reporting_month')
-                        //   ->where('reporting_month','=',$currentMonth)
-                        ->where('user_code', '=', auth()->user()->id)
-                        ->get();
-
-
-
-
-        //  dd($kccReport);
-        return view('users.reports.KCC_Report', compact('kccReport'));
-    }
-    public function KM_report()
-    {
-        $kmReport = DB::table('kishan_mandi')
-                        ->select('district.district', 'subdivision.subdivision', 'block_muni.blockmuni', 'month_tbl.month_name', 'kishan_mandi.reporting_year', 'kishan_mandi.KM_operational', 'kishan_mandi.KM_sanctioned', 'kishan_mandi.posted_date', 'users.name')
-                        ->join('users', 'users.id', '=', 'kishan_mandi.user_code')
-                        ->join('district', 'district.districtcd', '=', 'kishan_mandi.districtcd')
-                        ->join('subdivision', 'subdivision.subdivisioncd', '=', 'kishan_mandi.subdivisioncd')
-                        ->join('block_muni', 'block_muni.blockminicd', '=', 'kishan_mandi.blockminicd')
-                        ->join('month_tbl', 'month_tbl.month', '=', 'kishan_mandi.reporting_month')
-                        //   ->where('reporting_month','=',$currentMonth)
-                        ->where('user_code', '=', auth()->user()->id)
-                        ->get();
-
-        return view('users.reports.KM_report', compact('kmReport'));
-    }
-    public function MGNREGS_report()
-    {
-        $mgnregsReport = DB::table('mgnregs')
-                            ->select('district.district', 'subdivision.subdivision', 'block_muni.blockmuni', 'month_tbl.month_name', 'mgnregs.reporting_year', 'mgnregs.tot_person_days_generate', 'mgnregs.KCC_sponsored', 'mgnregs.avg_persondays_per_household', 'mgnregs.percentage_of_labour_budget_achieved', 'mgnregs.posted_date', 'users.name')
-                            ->join('users', 'users.id', '=', 'mgnregs.user_code')
-                            ->join('district', 'district.districtcd', '=', 'mgnregs.districtcd')
-                            ->join('subdivision', 'subdivision.subdivisioncd', '=', 'mgnregs.subdivisioncd')
-                            ->join('block_muni', 'block_muni.blockminicd', '=', 'mgnregs.blockminicd')
-                            ->join('month_tbl', 'month_tbl.month', '=', 'mgnregs.reporting_month')
-                            //   ->where('reporting_month','=',$currentMonth)
-                            ->where('user_code', '=', auth()->user()->id)
-                            ->get();
-
-        return view('users.reports.MGNREGS_report', compact('mgnregsReport'));
-    }
-    public function Anandadhara_report()
-    {
-
-        $anandadharaReport = DB::table('anandadhara')
-                                ->select('district.district', 'subdivision.subdivision', 'block_muni.blockmuni', 'month_tbl.month_name', 'anandadhara.reporting_year', 'anandadhara.tot_SHGs_formed', 'anandadhara.tot_SHGs_credit_linkage', 'anandadhara.posted_date', 'users.name')
-                                ->join('users', 'users.id', '=', 'anandadhara.user_code')
-                                ->join('district', 'district.districtcd', '=', 'anandadhara.districtcd')
-                                ->join('subdivision', 'subdivision.subdivisioncd', '=', 'anandadhara.subdivisioncd')
-                                ->join('block_muni', 'block_muni.blockminicd', '=', 'anandadhara.blockminicd')
-                                ->join('month_tbl', 'month_tbl.month', '=', 'anandadhara.reporting_month')
-                                //   ->where('reporting_month','=',$currentMonth)
-                                ->where('user_code', '=', auth()->user()->id)
-                                ->get();
-        return view('users.reports.Anandadhara_report', compact('anandadharaReport'));
-    }
+   
+   
+   
+    
 }

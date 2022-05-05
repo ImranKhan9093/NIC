@@ -36,11 +36,11 @@
                         </span>
                     </div>
                 @endif
-                    
+
                     <div class="" id="dataAlreadyExists">
-                      
+
                     </div>
-               
+
                 <div class="contact-form">
                     <form action="{{ route('users.insertKcc') }}" method="POST">
                         @csrf
@@ -107,20 +107,21 @@
             }
         });
 
-        $(document).ready(function(){
+        $(document).ready(function()
+        {
             // $('#dataAlreadyExists').hide();
 
             $('#month').on('change',function(){
-                   var monthDataExists=$('#month').val();
-                   var districtDataExists=$('#district').val();
-                   var subdivisionDataExists=$('#subdivision').val();
-                   var municipalityDataExists=$('#municipality').val();
-                   var yearDataExists=$('#year').val();
-               
-                   if(monthDataExists&&districtDataExists&&subdivisionDataExists&&municipalityDataExists&&yearDataExists){
+                var monthDataExists=$('#month').val();
+                var districtDataExists=$('#district').val();
+                var subdivisionDataExists=$('#subdivision').val();
+                var municipalityDataExists=$('#municipality').val();
+                var yearDataExists=$('#year').val();
+
+                if(monthDataExists&&districtDataExists&&subdivisionDataExists&&municipalityDataExists&&yearDataExists){
                     $('#dataAlreadyExists').removeClass('alert alert-danger');
                     $('#dataAlreadyExists').empty();
-                      $.ajax({
+                    $.ajax({
                             url: '/users/checkkccData',
                             type: "POST",
                             data: {
@@ -128,50 +129,50 @@
                                 subdivision:subdivisionDataExists,
                                 municipality:municipalityDataExists,
                                 month:monthDataExists,
-                                year:yearDataExists, 
+                                year:yearDataExists,
                             },
                             success: function (result) {
                             //    alert('Data for the entered district subdivision block already exists for this month');
-                              if(result){
+                            if(result){
                                 $('#dataAlreadyExists').addClass('alert alert-danger');
-                            
+
                                 $('#dataAlreadyExists').append('<span>Data for the entered district subdivision block already exists for this month</span>');
                                 $('#dataAlreadyExists').show();
-                                
+
                                 $('#dataAlreadyExists').slideUp(1800);
-                            
-                              
-                               $('#target').val(result['KCC_target']);
-                               $('#kcc_sanctioned').val(result['KCC_sanctioned']);
-                               $('#kcc_sponsored').val(result['Percentage_sponsored']);
-                               $('#submit').html('Update');
-                              }
-                              else{
+
+
+                            $('#target').val(result['KCC_target']);
+                            $('#kcc_sanctioned').val(result['KCC_sanctioned']);
+                            $('#kcc_sponsored').val(result['Percentage_sponsored']);
+                            $('#submit').html('Update');
+                            }
+                            else{
                                 $('#target').val(null);
                                 $('#kcc_sanctioned').val(null);
                                 $('#kcc_sponsored').val(null);
                                 $('#submit').html('Insert');
-                              }
-    
+                            }
+
                             },
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
                                 alert("Status: " + textStatus);
                                 alert("Error: " + errorThrown);
                             },
-                         });
-                   
-                   }
-              
-           });
+                        });
+
+                }
+
+        });
 
 
 
 
         });
-        
-        
-        
-    </script> 
+
+
+
+    </script>
 
 
 @endsection

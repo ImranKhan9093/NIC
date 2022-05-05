@@ -37,6 +37,9 @@
                         </span>
                     </div>
                 @endif
+                <div class="" id="dataAlreadyExists">
+
+                </div>
                 <div class="contact-form">
                     <form action="{{ route('users.insertKishanMandi') }}" method="POST">
                         @csrf
@@ -45,7 +48,7 @@
                                 @include('users.commonInputs')
                                 <div class="form-group">
                                     <label for="KM_operational" >Kishan Mandi Operational:</label>
-                                    
+
                                         <select name="KM_operational" id="KM_operational" required
                                             class="form-control selectpicker">
 
@@ -55,7 +58,7 @@
                                             <option value="NA">Not available</option>
 
                                         </select>
-                                   
+
                                     @error('KM_operational')
                                         <span>{{ $message }}</span><br>
                                     @enderror
@@ -87,9 +90,84 @@
 @endsection
 
 @section('scripts')
-    <script defer type="text/javascript" src="{{ URL('js/jQuery.min.js') }}"></script>
+<script  type="text/javascript" src="{{ URL('js/jQuery.min.js') }}"></script>
 
-    <script defer type="text/javascript" src="{{ URL('js/dropdown.js') }}"> </script>
+<script defer type="text/javascript" src="{{ URL('js/dropdown.js') }}"> </script>
+
+<script defer  type="text/javascript" >
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(document).ready(function()
+    {
+        // $('#dataAlreadyExists').hide();
+
+        $('#month').on('change',function(){
+            var monthDataExists=$('#month').val();
+            var districtDataExists=$('#district').val();
+            var subdivisionDataExists=$('#subdivision').val();
+            var municipalityDataExists=$('#municipality').val();
+            var yearDataExists=$('#year').val();
+
+            if(monthDataExists&&districtDataExists&&subdivisionDataExists&&municipalityDataExists&&yearDataExists){
+                $('#dataAlreadyExists').removeClass('alert alert-danger');
+                $('#dataAlreadyExists').empty();
+                $.ajax({
+                        url: '/users/checkKisanMandiData',
+                        type: "POST",
+                        data: {
+                            district: districtDataExists,
+                            subdivision:subdivisionDataExists,
+                            municipality:municipalityDataExists,
+                            month:monthDataExists,
+                            year:yearDataExists,
+                        },
+                        success: function (result) {
+                        //    alert('Data for the entered district subdivision block already exists for this month');
+                        if(result){
+                            $('#dataAlreadyExists').addClass('alert alert-danger');
+
+                            $('#dataAlreadyExists').append('<span>Data for the entered district subdivision block already exists for this month</span>');
+                            $('#dataAlreadyExists').show();
+
+                            $('#dataAlreadyExists').slideUp(1800);
+
+
+
+                        $('#KM_operational').val(result['KM_operational']);
+                        $('#KM_sanctioned').val(result['KM_sanctioned']); ///???????????????????????????
+                        $('#submit').html('Update');
+                        }
+                        else{
+                            $('#target').val(null);
+                            $('#KM_operational').val(null);
+                            $('#Percentage_sponsored').val(null);
+                            $('#submit').html('Insert');
+                        }
+
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus);
+                            alert("Error: " + errorThrown);
+                        },
+                    });
+
+            }
+
+    });
+
+
+
+
+    });
+
+
+
+</script>
 
 
 @endsection

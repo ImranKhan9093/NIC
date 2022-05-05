@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Anandadhara\AnandadharaController;
 use App\Http\Controllers\Auth\UserAuthenticationController;
 use App\Http\Controllers\DropdownController;
 use App\Http\Controllers\ExcelReportController;
 use App\Http\Controllers\Kcc\KccController;
+use App\Http\Controllers\KishanMandi\KishanMandiController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\Mgnregs\MgnregsController;
 use App\Http\Controllers\PdfControlller;
 use Illuminate\Support\Facades\Route;
 
@@ -43,27 +46,29 @@ Route::prefix('users')->name('users.')->group(function(){
           Route::post('/getMunicipality',[DropdownController::class,'getMunicipality'])->name('municipality');
 
             //EntryForm
-            Route::get('/KCC_entry_update',[MenuController::class,'KCC_entry_update'])->name('KCC_entry_update');
-            Route::get('/KM_entry_update',[MenuController::class,'KM_entry_update'])->name('KM_entry_update');
-            Route::get('/MGNREGS_Entry_update',[MenuController::class,'MGNREGS_Entry_update'])->name('MGNREGS_Entry_update');
-            Route::get('/Anandadhara_Entry_Update',[MenuController::class,'Anandadhara_Entry_Update'])->name('Anandadhara_Entry_Update');
+            Route::get('/KCC_entry_update',[KccController::class,'KCC_entry_update'])->name('KCC_entry_update');
+            Route::get('/KM_entry_update',[KishanMandiController::class,'KM_entry_update'])->name('KM_entry_update');
+            Route::get('/MGNREGS_Entry_update',[MgnregsController::class,'MGNREGS_Entry_update'])->name('MGNREGS_Entry_update');
+            Route::get('/Anandadhara_Entry_Update',[AnandadharaController::class,'Anandadhara_Entry_Update'])->name('Anandadhara_Entry_Update');
            
 
             //check data
             Route::post('/checkkccData',[KccController::class,'checkKccData'])->name('checkKccData');
-
+            Route::post('/checkKisanMandiData',[KishanMandiController::class,'checkKisanMandiData'])->name('checkKisanMandiData');
+            Route::post('/checkMgnregsData',[MgnregsController::class,'checkMgnregsData'])->name('checkMgnregsData');
+            Route::post('/checkAnandadharaData',[AnandadharaController::class,'checkAnandadharaData'])->name('checkAnandadharaData');
             //insert data into tables
             Route::post('/kccinsert',[KccController::class,'insertToKccTable'])->name('insertKcc');
-            Route::post('/insertKishanMandi',[MenuController::class,'insertKishanMandi'])->name('insertKishanMandi');
-            Route::post('/insertAnandhara',[MenuController::class,'insertAnandhara'])->name('insertAnandhara');
-            Route::post('/insertMgnregs',[MenuController::class,'insertMgnregs'])->name('insertMgnregs');
+            Route::post('/insertKishanMandi',[KishanMandiController::class,'insertKishanMandi'])->name('insertKishanMandi');
+            Route::post('/insertAnandhara',[AnandadharaController::class,'insertAnandhara'])->name('insertAnandhara');
+            Route::post('/insertMgnregs',[MgnregsController::class,'insertMgnregs'])->name('insertMgnregs');
 
 
             //reports
-            Route::get('/KCC_Report',[MenuController::class,'KCC_Report'])->name('KCC_Report');
-            Route::get('/KM_report',[MenuController::class,'KM_report'])->name('KM_report');
-            Route::get('/MGNREGS_report',[MenuController::class,'MGNREGS_report'])->name('MGNREGS_report');
-            Route::get('/Anandadhara_report',[MenuController::class,'Anandadhara_report'])->name('Anandadhara_report');
+            Route::get('/KCC_Report',[KccController::class,'KCC_Report'])->name('KCC_Report');
+            Route::get('/KM_report',[KishanMandiController::class,'KM_report'])->name('KM_report');
+            Route::get('/MGNREGS_report',[MgnregsController::class,'MGNREGS_report'])->name('MGNREGS_report');
+            Route::get('/Anandadhara_report',[AnandadharaController::class,'Anandadhara_report'])->name('Anandadhara_report');
 
             //pdf
             Route::post('/kccDownload',[PdfControlller::class,'kccDownload'])->name('kccDownload');
