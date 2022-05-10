@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use Illuminate\Database\Eloquent\Collection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
@@ -22,12 +23,12 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
    private $headings2='Reporting month';
    private $headings3='Name of the district Jalpaiguri';
 
+    
+   
+   public function __construct(private $excelData,private $reportingMonth,private $reportingYear){
 
-   private $excelData;
-   public function __construct($excelData)
-   {
-      $this->excelData=$excelData; 
    }
+   
     public function headings(): array
     { 
 
@@ -112,8 +113,8 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
                 // $event->sheet->getDelegate()->mergeCells('J9:J23');
                  
                 //set headings
-                $event->sheet->setCellValue('B1','Financial year');
-                $event->sheet->setCellValue('B2','Reporting month');
+                $event->sheet->setCellValue('B1','Financial year- '.($this->reportingYear-1).'-'.$this->reportingYear);
+                $event->sheet->setCellValue('B2','Reporting month- As on '.  date('d/m/y'));
                 $event->sheet->setCellValue('B3','Name of the district-Jalpaiguri');
                 //$event->sheet->setCellValue('J9',124);
 
@@ -170,9 +171,23 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
                 $event->sheet->getDelegate()->getStyle($cellRangeForHeadingsOfData)->getFont()->setSize(9);
                 $event->sheet->getDelegate()->getStyle('A7:A23')->getFont()->setSize(9);
                 $event->sheet->getDelegate()->getStyle('A7:A23')->getAlignment()->setWrapText(true);
+
+             //bold
+              for($i=8;$i<=23;$i++){
+                $event->sheet->getDelegate()->getStyle($i)->getFont()->setBold(true);
+               }
                 $event->sheet->getDelegate()->getStyle('A7:A23')->getFont()->setBold(true);
+                $event->sheet->getDelegate()->getStyle('1')->getFont()->setBold(true);
+                $event->sheet->getDelegate()->getStyle('2')->getFont()->setBold(true);
+                $event->sheet->getDelegate()->getStyle('3')->getFont()->setBold(true);
                 // $event->sheet->getDelegate()->getStyle($cellRangeForHeadingsOfData)->getFont()->setBold(true);
                 $event->sheet->getDelegate()->getStyle($cellRangeForHeadingsOfData)->getAlignment()->setWrapText(true);
+               //endbold
+
+                //alignment
+                for($i=8;$i<=23;$i++){
+                    $event->sheet->getDelegate()->getStyle($i)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER)->setHorizontal(Alignment::HORIZONTAL_CENTER);
+                   }
                 $event->sheet->getDelegate()->getStyle($cellRangeForTitles)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER)->setHorizontal(Alignment::HORIZONTAL_CENTER);
                 $event->sheet->getDelegate()->getStyle($cellRangeForHeadingsOfData)->getAlignment()->setVertical(Alignment::VERTICAL_TOP)->setHorizontal(Alignment::HORIZONTAL_CENTER);
                 $event->sheet->getDelegate()->getStyle('J9')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER)->setHorizontal(Alignment::HORIZONTAL_CENTER);
@@ -181,6 +196,7 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
                 // $event->sheet->getDelegate()->getStyle('G5')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER)->setHorizontal(Alignment::HORIZONTAL_CENTER);
                 // $event->sheet->getDelegate()->getStyle('K5')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER)->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
+                //endAlignment
                   
 
                 //Setting row height and column widths
@@ -191,6 +207,18 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
                
                 //freeze row
                 $event->sheet->getDelegate()->freezePane('A8');
+
+                //border
+                for($i=5;$i<=23;$i++){
+                 $event->sheet->getDelegate()->getStyle($i)->applyFromArray([
+                    'borders'=>[
+                        'allBorders'=>[
+                            'borderStyle'=>Border::BORDER_THIN,
+                        ],
+                    ],
+                ]);
+               }
+               //endBorder
             }
 
         ];
