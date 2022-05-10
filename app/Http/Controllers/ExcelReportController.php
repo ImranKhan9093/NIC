@@ -19,8 +19,10 @@ class ExcelReportController extends Controller
         //  dd($request->all());
          $reportingMonth=$request->month;
          $reportingYear=$request->year;
-
-     
+         $month=DB::table('month_tbl')
+                            ->where('month','=',$reportingMonth)
+                            ->first();
+        $month=$month->month_name;
         $excelData=DB::table('block_muni')
                      ->select(
                             'block_muni.blockmuni', 
@@ -58,7 +60,7 @@ class ExcelReportController extends Controller
                     })
                     ->get();
       
-        return Excel::download(new CMExport(excelData:$excelData,reportingYear:$reportingYear),'cm.xlsx');
+        return Excel::download(new CMExport(excelData:$excelData,reportingYear:$reportingYear,month:$month),'cm.xlsx');
     }
     public function KCCExcelReport(){
         return Excel::download(new KCCExport,'kcc.xlsx');

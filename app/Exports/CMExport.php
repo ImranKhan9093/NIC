@@ -25,7 +25,7 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
 
     
    
-   public function __construct(private $excelData,private $reportingYear){
+   public function __construct(private $excelData,private $reportingYear,private $month){
 
    }
    
@@ -113,8 +113,8 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
                 // $event->sheet->getDelegate()->mergeCells('J9:J23');
                  
                 //set headings
-                $event->sheet->setCellValue('B1','Financial year- '.($this->reportingYear-1).'-'.$this->reportingYear);
-                $event->sheet->setCellValue('B2','Reporting month- As on '.  date('d/m/y'));
+                $event->sheet->setCellValue('B1','Reporting year- '.$this->reportingYear);
+                $event->sheet->setCellValue('B2','Reporting month- '. $this->month);
                 $event->sheet->setCellValue('B3','Name of the district-Jalpaiguri');
                 //$event->sheet->setCellValue('J9',124);
 
