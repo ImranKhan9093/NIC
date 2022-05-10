@@ -25,7 +25,7 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
 
     
    
-   public function __construct(private $excelData,private $reportingMonth,private $reportingYear){
+   public function __construct(private $excelData,private $reportingYear){
 
    }
    

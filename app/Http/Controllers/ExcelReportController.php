@@ -58,7 +58,7 @@ class ExcelReportController extends Controller
                     })
                     ->get();
       
-        return Excel::download(new CMExport(excelData:$excelData,reportingYear:$reportingYear,reportingMonth:$reportingMonth),'cm.xlsx');
+        return Excel::download(new CMExport(excelData:$excelData,reportingYear:$reportingYear),'cm.xlsx');
     }
     public function KCCExcelReport(){
         return Excel::download(new KCCExport,'kcc.xlsx');
