@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Barryvdh\DomPDF\PDF as DomPDFPDF;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use PDF;
+use Illuminate\Http\Request;
+use App\Classes\DropdownContent;
+use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 
 class PdfControlller extends Controller
 {   
@@ -137,11 +138,10 @@ class PdfControlller extends Controller
         return view('users.excel_downloads.cm_excel',compact('excelData','reportingMonth','reportingYear'));
     }
     public function showExcelReportCritera(){
-        $districts = DB::table('district')
-                    ->orderBy('district')
-                    ->get();
-        $months = DB::table('month_tbl')->get();
-        $years = DB::table('years')->get();
+        $data=DropdownContent::getDropdownContent();
+        $districts = $data['districts'];
+        $months = $data['months'];
+        $years = $data['years'];
         return view('users.excel_report.criteria_excel_report',compact('districts','months','years'));
     }
 }
