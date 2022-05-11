@@ -156,15 +156,15 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
                 $event->sheet->setCellValue('D7','No. of KCC sanctioned');
                 $event->sheet->setCellValue('E7','KCC sponsored percentage');
                 $event->sheet->setCellValue('F7','No. of Kishan Mandis sanctioned and no. of Kishan Mandis made operational.PI write FO=Fully Operational,PO=Partially Operational');
-                $event->sheet->setCellValue('G7','Number of Person days generated under MGNREGA(2021-22)');
-                $event->sheet->setCellValue('H7',' Average Number of Person days generated per  household(2021-22)');
-                $event->sheet->setCellValue('I7','Expenditure made under MGNREGA(2021-22)');
-                $event->sheet->setCellValue('J7','% of labour budget achieved so far (2021-22)');
-                $event->sheet->setCellValue('K7','Total number of SHGs formed in the district ');
-                $event->sheet->setCellValue('L7','Total number of SHGs got credit linkage ');
+                $event->sheet->setCellValue('G7','Number of Person days generated under  MGNREGA'."($this->reportingYear)");
+                $event->sheet->setCellValue('H7',' Average Number of Person days generated per household '."($this->reportingYear)");
+                $event->sheet->setCellValue('I7','Expenditure made under MGNREGA  '."($this->reportingYear)");
+                $event->sheet->setCellValue('J7','% of labour budget achieved so far '."($this->reportingYear)");
+                $event->sheet->setCellValue('K7','Total number of SHGs formed in the district');
+                $event->sheet->setCellValue('L7','Total number of SHGs got credit linkage');
                 
 
-                //styling value given above to align center vertically and horizontally
+                
                 $cellRangeForTitles = 'A5:k5';
                 $cellRangeForHeadingsOfData='A7:L7';
                 $event->sheet->getDelegate()->getStyle($cellRangeForTitles)->getFont()->setSize(14);
@@ -185,12 +185,13 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
                //endbold
 
                 //alignment
-                for($i=8;$i<=23;$i++){
-                    $event->sheet->getDelegate()->getStyle($i)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER)->setHorizontal(Alignment::HORIZONTAL_CENTER);
+                for($i=9;$i<=23;$i++){
+                    $event->sheet->getDelegate()->getStyle("B$i:L$i")->getAlignment()->setVertical(Alignment::VERTICAL_CENTER)->setHorizontal(Alignment::HORIZONTAL_CENTER);
                    }
                 $event->sheet->getDelegate()->getStyle($cellRangeForTitles)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER)->setHorizontal(Alignment::HORIZONTAL_CENTER);
                 $event->sheet->getDelegate()->getStyle($cellRangeForHeadingsOfData)->getAlignment()->setVertical(Alignment::VERTICAL_TOP)->setHorizontal(Alignment::HORIZONTAL_CENTER);
-                $event->sheet->getDelegate()->getStyle('J9')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER)->setHorizontal(Alignment::HORIZONTAL_CENTER);
+                // $event->sheet->getDelegate()->getStyle('J9')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER)->setHorizontal(Alignment::HORIZONTAL_CENTER);
+                $event->sheet->getDelegate()->getStyle('A9:A23')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER)->setHorizontal(Alignment::HORIZONTAL_LEFT);
                 // $event->sheet->getDelegate()->getStyle('B5')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER)->setHorizontal(Alignment::HORIZONTAL_CENTER);
                 // $event->sheet->getDelegate()->getStyle('F5')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER)->setHorizontal(Alignment::HORIZONTAL_CENTER);
                 // $event->sheet->getDelegate()->getStyle('G5')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER)->setHorizontal(Alignment::HORIZONTAL_CENTER);
@@ -203,7 +204,12 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
                 $event->sheet->getDelegate()->getRowDimension('5')->setRowHeight(40);
                 $event->sheet->getDelegate()->getRowDimension('7')->setRowHeight(90);
                 $event->sheet->getDelegate()->getColumnDimension('F')->setWidth(20);
-                $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(12);
+                $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(14);
+                $event->sheet->getDelegate()->getColumnDimension('B')->setWidth(10);
+                $event->sheet->getDelegate()->getColumnDimension('G')->setWidth(12);
+                $event->sheet->getDelegate()->getColumnDimension('H')->setWidth(12);
+                $event->sheet->getDelegate()->getColumnDimension('I')->setWidth(9);
+                $event->sheet->getDelegate()->getColumnDimension('J')->setWidth(9);
                
                 //freeze row
                 $event->sheet->getDelegate()->freezePane('A8');
