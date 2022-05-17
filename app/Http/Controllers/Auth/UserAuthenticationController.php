@@ -16,7 +16,7 @@ class UserAuthenticationController extends Controller
     public function index()
     {
 
-        return view('index');
+        return view('auth.login_page');
     }
 
     public function login(Request $request)
@@ -50,7 +50,7 @@ class UserAuthenticationController extends Controller
 
     public function showRegistrationForm()
     {
-        return view('register');
+        return view('auth.register');
     }
 
 

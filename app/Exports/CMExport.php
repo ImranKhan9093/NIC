@@ -134,7 +134,8 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
                 $event->sheet->setCellValue('K23','=SUM(K9:K22)');
                 $event->sheet->setCellValue('L23','=SUM(L9:L22)');
                 $event->sheet->setCellValue('E23','=((C23)*100)/(B23)');
-                      
+                //endassigning titles to cells
+            
                 //KM operational
                 $sum=0;
               
@@ -146,7 +147,7 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
                     }
                 }
                 $event->sheet->setCellValue('F23',$sum);
-
+                //endKM operational
 
             
                 //assigning headings for data
@@ -163,8 +164,9 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
                 $event->sheet->setCellValue('K7','Total number of SHGs formed in the district');
                 $event->sheet->setCellValue('L7','Total number of SHGs got credit linkage');
                 
-
+                //endassigning headings for data
                 
+                //font size and styling
                 $cellRangeForTitles = 'A5:k5';
                 $cellRangeForHeadingsOfData='A7:L7';
                 $event->sheet->getDelegate()->getStyle($cellRangeForTitles)->getFont()->setSize(14);
