@@ -23,7 +23,10 @@ class UserAuthenticationController extends Controller
     {
         $credentials = $request->validate([
             'name' => ['required', 'string'],
+            // 'email'=>['required','email','exists:users,email'],
             'password' => ['required', 'min:5', 'max:15'],
+        ],[
+            'email.exists'=>'The entered email is not registered in the database'
         ]);
 
 
