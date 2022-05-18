@@ -50,7 +50,7 @@ body {
     <div class="container-fluid clearfix">
         <div class="row">
             <div class="col-xl-3 col-lg-3  col-md-3 text-left"><img style="height:70%; width:15%;" src="{{ URL('assets/img/Emblem_of_India.png') }}" class="emblem" /></div>
-            <div class="col-xl-6 col-lg-6  col-md-6 text-center  mt-3 mb-3"><h1>54 point CM Report</h1></div>
+            <div class="col-xl-6 col-lg-6  col-md-6 text-center  mt-3 mb-3"><h1>54 point Chief Minister Report</h1></div>
             <div class="col-xl-3 col-lg-3  col-md-3 text-right"><img style="height:80%; width:20%;"  src="{{ URL('assets/img/Mamata-Banerjee.png') }}" class="img-fluid wbimg" /></div>
         </div>
     </div>
@@ -58,18 +58,20 @@ body {
 
 @yield('content')
 
-<footer>
     <div class="copyright-w3layouts py-xl-3 py-2 mt-xl-5 mt-4 text-center">
         <p>Designed and developed by 
-            <a href="#"> Nic,Jalpaiguri </a>
+            <a href="http://jalpaiguri.gov.in/nic"> Nic,Jalpaiguri </a>
         </p>
     </div>
-</footer>
+
 
 @yield('scripts')
 <script src="{{ URL('js/bootstrap.min.js') }}"></script>
 <!-- //Js for bootstrap working -->
 <script src="{{ URL('js/script.js') }}"></script>
+
+<script src="{{ URL('js/jQuery.min.js') }}"></script>
+
 
 
 </body>

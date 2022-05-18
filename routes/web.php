@@ -25,7 +25,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['guest'])->group(function () {
-    Route::get('/', [UserAuthenticationController::class,'index'])->name('index');
+    Route::view('/','home')->name('home');
+    Route::get('/loginPage', [UserAuthenticationController::class,'index'])->name('index');
     Route::get('/showRegistrationForm',[UserAuthenticationController::class,'showRegistrationForm'])->name('showRegistrationForm');
     Route::post('/register',[UserAuthenticationController::class,'register'])->name('register');
     Route::post('/login',[UserAuthenticationController::class,'login'])->name('login');

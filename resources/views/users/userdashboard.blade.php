@@ -2,6 +2,12 @@
 @section('title', 'user dashboard')
 @section('style')
     <link rel="stylesheet" href="{{ URL('css/user_dashboard/dropdown.css') }}">
+    <style>
+           .carouselSize {
+            height: 65%;
+            
+        }
+    </style>
 @endsection
 
 
@@ -18,7 +24,7 @@
                             <li class=""><a href="#">{{ $menu->menu }}</a>
                                 <ul class="firstch">
                                     @foreach ($submenus[$menu->menu_cd] as $submenu)
-                                        <li>
+                                        <li style="margin-bottom:4px;">
                                             <a href="{{ route("users.$submenu->link") }}">{{ $submenu->submenu }}</a>
                                         </li>
                                     @endforeach
@@ -35,9 +41,16 @@
             </nav>
         </div>
     </div>
+    
+    @include('common_carousel')
 @endsection
 @section('scripts')
-<script src="{{ URL('js/jquery-3.5.1.slim.min.js') }}"></script>
 
-<script src="{{ URL('js/bootstrap.bundle.min.js') }}"></script>
+
+    <script src="{{ URL('js/jQuery.min.js') }}"></script>
+
+
+
+
+
 @endsection
