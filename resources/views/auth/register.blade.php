@@ -16,6 +16,16 @@
 <div class="agileits">
     <div class="w3-agileits-info">
         <p class="w3agileits">Register Here</p>
+        @if (session()->has('error'))
+        <div class="alert alert-danger">
+            <span>{{ session()->get('error') }}</span>
+        </div>
+    @endif
+    @if (session()->has('success'))
+        <div class="alert alert-success">
+            <span>{{ session()->get('success') }}</span>
+        </div>
+    @endif
         <form class='form animate-form' id='form1' action="{{ route('register') }}" method="post">
             @csrf
             <div class='form-group has-feedback w3ls'>

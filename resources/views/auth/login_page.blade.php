@@ -44,6 +44,11 @@
         </form>
     </div>	
 </div>	
+
+
+@endsection
+@section('scripts')
+<script src="{{ URL('js/sweet-alert.js') }}"></script>
 @if (session()->has('error'))
     <script>
         swal({
@@ -53,10 +58,6 @@
         });
     </script>
 @endif
-@endsection
-@section('scripts')
-<script src="{{ URL('js/sweet-alert.js') }}"></script>
-
 
     
 @endsection
