@@ -7,6 +7,7 @@
             height: 65%;
             
         }
+    
     </style>
 @endsection
 

@@ -5,6 +5,10 @@
     .error{
         color: red ;
     }
+    .form{
+        background-color: rgb(23, 183, 170);
+        
+    }
 </style>
     
 @endsection

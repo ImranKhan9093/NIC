@@ -10,7 +10,17 @@
         .footer_item_size {
             height: 50px;
         }
-    
+        .page-footer{
+            height: 50px;
+        }
+       
+       .sign-in{
+            margin-bottom: 30px !important;
+       }
+       .carousel-image-size{
+        width: 100%;
+        height: 750px;
+       }
 
     </style>
 
@@ -22,7 +32,7 @@
 
 
     
-<footer class="page-footer font-small mdb-color lighten-3 pt-4 " >
+<footer class="page-footer font-small mdb-color lighten-3 pt-4  " >
 
     <!-- Footer Elements -->
     <div class="container" >
@@ -35,7 +45,7 @@
   
           <!--Image-->
           <div class="view overlay z-depth-1-half" >
-            <img  src="{{ URL('assets/logos/kcc.png') }}" class="img-fluid " />
+            <img  src="{{ URL('assets/logos/kcc.png') }}" class="img-fluid footer_item_size" />
               <div class="mask rgba-white-light"></div>
             
           </div>
@@ -47,8 +57,8 @@
         <div class="col-lg-2 col-md-6 mb-4">
   
           <!--Image-->
-          <div class="view overlay z-depth-1-half footer_item_size">
-            <img  src="{{ URL('assets/logos/kisan_mandi.png') }}" class="img-fluid " />
+          <div class="view overlay z-depth-1-half ">
+            <img  src="{{ URL('assets/logos/kisan_mandi.png') }}" class="img-fluid footer_item_size" />
               <div class="mask rgba-white-light"></div>
           
           </div>
@@ -58,8 +68,8 @@
         <div class="col-lg-2 col-md-12 mb-4" style="padding-top: 26px" >
   
        
-            <div class="view overlay z-depth-1-hal footer_item_size" >
-             <a  class="img-fluid btn btn-primary" href="{{ route('index') }}">Sign in</a>
+            <div   class="view overlay z-depth-1-hal " >
+             <a  class=" btn btn-primary sign_in" href="{{ route('index') }}">Sign in</a>
                 <div class="mask rgba-white-light"></div>
               
             </div>
@@ -69,8 +79,8 @@
         <div class="col-lg-2 col-md-6 mb-4">
   
           <!--Image-->
-          <div class="view overlay z-depth-1-half footer_item_size">
-            <img  src="{{ URL('assets/logos/anandadhara.jpg') }}" class="img-fluid " />
+          <div class="view overlay z-depth-1-half ">
+            <img  src="{{ URL('assets/logos/anandadhara.jpg') }}" class="img-fluid footer_item_size" />
               <div class="mask rgba-white-light"></div>
            
           </div>
@@ -82,8 +92,8 @@
         <div class="col-lg-2 col-md-12 mb-4">
   
           <!--Image-->
-          <div class="view overlay z-depth-1-half footer_item_size">
-            <img  src="{{ URL('assets/logos/mgnrega.png') }}" class="img-fluid " />
+          <div class="view overlay z-depth-1-half ">
+            <img  src="{{ URL('assets/logos/mgnrega.png') }}" class="img-fluid footer_item_size " />
               <div class="mask rgba-white-light"></div>
            
           </div>

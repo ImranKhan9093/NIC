@@ -5,6 +5,13 @@
     .error{
         color: red ;
     }
+    .form{
+        background-color: rgb(23, 183, 170);
+    }
+    .footer_margin{
+        margin-top: 120px !important;
+    }
+  
 </style>
     
 @endsection

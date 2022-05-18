@@ -38,11 +38,17 @@ body {
     
 
     background-attachment: fixed;
-	background:url(images/loginbg.jpg) no-repeat;
+	
 	background-position:center center;
 	background-size:cover;	 
 }
-.pageheader{background:#11547b; color:#fff;}
+.pageheader{
+    background:rgb(12, 142, 12); color:#fff;
+    }
+    .copyright-w3layouts{
+        overflow: hidden !important;
+    }
+   
 </style>
 </head>
 <body>
@@ -58,7 +64,7 @@ body {
 
 @yield('content')
 
-    <div class="copyright-w3layouts py-xl-3 py-2 mt-xl-5 mt-4 text-center">
+    <div class="copyright-w3layouts py-xl-3 py-2 mt-xl-5 mt-4 text-center footer_margin">
         <p>Designed and developed by 
             <a href="http://jalpaiguri.gov.in/nic"> Nic,Jalpaiguri </a>
         </p>

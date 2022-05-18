@@ -8,7 +8,7 @@
         </ol>
         <div class="carousel-inner ">
             <div class="carousel-item active carouselSize">
-                <img src="{{ URL('assets/img/kcc.jpg') }}" class="d-block w-100" alt="...">
+                <img src="{{ URL('assets/img/kcc.jpg') }}" class="d-block w-100 carousel-image-size" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Kisan credit card</h5>
                     <p>Kisan Credit Card Yojana is a scheme that offers short-term, revolving credit to farmers across
@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="carousel-item carouselSize">
-                <img src="{{ URL('assets/img/km.jpg') }}" class="d-block w-100" alt="...">
+                <img src="{{ URL('assets/img/km.jpg') }}" class="d-block w-100 carousel-image-size" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Kisan mandi</h5>
                     <p>Kisan Mandi is an online platform operated by the Small Farmers Agribusiness Consortium (SFAC)
@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="carousel-item carouselSize">
-                <img src="{{ URL('assets/img/anandadhara.jpg') }}" class="d-block w-100" alt="...">
+                <img src="{{ URL('assets/img/anandadhara.jpg') }}" class="d-block w-100 carousel-image-size" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Anandadhara </h5>
                     <p>The Government of India has launched The National Rural Livelihoods Mission (NRLM) under the
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="carousel-item carouselSize">
-                <img src="{{ URL('assets/img/mgnrega.png') }}" class="d-block w-100" alt="...">
+                <img src="{{ URL('assets/img/mgnrega.png') }}" class="d-block w-100 carousel-image-size" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Mgnrega</h5>
                     <p>The MGNREGA was initiated with the objective of “enhancing livelihood security in rural areas by
