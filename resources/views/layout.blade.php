@@ -56,7 +56,7 @@ body {
     <div class="container-fluid clearfix">
         <div class="row">
             <div class="col-xl-3 col-lg-3  col-md-3 text-left"><img style="height:70%; width:15%;" src="{{ URL('assets/img/Emblem_of_India.png') }}" class="emblem" /></div>
-            <div class="col-xl-6 col-lg-6  col-md-6 text-center  mt-3 mb-3"><h1>54 point Chief Minister Report</h1></div>
+            <div class="col-xl-6 col-lg-6  col-md-6 text-center  mt-3 mb-3"><h1>54 Point Chief Minister Report</h1></div>
             <div class="col-xl-3 col-lg-3  col-md-3 text-right"><img style="height:80%; width:20%;"  src="{{ URL('assets/img/Mamata-Banerjee.png') }}" class="img-fluid wbimg" /></div>
         </div>
     </div>
@@ -73,7 +73,7 @@ body {
 
 @yield('scripts')
 <script src="{{ URL('js/bootstrap.min.js') }}"></script>
-<!-- //Js for bootstrap working -->
+
 <script src="{{ URL('js/script.js') }}"></script>
 
 <script src="{{ URL('js/jQuery.min.js') }}"></script>

@@ -64,8 +64,9 @@
             <div class='submit w3-agile'>
                 <input class='btn btn-lg' type='submit' value='SUBMIT'>
             </div>
-            <a href="{{ route('index') }}" style="color:white;">I hava an account</a>
+           
         </form>
+        <a href="{{ route('index') }}" style="color:black;">I hava an account</a>
     </div>	
 </div>	
 @endsection

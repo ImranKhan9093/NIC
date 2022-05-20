@@ -40,15 +40,22 @@
             <div class='submit w3-agile'>
                 <input class='btn btn-lg' type='submit' value='SUBMIT'>
             </div>
-            <a href="{{ route('showRegistrationForm') }}" style="color:white;">Dont have an account? Register here</a>
+            
         </form>
+        <a href="{{ route('showRegistrationForm') }}" style="color:black;">Dont have an account? Register here</a>
     </div>	
 </div>	
 
 
 @endsection
+
+
+
 @section('scripts')
 <script src="{{ URL('js/sweet-alert.js') }}"></script>
+@once
+    
+@endonce
 @if (session()->has('error'))
     <script>
         swal({
