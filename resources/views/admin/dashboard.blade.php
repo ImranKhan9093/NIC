@@ -55,7 +55,7 @@
                                         </td>
 
                                         <td>
-                                            {{-- <a href="{{ route('admin.usermanagement.update',$unapprovedUser->id) }}" onclick="event.preventDefault();document.getElementById('approveForm').submit();">Approve user</a> --}}
+                                            
                                             <form action="{{ route('admin.usermanagement.update', $unapprovedUser->id) }}"
                                                 method="POST" id="approveForm">
                                                 @csrf
@@ -73,78 +73,74 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title"> Approved users</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-primary">
-                                    <th>
-                                        Id
-                                    </th>
-                                    <th>
-                                        Name
-                                    </th>
-                                    <th>
-                                        Email
-                                    </th>
-                                    <th>
-                                        User Type
-                                    </th>
-                                    <th>
-                                        Is approved status
-                                    </th>
-                                    <th>
-                                        Action
-                                    </th>
-                                </thead>
-                                <tbody>
-                                    @foreach ($approvedUsers as $approvedUser)
-                                        <tr>
-                                            <td>
-                                                {{ $approvedUser->id }}
-                                            </td>
-                                            <td>
-                                                {{ $approvedUser->name }}
-                                            </td>
-                                            <td>
-                                                {{ $approvedUser->email }}
-                                            </td>
-                                            <td>
-                                                {{ $approvedUser->usertype }}
-                                            </td>
-                                            <td>
-                                                {{ $approvedUser->is_approved?'Approved':'' }}
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('admin.usermanagement.edit',$approvedUser->id) }}">Give role to user</a>
-                                        
-                                            </td>
-
-                                        </tr>
-                                    @endforeach
-
-                                </tbody>
-                            </table>
+        <div style="width: 99%;">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title"> Approved users</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class=" text-primary">
+                                        <th>
+                                            Id
+                                        </th>
+                                        <th>
+                                            Name
+                                        </th>
+                                        <th>
+                                            Email
+                                        </th>
+                                        <th>
+                                            User Type
+                                        </th>
+                                        <th>
+                                            Is approved status
+                                        </th>
+                                        <th>
+                                            Action
+                                        </th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($approvedUsers as $approvedUser)
+                                            <tr>
+                                                <td>
+                                                    {{ $approvedUser->id }}
+                                                </td>
+                                                <td>
+                                                    {{ $approvedUser->name }}
+                                                </td>
+                                                <td>
+                                                    {{ $approvedUser->email }}
+                                                </td>
+                                                <td>
+                                                    {{ $approvedUser->usertype }}
+                                                </td>
+                                                <td>
+                                                    {{ $approvedUser->is_approved?'Approved':'' }}
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('admin.usermanagement.edit',$approvedUser->id) }}">Give role to user</a>
+                                            
+                                                </td>
+    
+                                            </tr>
+                                        @endforeach
+    
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
+        </div>
+        
             </div>
         @endsection
 
         @section('scripts')
-        @if (session()->has('success'))
-        <script>
-                swal({
-                title: "{{ session()->get('success') }}",
-                icon: "{{ session()->get('sweetAlertIcon') }}",
-                button: "Ok",
-        });
-        </script>
+      
             
-        @endif
+       
         @endsection

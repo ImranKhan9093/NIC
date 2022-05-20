@@ -26,6 +26,8 @@
             <span>{{ session()->get('success') }}</span>
         </div>
     @endif
+    <div class="formDiv">
+
         <form class='form animate-form' id='form1' action="{{ route('register') }}" method="post">
             @csrf
             <div class='form-group has-feedback w3ls'>
@@ -64,9 +66,10 @@
             <div class='submit w3-agile'>
                 <input class='btn btn-lg' type='submit' value='SUBMIT'>
             </div>
-           
         </form>
+    </div>
         <a href="{{ route('index') }}" style="color:black;">I hava an account</a>
+        
     </div>	
 </div>	
 @endsection

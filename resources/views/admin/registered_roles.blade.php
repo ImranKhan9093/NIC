@@ -63,7 +63,7 @@
                                             {{ $user->email }}
                                         </td>
                                         <td>
-                                            {{ $user->usertype ?? 'No role assigned' }}
+                                            {{-- {{ $user->usertype ?? 'No role assigned' }} --}}
                                         </td>
                                         <td>
                                             {{-- <a href="{{ route('admin.editRoles', $user->id) }}"

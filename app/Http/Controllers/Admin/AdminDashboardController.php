@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminDashboardController extends Controller
 {
@@ -21,6 +22,10 @@ class AdminDashboardController extends Controller
                              ->get();
         $unapprovedUsers=User::where('is_approved','=',0)
                              ->get();
+        if(session()->has('success')){
+            Alert::success('Success!', session()->pull('success'));
+
+        }                     
         return view('admin.dashboard',compact('approvedUsers','unapprovedUsers'));                                          
     }
 
@@ -81,8 +86,8 @@ class AdminDashboardController extends Controller
          
          $usermanagement->is_approved=true;
          $usermanagement->update();
-         session()->flash('sweetAlertIcon','info');
-         return back()->with('success','user approved');
+        
+         return redirect()->route('admin.usermanagement.index')->with('success','user approved');
     }
 
     /**
@@ -117,7 +122,7 @@ class AdminDashboardController extends Controller
                     ]);
        } 
         if($inserted){
-            session()->flash('sweetAlertIcon','info');
+            
             return redirect()->route('admin.usermanagement.index')->with('success','Role updated');
         }      
               

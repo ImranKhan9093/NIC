@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 
 class UserAuthenticationController extends Controller
@@ -15,7 +17,10 @@ class UserAuthenticationController extends Controller
 
     public function index()
     {
+        if(session()->has('error')){
+            Alert::warning('Warning!', session()->pull('error'));
 
+        }
         return view('auth.login_page');
     }
 
@@ -36,7 +41,7 @@ class UserAuthenticationController extends Controller
                 Auth::logout();
                 $request->session()->invalidate();
                 $request->session()->regenerateToken();
-                session()->flash('sweetAlertIcon', 'warning');
+               
                 return redirect()->route('index')->with('error', 'You are not yet approved by admin');
                 
             } else if (Auth::user()->usertype === 'admin') {
