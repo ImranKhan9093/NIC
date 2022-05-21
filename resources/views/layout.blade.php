@@ -90,17 +90,17 @@
     </div>
 
 
-    <script src="{{ URL('js/bootstrap.min.js') }}"></script>
-
-    <script src="{{ URL('js/script.js') }}"></script>
-
-    <script src="{{ URL('js/jQuery.min.js') }}"></script>
+   
     @include('sweetalert::alert')
     @yield('scripts')
 
 
 
+    <script src="{{ URL('js/bootstrap.min.js') }}"></script>
 
+    <script src="{{ URL('js/script.js') }}"></script>
+
+    <script src="{{ URL('js/jQuery.min.js') }}"></script>
 
 </body>
 

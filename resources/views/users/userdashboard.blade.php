@@ -46,12 +46,7 @@
     @include('common_carousel')
 @endsection
 @section('scripts')
-
-
+    
     <script src="{{ URL('js/jQuery.min.js') }}"></script>
-
-
-
-
 
 @endsection

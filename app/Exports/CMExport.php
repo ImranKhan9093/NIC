@@ -125,16 +125,19 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
                 $event->sheet->setCellValue('G5','MGNREGS');
                 $event->sheet->setCellValue('K5','Anandadhara');
                 $event->sheet->setCellValue('A23','Grand Total of District');
+                //endassigning titles to cells
+
+                //calculation  
                 $event->sheet->setCellValue('B23','=SUM(B9:B22)');
                 $event->sheet->setCellValue('C23','=SUM(C9:C22)');
                 $event->sheet->setCellValue('D23','=SUM(D9:D22)');
                 $event->sheet->setCellValue('G23','=SUM(G9:G22)');
-                $event->sheet->setCellValue('H23','=SUM(H9:H22)');
+    
                 $event->sheet->setCellValue('I23','=SUM(I9:I22)');
                 $event->sheet->setCellValue('K23','=SUM(K9:K22)');
                 $event->sheet->setCellValue('L23','=SUM(L9:L22)');
                 $event->sheet->setCellValue('E23','=((C23)*100)/(B23)');
-                //endassigning titles to cells
+              
             
                 //KM operational
                 $sum=0;
@@ -149,7 +152,18 @@ class CMExport implements WithHeadings,WithEvents,WithStyles,FromCollection,With
                 $event->sheet->setCellValue('F23',$sum);
                 //endKM operational
 
-            
+               //mgnrega average data
+                   $count=0;
+                   for($i=9;$i<=14;$i++){
+                     if($event->sheet->getDelegate()->getCell('H'.$i)->getValue()!=null){
+                         $count++;
+                     }   
+                   }
+                   $event->sheet->setCellValue('H23',"=SUM(H9:H22)/$count");
+
+               //endmgnrega average data
+
+
                 //assigning headings for data
                 $event->sheet->setCellValue('A7','Name of the block/Municipality');
                 $event->sheet->setCellValue('B7','Target(New)');
