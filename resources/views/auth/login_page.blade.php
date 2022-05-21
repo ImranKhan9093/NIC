@@ -53,6 +53,7 @@
 
 @section('scripts')
 <script type="text/javascript" src="{{ URL('js/jQuery.min.js') }}"></script>
-<script src="{{ URL('assets/js/sweet-alert.js') }}"></script>
+<script src="{{ URL('js/bootstrap.min.js') }}"></script>
+
 
 @endsection
