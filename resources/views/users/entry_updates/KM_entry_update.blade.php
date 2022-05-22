@@ -144,7 +144,7 @@
                                 $('#KM_sanctioned').val(result['KM_sanctioned']);
                                 $('#submit').html('Update');
                             } else {
-                                $('#target').val(null);
+                                $('#KM_sanctioned').val(null);
                                 $('#KM_operational').val(null);
                                 $('#Percentage_sponsored').val(null);
                                 $('#submit').html('Insert');
