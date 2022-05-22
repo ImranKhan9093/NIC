@@ -98,7 +98,7 @@ class KishanMandiController extends Controller
             if ($inserted) {
                 return redirect()->back()->with('success', 'Data submitted successfully');
             } else {
-                return redirect()->back()->with('fail', 'Failed to submitt data');
+                return redirect()->back()->with('fail', 'No changes to made to existing  data');
             }
     }
  
