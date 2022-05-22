@@ -175,9 +175,9 @@
                                 $('#avg_persondays_per_household').val(result[
                                     'avg_persondays_per_household']);
                                 $('#percentage_of_labour_budget_achieved').val(result[
-                                    'expenditure_made_under_mgnrega']);
-                                $('#expenditure_made_under_mgnrega').val(result[
                                     'percentage_of_labour_budget_achieved']);
+                                $('#expenditure_made_under_mgnrega').val(result[
+                                    'expenditure_made_under_mgnrega']);
                                 $('#submit').html('Update');
                             } else {
                                 $('#tot_person_days_generate').val(null);
