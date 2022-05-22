@@ -27,11 +27,12 @@ class UserAuthenticationController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'name' => ['required', 'string'],
+            'name' => ['required', 'string','exists:users,name'],
             // 'email'=>['required','email','exists:users,email'],
             'password' => ['required', 'min:5', 'max:15'],
         ],[
-            'email.exists'=>'The entered email is not registered in the database'
+            'name.exists'=>'The entered username is not registered in the database',
+            'email.exists'=>'The entered email is not registered in the database', 
         ]);
 
 
@@ -71,7 +72,7 @@ class UserAuthenticationController extends Controller
             'password' => ['required', 'min:5', 'max:15'],
             'cpassword' => ['required', 'min:5', 'max:15', 'same:password'],
         ], [
-            'cpassword.same' => 'Confirm password field must the password field',
+            'cpassword.same' => 'Confirm password field must be the same as password field',
         ]);
 
         $user = new User();

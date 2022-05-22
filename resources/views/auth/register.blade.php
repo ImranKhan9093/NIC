@@ -74,6 +74,13 @@
 </div>	
 @endsection
 @section('scripts')
-
+<script type="text/javascript" src="{{ URL('js/jQuery.min.js') }}"></script>
+ <script  defer type="text/javascript">
+    $(document).ready(function () {
+        setTimeout(() => {
+               $('div.alert').slideUp();
+            }, 1800);
+    });
+</script>
     
 @endsection

@@ -101,7 +101,9 @@
         });
 
         $(document).ready(function() {
-
+            setTimeout(() => {
+               $('div.alert').slideUp();
+            }, 1800);
 
             $('#month,#year,#district,#subdivision,#municipality').on('change', function() {
                 var monthDataExists = $('#month').val();

@@ -48,5 +48,6 @@
 @section('scripts')
     
     <script src="{{ URL('js/jQuery.min.js') }}"></script>
+    <script src="{{ URL('js/bootstrap.min.js') }}"></script>
 
 @endsection

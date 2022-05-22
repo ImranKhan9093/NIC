@@ -4,7 +4,7 @@
     <style>
         .carouselSize {
             height: 65%;
-            /* opacity: .7; */
+         
         }
 
         .footer_item_size {
@@ -17,10 +17,7 @@
         width: 100%;
         height: 750px;
        }
-       .footer{
-         margin-top:7px;
-         
-       }
+     
        #sign_in{
          margin-top: 8px;
        }
