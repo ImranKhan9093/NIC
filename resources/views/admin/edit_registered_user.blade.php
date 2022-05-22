@@ -17,8 +17,21 @@
 
                     </div>
                     <div class="card-body">
+                        <h6>Current roles of the user</h6>
+                       <div class="row">
+                         @if ($rolesForUser!=null)
+                            @foreach ( $rolesForUser as $role )
+                                 <p style="margin-right: 20px; margin-left:15px;">{{ $role }}</p> 
+                             @endforeach
+                          @else
+                             <p>No roles assigned to the user</p>
+                        @endif
+                       </div>
                         <div class="row">
+                       
                             <div class="col-md-6">
+                                
+                          
                                 <form action="{{ route('admin.updateRole', $usermanagement->id) }}" method="POST">
                                     
                                     @csrf

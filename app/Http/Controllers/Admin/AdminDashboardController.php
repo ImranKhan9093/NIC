@@ -25,6 +25,9 @@ class AdminDashboardController extends Controller
         if(session()->has('success')){
             Alert::success('Success!', session()->pull('success'));
 
+        }
+        if(session()->has('error')){
+        Alert::warning('Warning!',session()->pull('error'));
         }                     
         return view('admin.dashboard',compact('approvedUsers','unapprovedUsers'));                                          
     }
@@ -69,9 +72,16 @@ class AdminDashboardController extends Controller
      */
     public function edit(User $usermanagement)
     {   $menus=DB::table('menu')
-                ->orderBy('menu')
+                 ->orderBy('menu')
                  ->pluck('menu','menu_cd');
-        return view('admin.edit_registered_user',compact('usermanagement','menus'));
+        $rolesForUser= DB::table('user_permission')
+                    ->distinct()
+                    ->join('menu', 'menu.menu_cd', '=', 'user_permission.menu_cd')
+                    ->where('user_permission.user_cd', '=', $usermanagement->id)
+                    ->pluck('menu.menu');
+                   
+        
+        return view('admin.edit_registered_user',compact('usermanagement','menus','rolesForUser'));
     }
 
     /**
@@ -101,30 +111,58 @@ class AdminDashboardController extends Controller
         //
     }
     public function updateRole(Request $request,User $user){
+
           $menuCd=$request->post('role');
-        //   dd($menuCd);
+
           $submenusWithReceivedMenuCd=DB::table('submenu')
-                                     ->where('menu_cd','=',$menuCd)
-                                     ->pluck('submenu_cd');
-        //   dd($submenusWithReceivedMenuCd);
+                                    ->where('menu_cd','=',$menuCd)
+                                    ->first();
+                        
+           if($submenusWithReceivedMenuCd==null){
+               return redirect()->route('admin.usermanagement.index')->with('error','No submenus for selected menu');
+           }
 
-        
-        // dd(count($submenusWithReceivedMenuCd));
-        // dd($submenusWithReceivedMenuCd[0]);
-        $inserted=null; 
-       for($i=0;$i<count($submenusWithReceivedMenuCd);$i++){
 
-           $inserted=DB::table('user_permission')
-                    ->insert([
-                        'user_cd'=>$user->id,
-                        'menu_cd'=>$menuCd,
-                        'submenu_cd'=>$submenusWithReceivedMenuCd[$i],
-                    ]);
-       } 
-        if($inserted){
-            
-            return redirect()->route('admin.usermanagement.index')->with('success','Role updated');
-        }      
+            $roleAlreadyGiven= DB::table('user_permission')
+                               ->where('user_permission.user_cd', '=', $user->id)
+                               ->where('user_permission.menu_cd','=',$menuCd)
+                               ->first();
+                          
+          if($roleAlreadyGiven){
+            return redirect()->route('admin.usermanagement.index')->with('error','Selected role already exists for the user');
+          }else{
+
+            $submenusWithReceivedMenuCd=DB::table('submenu')
+                                        ->where('menu_cd','=',$menuCd)
+                                        ->pluck('submenu_cd');
+
+            if($submenusWithReceivedMenuCd){
+
+               $inserted=false; 
+                 for($i=0;$i<count($submenusWithReceivedMenuCd);$i++){
+
+                $inserted=DB::table('user_permission')
+                       ->insert([
+                                   'user_cd'=>$user->id,
+                                   'menu_cd'=>$menuCd,
+                                   'submenu_cd'=>$submenusWithReceivedMenuCd[$i],
+                              ]);
+            } 
+            if($inserted){
+
+                  return redirect()->route('admin.usermanagement.index')->with('success','Role updated');
+            } 
+            else{
+                return redirect()->route('admin.usermanagement.index')->with('error','Failed to update role');
+            }     
+            }                       
+
+
+          }   
+
+
+         
+       
               
     }
 }
