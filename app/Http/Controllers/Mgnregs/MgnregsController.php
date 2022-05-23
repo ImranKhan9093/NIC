@@ -87,6 +87,11 @@ class MgnregsController extends Controller
             "blockminicd" => $request->post('municipality'),
             "reporting_month" => $request->post('month'),
             "reporting_year" => $request->post('year'),
+            "tot_person_days_generate" => $request->post('tot_person_days_generate'),
+            "KCC_sponsored" => $request->post('KCC_sponsored'),
+            "avg_persondays_per_household" => $request->post('avg_persondays_per_household'),
+            "expenditure_made_under_mgnrega" => $request->post('expenditure_made_under_mgnrega'),
+            "percentage_of_labour_budget_achieved" => $request->post('percentage_of_labour_budget_achieved'),
 
         ];
 

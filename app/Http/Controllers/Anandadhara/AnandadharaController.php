@@ -89,6 +89,8 @@ class AnandadharaController extends Controller
             "blockminicd" => $request->post('municipality'),
             "reporting_month" => $request->post('month'),
             "reporting_year" => $request->post('year'),
+            "tot_SHGs_formed" => $request->post('tot_SHGs_formed'),
+            "tot_SHGs_credit_linkage" => $request->post('tot_SHGs_credit_linkage'),
 
         ];
 
@@ -98,7 +100,6 @@ class AnandadharaController extends Controller
                  "subdivisioncd" => $request->post('subdivision'),
                  "blockminicd" => $request->post('municipality'),
                  "reporting_month" => $request->post('month'),
-                 // "reporting_year" => date("Y"),
                  "reporting_year" => $request->post('year'),
                  "tot_SHGs_formed" => $request->post('tot_SHGs_formed'),
                  "tot_SHGs_credit_linkage" => $request->post('tot_SHGs_credit_linkage'),

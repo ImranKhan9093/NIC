@@ -89,6 +89,11 @@ class KccController extends Controller
              "blockminicd" => $request->post('municipality'),
              "reporting_month" => $request->post('month'),
              "reporting_year" => $request->post('year'),
+             "KCC_target" => $request->post('target'),
+             "KCC_sponsored" => $request->post('kcc_sponsored'),
+             "KCC_sanctioned" => $request->post('kcc_sanctioned'),
+             "Percentage_sponsored" => $percentageSponsored,
+             
 
          ];
 
@@ -109,7 +114,7 @@ class KccController extends Controller
                                  "posted_date" => date("Y/m/d"),
 
                              ]);
-
+           
                              if ($inserted) {
                                 return redirect()->back()->with('success', 'Data submitted successfully');
                             } else {

@@ -13,6 +13,9 @@ $(document).ready(function () {
         $('#municipality').append(
          '<option value="">Select Municipality</option>');
 
+         $('#subdivision').empty();
+         $('#subdivision').append('<option value="">Select Subdivision</option>');
+         
         let districtId = $(this).val();
     
         if (districtId) {

@@ -77,6 +77,8 @@ class KishanMandiController extends Controller
             "blockminicd" => $request->post('municipality'),
             "reporting_month" => $request->post('month'),
             "reporting_year" => $request->post('year'),
+            "KM_operational" => $request->post('KM_operational'),
+            "KM_sanctioned" => $request->post('KM_sanctioned'),
 
         ];
 
