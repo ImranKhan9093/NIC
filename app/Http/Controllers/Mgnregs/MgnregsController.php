@@ -95,29 +95,60 @@ class MgnregsController extends Controller
 
         ];
 
+        $dataAlreadyExists=DB::table('mgnregs')
+                        ->where($conditions)
+                        ->first();
 
-        $inserted = DB::table('mgnregs')
-            ->updateOrInsert( $conditions,[
-                "districtcd" => $request->post('district'),
-                "subdivisioncd" => $request->post('subdivision'),
-                "blockminicd" => $request->post('municipality'),
-                "reporting_month" => $request->post('month'),
-                "reporting_year" => $request->post('year'),
-                "tot_person_days_generate" => $request->post('tot_person_days_generate'),
-                "KCC_sponsored" => $request->post('KCC_sponsored'),
-                "avg_persondays_per_household" => $request->post('avg_persondays_per_household'),
-                "expenditure_made_under_mgnrega" => $request->post('expenditure_made_under_mgnrega'),
-                "percentage_of_labour_budget_achieved" => $request->post('percentage_of_labour_budget_achieved'),
-                "user_code" => auth()->user()->id,
-                "posted_date" => date("Y/m/d"),
+        if($dataAlreadyExists){
+            $updated= DB::table('mgnregs')
+                   ->where($conditions)
+                    ->update([
+                        "districtcd" => $request->post('district'),
+                        "subdivisioncd" => $request->post('subdivision'),
+                        "blockminicd" => $request->post('municipality'),
+                        "reporting_month" => $request->post('month'),
+                        "reporting_year" => $request->post('year'),
+                        "tot_person_days_generate" => $request->post('tot_person_days_generate'),
+                        "KCC_sponsored" => $request->post('KCC_sponsored'),
+                        "avg_persondays_per_household" => $request->post('avg_persondays_per_household'),
+                        "expenditure_made_under_mgnrega" => $request->post('expenditure_made_under_mgnrega'),
+                        "percentage_of_labour_budget_achieved" => $request->post('percentage_of_labour_budget_achieved'),
+                        "user_code" => auth()->user()->id,
+                        "posted_date" => date("Y/m/d"),
 
-            ]);
+                 ]);
+             if($updated){
+                  return redirect()->back()->with('success', 'Data updated successfully');
+             }    
+             else{
+               return redirect()->back()->with('fail', 'No changes to made to existing  data');
+             }
+       }else{
+         $inserted=  DB::table('kishan_credit_card')
+                     ->insert([
+                        "districtcd" => $request->post('district'),
+                        "subdivisioncd" => $request->post('subdivision'),
+                        "blockminicd" => $request->post('municipality'),
+                        "reporting_month" => $request->post('month'),
+                        "reporting_year" => $request->post('year'),
+                        "tot_person_days_generate" => $request->post('tot_person_days_generate'),
+                        "KCC_sponsored" => $request->post('KCC_sponsored'),
+                        "avg_persondays_per_household" => $request->post('avg_persondays_per_household'),
+                        "expenditure_made_under_mgnrega" => $request->post('expenditure_made_under_mgnrega'),
+                        "percentage_of_labour_budget_achieved" => $request->post('percentage_of_labour_budget_achieved'),
+                        "user_code" => auth()->user()->id,
+                        "posted_date" => date("Y/m/d"),
+                      ]);
+                 if($inserted){
+                   return redirect()->back()->with('success', 'Data inserted successfully');
+                 } 
+                 else{
+                   return redirect()->back()->with('fail', 'Failed to insert data');
+                 }    
+       }
 
-        if ($inserted) {
-            return redirect()->back()->with('success', 'Data inserted successfully');
-        } else {
-            return redirect()->back()->with('fail', 'No changes to made to existing  data');
-        }
+
+    
     }
  
      
@@ -133,7 +164,6 @@ class MgnregsController extends Controller
                             ->join('subdivision', 'subdivision.subdivisioncd', '=', 'mgnregs.subdivisioncd')
                             ->join('block_muni', 'block_muni.blockminicd', '=', 'mgnregs.blockminicd')
                             ->join('month_tbl', 'month_tbl.month', '=', 'mgnregs.reporting_month')
-                            //   ->where('reporting_month','=',$currentMonth)
                             ->where('user_code', '=', auth()->user()->id)
                             ->get();
 

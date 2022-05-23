@@ -94,25 +94,57 @@ class AnandadharaController extends Controller
 
         ];
 
-         $inserted = DB::table('anandadhara')
-             ->updateOrInsert($conditions,[
-                 "districtcd" => $request->post('district'),
-                 "subdivisioncd" => $request->post('subdivision'),
-                 "blockminicd" => $request->post('municipality'),
-                 "reporting_month" => $request->post('month'),
-                 "reporting_year" => $request->post('year'),
-                 "tot_SHGs_formed" => $request->post('tot_SHGs_formed'),
-                 "tot_SHGs_credit_linkage" => $request->post('tot_SHGs_credit_linkage'),
-                 "user_code" => auth()->user()->id,
-                 "posted_date" => date("Y/m/d"),
+        
+           
+             $dataAlreadyExists=DB::table('anandadhara')
+             ->where($conditions)
+             ->first();
 
-             ]);
 
-             if ($inserted) {
-                return redirect()->back()->with('success', 'Data submitted successfully');
-            } else {
+                if($dataAlreadyExists){
+                $updated= DB::table('anandadhara')
+                ->where($conditions)
+                ->update([
+                    "districtcd" => $request->post('district'),
+                    "subdivisioncd" => $request->post('subdivision'),
+                    "blockminicd" => $request->post('municipality'),
+                    "reporting_month" => $request->post('month'),
+                    "reporting_year" => $request->post('year'),
+                    "tot_SHGs_formed" => $request->post('tot_SHGs_formed'),
+                    "tot_SHGs_credit_linkage" => $request->post('tot_SHGs_credit_linkage'),
+                    "user_code" => auth()->user()->id,
+                    "posted_date" => date("Y/m/d"),
+
+                ]);
+                if($updated){
+                return redirect()->back()->with('success', 'Data updated successfully');
+                }    
+                else{
                 return redirect()->back()->with('fail', 'No changes to made to existing  data');
-            }
+                }
+                }else{
+                $inserted=  DB::table('kishan_credit_card')
+                ->insert([
+                    "districtcd" => $request->post('district'),
+                    "subdivisioncd" => $request->post('subdivision'),
+                    "blockminicd" => $request->post('municipality'),
+                    "reporting_month" => $request->post('month'),
+                    "reporting_year" => $request->post('year'),
+                    "tot_SHGs_formed" => $request->post('tot_SHGs_formed'),
+                    "tot_SHGs_credit_linkage" => $request->post('tot_SHGs_credit_linkage'),
+                    "user_code" => auth()->user()->id,
+                    "posted_date" => date("Y/m/d"),
+                    ]);
+                if($inserted){
+                return redirect()->back()->with('success', 'Data inserted successfully');
+                } 
+                else{
+                return redirect()->back()->with('fail', 'Failed to insert data');
+                }    
+                }
+
+             
+            
      } 
 
       

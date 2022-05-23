@@ -2,8 +2,8 @@
 @section('title', 'KCC Entry update')
 @section('style')
 
- <link rel="stylesheet" href="{{ URL('css/bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ URL('css/entry_update/insert_form.css') }}"> 
+    <link rel="stylesheet" href="{{ URL('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ URL('css/entry_update/insert_form.css') }}">
 
 @endsection
 
@@ -19,24 +19,8 @@
                 </div>
             </div>
             <div class="col-md-9">
-                @if (session()->has('success'))
-                    <div class="alert alert-success">
-                        <span>
-                            {{ session()->get('success') }}
-                        </span>
-                    </div>
-                @endif
-                @if (session()->has('fail'))
-                    <div class="alert alert-danger">
-                        <span>
-                            {{ session()->get('fail') }}
-                        </span>
-                    </div>
-                @endif
 
-                    <div class="" id="dataAlreadyExists">
 
-                    </div>
 
                 <div class="contact-form">
                     <form action="{{ route('users.insertKcc') }}" method="POST">
@@ -84,98 +68,114 @@
                         </div>
                     </form>
                 </div>
+                @if (session()->has('success'))
+                    <div class="alert alert-success">
+                        <span>
+                            {{ session()->get('success') }}
+                        </span>
+                    </div>
+                @endif
+                @if (session()->has('fail'))
+                    <div class="alert alert-danger">
+                        <span>
+                            {{ session()->get('fail') }}
+                        </span>
+                    </div>
+                @endif
+                <div class="" id="dataAlreadyExists">
+
+                </div>
             </div>
         </div>
     </div>
 
-    
-  
+
+
 
 
 @endsection
 
 @section('scripts')
-    <script  type="text/javascript" src="{{ URL('js/jQuery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL('js/jQuery.min.js') }}"></script>
 
-    <script defer type="text/javascript" src="{{ URL('js/dropdown.js') }}"> </script>
+    <script defer type="text/javascript" src="{{ URL('js/dropdown.js') }}"></script>
 
-    <script defer  type="text/javascript" >
-
+    <script defer type="text/javascript">
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
-        $(document).ready(function()
-        {
+        $(document).ready(function() {
             setTimeout(() => {
-               $('div.alert').slideUp();
+                $('div.alert').slideUp();
             }, 1800);
-           
 
-            $('#month,#year,#district,#subdivision,#municipality').on('change',function(){
-                var monthDataExists=$('#month').val();
-                var districtDataExists=$('#district').val();
-                var subdivisionDataExists=$('#subdivision').val();
-                var municipalityDataExists=$('#municipality').val();
-                var yearDataExists=$('#year').val();
 
-                if(monthDataExists&&districtDataExists&&subdivisionDataExists&&municipalityDataExists&&yearDataExists){
+            $('#month,#year,#district,#subdivision,#municipality').on('change', function() {
+                var monthDataExists = $('#month').val();
+                var districtDataExists = $('#district').val();
+                var subdivisionDataExists = $('#subdivision').val();
+                var municipalityDataExists = $('#municipality').val();
+                var yearDataExists = $('#year').val();
+
+                if (monthDataExists && districtDataExists && subdivisionDataExists &&
+                    municipalityDataExists && yearDataExists) {
                     $('#dataAlreadyExists').removeClass('alert alert-danger');
                     $('#dataAlreadyExists').empty();
                     $.ajax({
-                            url: '/users/checkkccData',
-                            type: "POST",
-                            data: {
-                                district: districtDataExists,
-                                subdivision:subdivisionDataExists,
-                                municipality:municipalityDataExists,
-                                month:monthDataExists,
-                                year:yearDataExists,
-                            },
-                            success: function (result) {
-                            
-                            if(result){
+                        url: '/users/checkkccData',
+                        type: "POST",
+                        data: {
+                            district: districtDataExists,
+                            subdivision: subdivisionDataExists,
+                            municipality: municipalityDataExists,
+                            month: monthDataExists,
+                            year: yearDataExists,
+                        },
+                        success: function(result) {
+
+                            if (result) {
                                 $('#dataAlreadyExists').addClass('alert alert-danger');
 
-                                $('#dataAlreadyExists').append('<span>Data for the entered district subdivision block already exists for this month</span>');
+                                $('#dataAlreadyExists').append(
+                                    '<span>Data for the entered district subdivision block already exists for this month</span>'
+                                    );
                                 $('#dataAlreadyExists').show();
 
-                                $('#dataAlreadyExists').slideUp(1800);
+                                setTimeout(() => {
+                                    $('#dataAlreadyExists').slideUp();
+                                }, 5000);
 
 
-                            $('#target').val(result['KCC_target']);
-                            $('#kcc_sanctioned').val(result['KCC_sanctioned']);
-                            $('#kcc_sponsored').val(result['KCC_sponsored']);
-                            $('#submit').html('Update');
-                            }
-                            else{
+                                $('#target').val(result['KCC_target']);
+                                $('#kcc_sanctioned').val(result['KCC_sanctioned']);
+                                $('#kcc_sponsored').val(result['KCC_sponsored']);
+                                $('#submit').html('Update');
+                            } else {
                                 $('#target').val(null);
                                 $('#kcc_sanctioned').val(null);
                                 $('#kcc_sponsored').val(null);
                                 $('#submit').html('Insert');
                             }
 
-                            },
-                            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                alert("Status: " + textStatus);
-                                alert("Error: " + errorThrown);
-                            },
-                        });
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus);
+                            alert("Error: " + errorThrown);
+                        },
+                    });
 
                 }
 
-        });    
-        
-        
-        
+            });
+
+
+
 
 
         });
-
-
-
     </script>
 
 

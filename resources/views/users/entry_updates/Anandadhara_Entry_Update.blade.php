@@ -22,23 +22,8 @@
                 </div>
             </div>
             <div class="col-md-9">
-                @if (session()->has('success'))
-                    <div class="alert alert-success">
-                        <span>
-                            {{ session()->get('success') }}
-                        </span>
-                    </div>
-                @endif
-                @if (session()->has('fail'))
-                    <div class="alert alert-danger">
-                        <span>
-                            {{ session()->get('fail') }}
-                        </span>
-                    </div>
-                @endif
-                <div class="" id="dataAlreadyExists">
 
-                </div>
+
                 <div class="contact-form">
                     <form action="{{ route('users.insertAnandhara') }}" method="POST">
                         @csrf
@@ -77,6 +62,24 @@
                         </div>
                     </form>
                 </div>
+                @if (session()->has('success'))
+                    <div class="alert alert-success">
+                        <span>
+                            {{ session()->pull('success') }}
+                        </span>
+                    </div>
+                @endif
+                @if (session()->has('fail'))
+                    <div class="alert alert-danger">
+                        <span>
+                            {{ session()->pull('fail') }}
+
+                        </span>
+                    </div>
+                @endif
+                <div class="" id="dataAlreadyExists">
+
+                </div>
             </div>
         </div>
     </div>
@@ -87,7 +90,7 @@
 @section('scripts')
     <script type="text/javascript" src="{{ URL('js/jQuery.min.js') }}"></script>
 
-    <script defer type="text/javascript" src="{{ URL('js/dropdown.js') }}"> </script>
+    <script defer type="text/javascript" src="{{ URL('js/dropdown.js') }}"></script>
 
     <script defer type="text/javascript">
         $.ajaxSetup({
@@ -99,9 +102,9 @@
         $(document).ready(function() {
 
             setTimeout(() => {
-               $('div.alert').slideUp();
-            }, 1800);
-            
+                $('div.alert').slideUp();
+            }, 5000);
+
             $('#month,#year,#district,#subdivision,#municipality').on('change', function() {
                 var monthDataExists = $('#month').val();
                 var districtDataExists = $('#district').val();
@@ -130,10 +133,12 @@
 
                                 $('#dataAlreadyExists').append(
                                     '<span>Data for the entered district subdivision block already exists for this month</span>'
-                                    );
+                                );
                                 $('#dataAlreadyExists').show();
 
-                                $('#dataAlreadyExists').slideUp(1800);
+                                setTimeout(() => {
+                                    $('#dataAlreadyExists').slideUp();
+                                }, 5000);
 
 
                                 $('#tot_SHGs').val(result['tot_SHGs_formed']);
@@ -156,7 +161,7 @@
                 }
 
             });
-           
+
 
 
 

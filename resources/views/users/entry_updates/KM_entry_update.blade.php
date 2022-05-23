@@ -8,10 +8,7 @@
 @endsection
 
 @section('content')
-    {{-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --}}
-    <!------ Include the above in your HEAD tag ---------->
+
 
     <div class="container contact">
         <div class="row">
@@ -22,23 +19,8 @@
                 </div>
             </div>
             <div class="col-md-9">
-                @if (session()->has('success'))
-                    <div class="alert alert-success">
-                        <span>
-                            {{ session()->get('success') }}
-                        </span>
-                    </div>
-                @endif
-                @if (session()->has('fail'))
-                    <div class="alert alert-danger">
-                        <span>
-                            {{ session()->get('fail') }}
-                        </span>
-                    </div>
-                @endif
-                <div class="" id="dataAlreadyExists">
 
-                </div>
+
                 <div class="contact-form">
                     <form action="{{ route('users.insertKishanMandi') }}" method="POST">
                         @csrf
@@ -82,6 +64,23 @@
                         </div>
                     </form>
                 </div>
+                @if (session()->has('success'))
+                    <div class="alert alert-success">
+                        <span>
+                            {{ session()->get('success') }}
+                        </span>
+                    </div>
+                @endif
+                @if (session()->has('fail'))
+                    <div class="alert alert-danger">
+                        <span>
+                            {{ session()->get('fail') }}
+                        </span>
+                    </div>
+                @endif
+                <div class="" id="dataAlreadyExists">
+
+                </div>
             </div>
         </div>
     </div>
@@ -91,7 +90,7 @@
 @section('scripts')
     <script type="text/javascript" src="{{ URL('js/jQuery.min.js') }}"></script>
 
-    <script defer type="text/javascript" src="{{ URL('js/dropdown.js') }}"> </script>
+    <script defer type="text/javascript" src="{{ URL('js/dropdown.js') }}"></script>
 
     <script defer type="text/javascript">
         $.ajaxSetup({
@@ -102,7 +101,7 @@
 
         $(document).ready(function() {
             setTimeout(() => {
-               $('div.alert').slideUp();
+                $('div.alert').slideUp();
             }, 1800);
 
             $('#month,#year,#district,#subdivision,#municipality').on('change', function() {
@@ -133,10 +132,12 @@
 
                                 $('#dataAlreadyExists').append(
                                     '<span>Data for the entered district subdivision block already exists for this month</span>'
-                                    );
+                                );
                                 $('#dataAlreadyExists').show();
 
-                                $('#dataAlreadyExists').slideUp(1800);
+                                setTimeout(() => {
+                                    $('#dataAlreadyExists').slideUp();
+                                }, 5000);
 
 
 
@@ -160,7 +161,7 @@
                 }
 
             });
-           
+
 
 
         });
