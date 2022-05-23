@@ -47,6 +47,7 @@
             <th>ToT person days generate</th>
             <th>Kcc Sponsored</th>
             <th>Avg persondays per household</th>
+            <th>Expenditure made under mgnrega</th>
             <th>Percentage of labour budget achieved</th>
             <th>User</th>
             <th>Posted Date</th>
@@ -63,6 +64,7 @@
                 <td>{{ $report->tot_person_days_generate }}</td>
                 <td>{{ $report->KCC_sponsored }}</td>
                 <td>{{ $report->avg_persondays_per_household }}</td>
+                <td>{{ $report->expenditure_made_under_mgnrega }}</td>
                 <td>{{ number_format($report->percentage_of_labour_budget_achieved, 2) }}%</td>
                 <td>{{ $report->name }}</td>
                 <td>{{ $report->posted_date }}</td>

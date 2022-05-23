@@ -156,7 +156,7 @@ class MgnregsController extends Controller
     public function MGNREGS_report()
     {
         $mgnregsReport = DB::table('mgnregs')
-            ->select('district.district', 'subdivision.subdivision', 'block_muni.blockmuni', 'month_tbl.month_name', 'mgnregs.reporting_year', 'mgnregs.tot_person_days_generate', 'mgnregs.KCC_sponsored', 'mgnregs.avg_persondays_per_household', 'mgnregs.percentage_of_labour_budget_achieved', 'mgnregs.posted_date', 'users.name')
+            ->select('district.district', 'subdivision.subdivision', 'block_muni.blockmuni', 'month_tbl.month_name', 'mgnregs.reporting_year', 'mgnregs.tot_person_days_generate', 'mgnregs.KCC_sponsored','mgnregs.expenditure_made_under_mgnrega', 'mgnregs.avg_persondays_per_household', 'mgnregs.percentage_of_labour_budget_achieved', 'mgnregs.posted_date', 'users.name')
             ->join('users', 'users.id', '=', 'mgnregs.user_code')
             ->join('district', 'district.districtcd', '=', 'mgnregs.districtcd')
             ->join('subdivision', 'subdivision.subdivisioncd', '=', 'mgnregs.subdivisioncd')
