@@ -17,9 +17,15 @@ class UserAuthenticationController extends Controller
 
     public function index()
     {
-        if(session()->has('error')){
+        if (session()->has('error')) {
             Alert::warning('Warning!', session()->pull('error'));
-
+            header('Cache-Control: no-store, private, no-cache, must-revalidate');
+            header('Cache-Control: pre-check=0, post-check=0, max-age=0, max-stale = 0', false);
+            header('Pragma: public');
+            header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');
+            header('Expires: 0', false);
+            header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+            header('Pragma: no-cache');
         }
         return view('auth.login_page');
     }
@@ -27,24 +33,23 @@ class UserAuthenticationController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'name' => ['required', 'string','exists:users,name'],
+            'name' => ['required', 'string', 'exists:users,name'],
             // 'email'=>['required','email','exists:users,email'],
             'password' => ['required', 'min:5', 'max:15'],
-        ],[
-            'name.exists'=>'The entered username is not registered in the database',
-            'email.exists'=>'The entered email is not registered in the database', 
+        ], [
+            'name.exists' => 'The entered username is not registered in the database',
+            'email.exists' => 'The entered email is not registered in the database',
         ]);
 
 
         if (Auth::attempt($credentials)) {
-            if (!Auth::user()->is_approved ) {
+            if (!Auth::user()->is_approved) {
 
                 Auth::logout();
                 $request->session()->invalidate();
                 $request->session()->regenerateToken();
-               
+
                 return redirect()->route('index')->with('error', 'You are not yet approved by admin');
-                
             } else if (Auth::user()->usertype === 'admin') {
                 return redirect()->intended(route('admin.usermanagement.index'));
             } else {

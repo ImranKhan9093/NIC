@@ -17,19 +17,25 @@ class AdminDashboardController extends Controller
      */
     public function index()
     {
-        $approvedUsers=User::where('is_approved','!=',0)
-                             ->where('usertype','!=','admin')
-                             ->get();
-        $unapprovedUsers=User::where('is_approved','=',0)
-                             ->get();
-        if(session()->has('success')){
+        $approvedUsers = User::where('is_approved', '!=', 0)
+            ->where('usertype', '!=', 'admin')
+            ->get();
+        $unapprovedUsers = User::where('is_approved', '=', 0)
+            ->get();
+        if (session()->has('success')) {
             Alert::success('Success!', session()->pull('success'));
-
         }
-        if(session()->has('error')){
-        Alert::warning('Warning!',session()->pull('error'));
-        }                     
-        return view('admin.dashboard',compact('approvedUsers','unapprovedUsers'));                                          
+        if (session()->has('error')) {
+            Alert::warning('Warning!', session()->pull('error'));
+        }
+        header('Cache-Control: no-store, private, no-cache, must-revalidate');
+        header('Cache-Control: pre-check=0, post-check=0, max-age=0, max-stale = 0', false);
+        header('Pragma: public');
+        header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');
+        header('Expires: 0', false);
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+        header('Pragma: no-cache');
+        return view('admin.dashboard', compact('approvedUsers', 'unapprovedUsers'));
     }
 
     /**
@@ -71,17 +77,18 @@ class AdminDashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(User $usermanagement)
-    {   $menus=DB::table('menu')
-                 ->orderBy('menu')
-                 ->pluck('menu','menu_cd');
-        $rolesForUser= DB::table('user_permission')
-                    ->distinct()
-                    ->join('menu', 'menu.menu_cd', '=', 'user_permission.menu_cd')
-                    ->where('user_permission.user_cd', '=', $usermanagement->id)
-                    ->pluck('menu.menu');
-                   
-        
-        return view('admin.edit_registered_user',compact('usermanagement','menus','rolesForUser'));
+    {
+        $menus = DB::table('menu')
+            ->orderBy('menu')
+            ->pluck('menu', 'menu_cd');
+        $rolesForUser = DB::table('user_permission')
+            ->distinct()
+            ->join('menu', 'menu.menu_cd', '=', 'user_permission.menu_cd')
+            ->where('user_permission.user_cd', '=', $usermanagement->id)
+            ->pluck('menu.menu');
+
+
+        return view('admin.edit_registered_user', compact('usermanagement', 'menus', 'rolesForUser'));
     }
 
     /**
@@ -91,13 +98,13 @@ class AdminDashboardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,User $usermanagement)
+    public function update(Request $request, User $usermanagement)
     {
-         
-         $usermanagement->is_approved=true;
-         $usermanagement->update();
-        
-         return redirect()->route('admin.usermanagement.index')->with('success','user approved');
+
+        $usermanagement->is_approved = true;
+        $usermanagement->update();
+
+        return redirect()->route('admin.usermanagement.index')->with('success', 'user approved');
     }
 
     /**
@@ -110,59 +117,52 @@ class AdminDashboardController extends Controller
     {
         //
     }
-    public function updateRole(Request $request,User $user){
+    public function updateRole(Request $request, User $user)
+    {
 
-          $menuCd=$request->post('role');
+        $menuCd = $request->post('role');
 
-          $submenusWithReceivedMenuCd=DB::table('submenu')
-                                    ->where('menu_cd','=',$menuCd)
-                                    ->first();
-                        
-           if($submenusWithReceivedMenuCd==null){
-               return redirect()->route('admin.usermanagement.index')->with('error','No submenus for selected menu');
-           }
+        $submenusWithReceivedMenuCd = DB::table('submenu')
+                                        ->where('menu_cd', '=', $menuCd)
+                                        ->first();
 
-
-            $roleAlreadyGiven= DB::table('user_permission')
-                               ->where('user_permission.user_cd', '=', $user->id)
-                               ->where('user_permission.menu_cd','=',$menuCd)
-                               ->first();
-                          
-          if($roleAlreadyGiven){
-            return redirect()->route('admin.usermanagement.index')->with('error','Selected role already exists for the user');
-          }else{
-
-            $submenusWithReceivedMenuCd=DB::table('submenu')
-                                        ->where('menu_cd','=',$menuCd)
-                                        ->pluck('submenu_cd');
-
-            if($submenusWithReceivedMenuCd){
-
-               $inserted=false; 
-                 for($i=0;$i<count($submenusWithReceivedMenuCd);$i++){
-
-                $inserted=DB::table('user_permission')
-                       ->insert([
-                                   'user_cd'=>$user->id,
-                                   'menu_cd'=>$menuCd,
-                                   'submenu_cd'=>$submenusWithReceivedMenuCd[$i],
-                              ]);
-            } 
-            if($inserted){
-
-                  return redirect()->route('admin.usermanagement.index')->with('success','Role updated');
-            } 
-            else{
-                return redirect()->route('admin.usermanagement.index')->with('error','Failed to update role');
-            }     
-            }                       
+        if ($submenusWithReceivedMenuCd == null) {
+            return redirect()->route('admin.usermanagement.index')->with('error', 'No submenus for selected menu');
+        }
 
 
-          }   
+        $roleAlreadyGiven = DB::table('user_permission')
+                                ->where('user_permission.user_cd', '=', $user->id)
+                                ->where('user_permission.menu_cd', '=', $menuCd)
+                                ->first();
 
+        if ($roleAlreadyGiven) {
+            return redirect()->route('admin.usermanagement.index')->with('error', 'Selected role already exists for the user');
+        } else {
 
-         
-       
-              
+            $submenusWithReceivedMenuCd = DB::table('submenu')
+                ->where('menu_cd', '=', $menuCd)
+                ->pluck('submenu_cd');
+
+            if ($submenusWithReceivedMenuCd) {
+
+                $inserted = false;
+                for ($i = 0; $i < count($submenusWithReceivedMenuCd); $i++) {
+
+                    $inserted = DB::table('user_permission')
+                        ->insert([
+                            'user_cd' => $user->id,
+                            'menu_cd' => $menuCd,
+                            'submenu_cd' => $submenusWithReceivedMenuCd[$i],
+                        ]);
+                }
+                if ($inserted) {
+
+                    return redirect()->route('admin.usermanagement.index')->with('success', 'Role updated');
+                } else {
+                    return redirect()->route('admin.usermanagement.index')->with('error', 'Failed to update role');
+                }
+            }
+        }
     }
 }

@@ -9,8 +9,6 @@
         <script src="{{ $cdn ?? asset('vendor/sweetalert/sweetalert.all.js')  }}"></script>
     @endif
     <script>
-        Swal.fire({!! Session::pull('alert.config') !!}).then(function(){
-            window.location.reload(window.location.href);
-        });
+        Swal.fire({!! Session::pull('alert.config') !!});
     </script>
 @endif

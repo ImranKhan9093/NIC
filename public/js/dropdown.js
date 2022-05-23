@@ -2,24 +2,25 @@
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
+    },
+    cache: false,
 });
 
 $(document).ready(function () {
-   
+
     $('#district').on('change', function (e) {
-        
+
         $('#municipality').empty();
         $('#municipality').append(
-         '<option value="">Select Municipality</option>');
+            '<option value="">Select Municipality</option>');
 
-         $('#subdivision').empty();
-         $('#subdivision').append('<option value="">Select Subdivision</option>');
-         
+        $('#subdivision').empty();
+        $('#subdivision').append('<option value="">Select Subdivision</option>');
+
         let districtId = $(this).val();
-    
+
         if (districtId) {
-        
+
             $.ajax({
                 url: '/users/getSubdivision',
                 type: "POST",
@@ -27,7 +28,7 @@ $(document).ready(function () {
                     districtId: districtId,
                 },
                 success: function (result) {
-                   
+
                     if (result) {
 
                         $('#subdivision').empty();
@@ -45,7 +46,7 @@ $(document).ready(function () {
                         $('#municipality').empty();
                         $('#municipality').append(
                             '<option value="">Select Municipality</option>');
-                        
+
                     }
 
                 },
@@ -103,9 +104,9 @@ $(document).ready(function () {
                 },
             });
         } else {
-           $('#municipality').empty();
-           $('#municipality').append(
-            '<option value="">Select Municipality</option>');
+            $('#municipality').empty();
+            $('#municipality').append(
+                '<option value="">Select Municipality</option>');
 
         }
 
