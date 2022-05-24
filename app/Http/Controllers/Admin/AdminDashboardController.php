@@ -10,11 +10,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminDashboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+  
     public function index()
     {
         $approvedUsers = User::where('is_approved', '!=', 0)
@@ -38,44 +34,25 @@ class AdminDashboardController extends Controller
         return view('admin.dashboard', compact('approvedUsers', 'unapprovedUsers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+  
     public function create()
     {
-        //
+       
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
+        
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(User $usermanagement)
     {
-        //
+        
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function edit(User $usermanagement)
     {
         $menus = DB::table('menu')
@@ -91,13 +68,7 @@ class AdminDashboardController extends Controller
         return view('admin.edit_registered_user', compact('usermanagement', 'menus', 'rolesForUser'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, User $usermanagement)
     {
 
@@ -107,15 +78,10 @@ class AdminDashboardController extends Controller
         return redirect()->route('admin.usermanagement.index')->with('success', 'user approved');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(User $usermanagement)
     {
-        //
+    
     }
     public function updateRole(Request $request, User $user)
     {

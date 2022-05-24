@@ -5,9 +5,14 @@
     <style>
            .carouselSize {
             height: 65%;
-            
+
         }
-    
+        .carousel-image-size{
+        width: 100%;
+        height: 600px;
+       }
+
+
     </style>
 @endsection
 
@@ -42,11 +47,11 @@
             </nav>
         </div>
     </div>
-    
+
     @include('common_carousel')
 @endsection
 @section('scripts')
-    
+
     <script src="{{ URL('js/jQuery.min.js') }}"></script>
     <script src="{{ URL('js/bootstrap.min.js') }}"></script>
 

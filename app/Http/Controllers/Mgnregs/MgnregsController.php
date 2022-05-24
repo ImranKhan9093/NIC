@@ -73,8 +73,7 @@ class MgnregsController extends Controller
 
     public function insertMgnregs(Request $request)
     {
-        //return redirect()->back()->with('success', 'Data inserted successfully');
-        //dd( $request);
+       
         $request->validate([
             'district' => 'exists:district,districtcd',
             'subdivision' => 'exists:subdivision,subdivisioncd',

@@ -11,11 +11,6 @@ use App\Http\Controllers\Controller;
 class KccController extends Controller
 {
 
-
-
-
-
-
     public function KCC_entry_update()
     {
 
@@ -74,7 +69,7 @@ class KccController extends Controller
     //code for inserting data into tables
     public function insertToKccTable(Request $request)
     {
-        //  dd($request->all());
+        
 
         $request->validate([
             'district' => 'exists:district,districtcd',

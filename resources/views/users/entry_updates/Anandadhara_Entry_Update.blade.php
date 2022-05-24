@@ -10,9 +10,6 @@
 
 @section('content')
 
-
-    <!------ Include the above in your HEAD tag ---------->
-
     <div class="container contact">
         <div class="row">
             <div class="col-md-3">

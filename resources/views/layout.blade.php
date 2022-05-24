@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
+
     <meta name='csrf_token' content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     <script type="application/x-javascript">
@@ -71,9 +71,9 @@
                 <div class="col-xl-3 col-lg-3  col-md-3 text-left"><img style="height:70%; width:15%;"
                         src="{{ URL('assets/img/Emblem_of_India.png') }}" class="emblem" /></div>
                 <div class="col-xl-6 col-lg-6  col-md-6 text-center  mt-3 mb-3">
-                    <h1>54 Point Chief Minister Report</h1>
+                    <h1>54 Point Chief Minister's Report</h1>
                 </div>
-                <div class="col-xl-3 col-lg-3  col-md-3 text-right"><img style="height:80%; width:20%;"
+                <div class="col-xl-3 col-lg-3  col-md-3 text-right"><img style="height:80%; width:30%;"
                         src="{{ URL('assets/img/Mamata-Banerjee.png') }}" class="img-fluid wbimg" /></div>
             </div>
         </div>
@@ -90,7 +90,7 @@
     </div>
 
 
-   
+
     @include('sweetalert::alert')
     @yield('scripts')
 

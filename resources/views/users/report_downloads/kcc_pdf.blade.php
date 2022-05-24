@@ -41,10 +41,10 @@
             <th>Blockmuni</th>
             <th>Reporting Month</th>
             <th>Reporting year</th>
-            <th>Kcc Target</th>
-            <th>Kcc Sponsored</th>
-            <th>Kcc Sanctioned</th>
-            <th>Precentage Sponsored</th>
+            <th>KCC Target</th>
+            <th>KCC Sponsored</th>
+            <th>KCC Sanctioned</th>
+            <th>Percentage Sponsored</th>
             <th>User</th>
             <th>Posted Date</th>
         </tr>

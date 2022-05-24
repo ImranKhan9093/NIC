@@ -8,10 +8,10 @@
         </ol>
         <div class="carousel-inner ">
             <div class="carousel-item active carouselSize">
-                <img src="{{ URL('assets/img/kcc.jpg') }}" class="d-block w-100 carousel-image-size" alt="...">
+                <img src="{{ URL('assets/img/kcc.jpeg') }}" class="d-block w-100 carousel-image-size" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Kisan credit card</h5>
-                    <p>Kisan Credit Card Yojana is a scheme that offers short-term, revolving credit to farmers across
+                    <p >Kisan Credit Card Yojana is a scheme that offers short-term, revolving credit to farmers across
                         India. It was launched in August 1998 in a bid to mitigate any financial shortcoming experienced
                         by farmers during crop cultivation, harvesting, and maintenance of their produce.</p>
                 </div>
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="carousel-item carouselSize">
-                <img src="{{ URL('assets/img/mgnrega.png') }}" class="d-block w-100 carousel-image-size" alt="...">
+                <img src="{{ URL('assets/img/mgnrega.jpeg') }}" class="d-block w-100 carousel-image-size" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Mgnrega</h5>
                     <p>The MGNREGA was initiated with the objective of “enhancing livelihood security in rural areas by

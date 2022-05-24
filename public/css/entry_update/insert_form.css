@@ -1,5 +1,5 @@
 body {
-    background-color: #25274d;
+    background-color: #ffffff;
 }
 
 .contact {
@@ -8,7 +8,7 @@ body {
 }
 
 .col-md-3 {
-    background: #ff9b00;
+    background: #298624;
     padding: 4%;
     border-top-left-radius: 0.5rem;
     border-bottom-left-radius: 0.5rem;
@@ -27,7 +27,7 @@ body {
 }
 
 .col-md-9 {
-    background: #fff;
+    background: rgb(155, 228, 144);
     padding: 3%;
     border-top-right-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
