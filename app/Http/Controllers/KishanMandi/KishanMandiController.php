@@ -93,26 +93,29 @@ class KishanMandiController extends Controller
             ->first();
 
         if ($dataAlreadyExists) {
-            $updated = DB::table('kishan_mandi')
-                ->where($conditions)
-                ->update([
-                    "KM_operational" => $request->post('KM_operational'),
-                    "KM_sanctioned" => $request->post('KM_sanctioned'),
-                ]);
-            if ($updated) {
+
+            if (
+                $dataAlreadyExists->KM_operational != $request->post('KM_operational')
+                || $dataAlreadyExists->KM_sanctioned != $request->post('KM_sanctioned')
+            ) {
+
                 $updated = DB::table('kishan_mandi')
                     ->where($conditions)
                     ->update([
-                      "user_code" => auth()->user()->id,
-                      "posted_date" => date("Y/m/d"),
+                        "KM_operational" => $request->post('KM_operational'),
+                        "KM_sanctioned" => $request->post('KM_sanctioned'),
+                        "user_code" => auth()->user()->id,
+                        "posted_date" => date("Y/m/d"),
                     ]);
-            if ($updated)       
-                return redirect()->back()->with('success', 'Data updated successfully');
+                if ($updated) {
+
+                    return redirect()->back()->with('success', 'Data updated successfully');
+                }
             } else {
-                return redirect()->back()->with('fail', 'No changes to made to existing  data');
+                return redirect()->back()->with('fail', 'No changes  made to existing  data');
             }
         } else {
-            $inserted =  DB::table('kishan_credit_card')
+            $inserted =  DB::table('kishan_mandi')
                 ->insert([
                     "districtcd" => $request->post('district'),
                     "subdivisioncd" => $request->post('subdivision'),

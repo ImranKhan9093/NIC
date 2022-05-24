@@ -98,7 +98,7 @@ class AnandadharaController extends Controller
             "reporting_month" => $request->post('month'),
             "reporting_year" => $request->post('year'),
         ];
- 
+
 
 
         $dataAlreadyExists = DB::table('anandadhara')
@@ -108,26 +108,28 @@ class AnandadharaController extends Controller
 
         if ($dataAlreadyExists) {
 
-            $updated = DB::table('anandadhara')
-                ->where($conditions)
-                ->update([
-                    "tot_SHGs_formed" => $request->post('tot_SHGs_formed'),
-                    "tot_SHGs_credit_linkage" => $request->post('tot_SHGs_credit_linkage'),
-                ]);
-            if ($updated) {
+            if (
+                $dataAlreadyExists->tot_SHGs_formed != $request->post('tot_SHGs_formed')
+                || $dataAlreadyExists->tot_SHGs_credit_linkage != $request->post('tot_SHGs_credit_linkage')
+            ) {
                 $updated = DB::table('anandadhara')
-                         ->where($conditions)
-                         ->update([
-                            "user_code" => auth()->user()->id,
-                            "posted_date" => date("Y/m/d"),
-                           ]);
-              if ($updated)           
-                return redirect()->back()->with('success', 'Data updated successfully');
+                    ->where($conditions)
+                    ->update([
+                        "tot_SHGs_formed" => $request->post('tot_SHGs_formed'),
+                        "tot_SHGs_credit_linkage" => $request->post('tot_SHGs_credit_linkage'),
+                        "user_code" => auth()->user()->id,
+                        "posted_date" => date("Y/m/d"),
+                    ]);
+
+                if ($updated) {
+
+                    return redirect()->back()->with('success', 'Data updated successfully');
+                }
             } else {
-                return redirect()->back()->with('fail', 'No changes to made to existing  data');
+                return redirect()->back()->with('fail', 'No changes made to existing  data');
             }
         } else {
-            $inserted =  DB::table('kishan_credit_card')
+            $inserted =  DB::table('anandadhara')
                 ->insert([
                     "districtcd" => $request->post('district'),
                     "subdivisioncd" => $request->post('subdivision'),

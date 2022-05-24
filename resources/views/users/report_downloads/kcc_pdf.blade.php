@@ -60,7 +60,7 @@
                 <td>{{ $report->KCC_target }}</td>
                 <td>{{ $report->KCC_sponsored }}</td>
                 <td>{{ $report->KCC_sanctioned }}</td>
-                <td>{{ number_format($report->Percentage_sponsored, 2) }}%</td>
+                <td>{{ number_format($report->Percentage_sponsored, 4) }}%</td>
                 <td>{{ $report->name }}</td>
                 <td>{{ $report->posted_date }}</td>
 

@@ -98,29 +98,35 @@ class MgnregsController extends Controller
 
         if ($dataAlreadyExists) {
 
-            $updated = DB::table('mgnregs')
-                ->where($conditions)
-                ->update([
-                    "tot_person_days_generate" => $request->post('tot_person_days_generate'),
-                    "KCC_sponsored" => $request->post('KCC_sponsored'),
-                    "avg_persondays_per_household" => $request->post('avg_persondays_per_household'),
-                    "expenditure_made_under_mgnrega" => $request->post('expenditure_made_under_mgnrega'),
-                    "percentage_of_labour_budget_achieved" => $request->post('percentage_of_labour_budget_achieved'),
-                ]);
-            if ($updated) {
+            if($dataAlreadyExists->tot_person_days_generate!=$request->post('tot_person_days_generate')
+            ||$dataAlreadyExists->KCC_sponsored!=$request->post('KCC_sponsored')
+            ||$dataAlreadyExists->avg_persondays_per_household!=$request->post('avg_persondays_per_household')
+            ||$dataAlreadyExists->expenditure_made_under_mgnrega!=$request->post('expenditure_made_under_mgnrega')
+            ||$dataAlreadyExists->percentage_of_labour_budget_achieved!=$request->post('percentage_of_labour_budget_achieved')
+            ){
                 $updated = DB::table('mgnregs')
                     ->where($conditions)
                     ->update([
-                       "user_code" => auth()->user()->id,
-                       "posted_date" => date("Y/m/d"),
-                     ]);
-              if ($updated)
-                return redirect()->back()->with('success', 'Data updated successfully');
-            } else {
-                return redirect()->back()->with('fail', 'No changes to made to existing  data');
+                        "tot_person_days_generate" => $request->post('tot_person_days_generate'),
+                        "KCC_sponsored" => $request->post('KCC_sponsored'),
+                        "avg_persondays_per_household" => $request->post('avg_persondays_per_household'),
+                        "expenditure_made_under_mgnrega" => $request->post('expenditure_made_under_mgnrega'),
+                        "percentage_of_labour_budget_achieved" => $request->post('percentage_of_labour_budget_achieved'),
+                        "user_code" => auth()->user()->id,
+                        "posted_date" => date("Y/m/d"),
+                ]);
+                if($updated){
+                    return redirect()->back()->with('success', 'Data updated successfully');
+                }
+            }else{
+                return redirect()->back()->with('fail', 'No changes  made to existing  data');
             }
+
+
+
+           
         } else {
-            $inserted =  DB::table('kishan_credit_card')
+            $inserted =  DB::table('mgnregs')
                 ->insert([
                     "districtcd" => $request->post('district'),
                     "subdivisioncd" => $request->post('subdivision'),

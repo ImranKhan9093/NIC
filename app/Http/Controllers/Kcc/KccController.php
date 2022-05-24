@@ -69,7 +69,7 @@ class KccController extends Controller
     //code for inserting data into tables
     public function insertToKccTable(Request $request)
     {
-        
+
 
         $request->validate([
             'district' => 'exists:district,districtcd',
@@ -95,35 +95,38 @@ class KccController extends Controller
 
         ];
 
-        $percentageSponsored = number_format(($request->post('kcc_sponsored') * 100) / $request->post('target'), 2);
+        $percentageSponsored = number_format(($request->post('kcc_sponsored') * 100) / $request->post('target'), 4);
 
         $dataAlreadyExists = DB::table('kishan_credit_card')
-                            ->where($conditions)
-                            ->first();
-
-
+            ->where($conditions)
+            ->first();
         if ($dataAlreadyExists) {
-            $updated = DB::table('kishan_credit_card')
-                ->where($conditions)
-                ->update([
-                    "KCC_target" => $request->post('target'),
-                    "KCC_sponsored" => $request->post('kcc_sponsored'),
-                    "KCC_sanctioned" => $request->post('kcc_sanctioned'),
-                    "Percentage_sponsored" => $percentageSponsored,
-                ]);
-            if ($updated) {
+            if (
+                $dataAlreadyExists->KCC_target != $request->post('target')
+                || $dataAlreadyExists->KCC_sponsored != $request->post('kcc_sponsored')
+                || $dataAlreadyExists->KCC_sanctioned != $request->post('kcc_sanctioned')
+                || $dataAlreadyExists->Percentage_sponsored != $percentageSponsored
+            ) {
+
                 $updated = DB::table('kishan_credit_card')
-                        ->where($conditions)
-                        ->update([
-                                "user_code" => auth()->user()->id,
-                                "posted_date" => date("Y/m/d"),
-                                ]);
-                if($updated)                
-                  return redirect()->back()->with('success', 'Data updated successfully');
+                    ->where($conditions)
+                    ->update([
+                        "KCC_target" => $request->post('target'),
+                        "KCC_sponsored" => $request->post('kcc_sponsored'),
+                        "KCC_sanctioned" => $request->post('kcc_sanctioned'),
+                        "Percentage_sponsored" => $percentageSponsored,
+                        "user_code" => auth()->user()->id,
+                        "posted_date" => date("Y/m/d"),
+                    ]);
+                if ($updated) {
+                    return redirect()->back()->with('success', 'Data updated successfully');
+                } 
             } else {
-                return redirect()->back()->with('fail', 'No changes to made to existing  data');
+                return redirect()->back()->with('fail', 'No changes  made to existing  data');
             }
         } else {
+
+
             $inserted =  DB::table('kishan_credit_card')
                 ->insert([
                     "districtcd" => $request->post('district'),
