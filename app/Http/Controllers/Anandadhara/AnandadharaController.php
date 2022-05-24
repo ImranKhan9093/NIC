@@ -111,18 +111,17 @@ class AnandadharaController extends Controller
             $updated = DB::table('anandadhara')
                 ->where($conditions)
                 ->update([
-                    "districtcd" => $request->post('district'),
-                    "subdivisioncd" => $request->post('subdivision'),
-                    "blockminicd" => $request->post('municipality'),
-                    "reporting_month" => $request->post('month'),
-                    "reporting_year" => $request->post('year'),
                     "tot_SHGs_formed" => $request->post('tot_SHGs_formed'),
                     "tot_SHGs_credit_linkage" => $request->post('tot_SHGs_credit_linkage'),
-                    "user_code" => auth()->user()->id,
-                    "posted_date" => date("Y/m/d"),
-
                 ]);
             if ($updated) {
+                $updated = DB::table('anandadhara')
+                         ->where($conditions)
+                         ->update([
+                            "user_code" => auth()->user()->id,
+                            "posted_date" => date("Y/m/d"),
+                           ]);
+              if ($updated)           
                 return redirect()->back()->with('success', 'Data updated successfully');
             } else {
                 return redirect()->back()->with('fail', 'No changes to made to existing  data');

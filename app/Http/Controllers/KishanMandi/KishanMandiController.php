@@ -96,18 +96,17 @@ class KishanMandiController extends Controller
             $updated = DB::table('kishan_mandi')
                 ->where($conditions)
                 ->update([
-                    "districtcd" => $request->post('district'),
-                    "subdivisioncd" => $request->post('subdivision'),
-                    "blockminicd" => $request->post('municipality'),
-                    "reporting_month" => $request->post('month'),
-                    "reporting_year" => $request->post('year'),
                     "KM_operational" => $request->post('KM_operational'),
                     "KM_sanctioned" => $request->post('KM_sanctioned'),
-                    "user_code" => auth()->user()->id,
-                    "posted_date" => date("Y/m/d"),
-
                 ]);
             if ($updated) {
+                $updated = DB::table('kishan_mandi')
+                    ->where($conditions)
+                    ->update([
+                      "user_code" => auth()->user()->id,
+                      "posted_date" => date("Y/m/d"),
+                    ]);
+            if ($updated)       
                 return redirect()->back()->with('success', 'Data updated successfully');
             } else {
                 return redirect()->back()->with('fail', 'No changes to made to existing  data');

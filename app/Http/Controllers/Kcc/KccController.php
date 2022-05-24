@@ -98,29 +98,28 @@ class KccController extends Controller
         $percentageSponsored = number_format(($request->post('kcc_sponsored') * 100) / $request->post('target'), 2);
 
         $dataAlreadyExists = DB::table('kishan_credit_card')
-            ->where($conditions)
-            ->first();
+                            ->where($conditions)
+                            ->first();
 
 
         if ($dataAlreadyExists) {
             $updated = DB::table('kishan_credit_card')
                 ->where($conditions)
                 ->update([
-                    "districtcd" => $request->post('district'),
-                    "subdivisioncd" => $request->post('subdivision'),
-                    "blockminicd" => $request->post('municipality'),
-                    "reporting_month" => $request->post('month'),
-                    "reporting_year" => $request->post('year'),
                     "KCC_target" => $request->post('target'),
                     "KCC_sponsored" => $request->post('kcc_sponsored'),
                     "KCC_sanctioned" => $request->post('kcc_sanctioned'),
                     "Percentage_sponsored" => $percentageSponsored,
-                    "user_code" => auth()->user()->id,
-                    "posted_date" => date("Y/m/d"),
-
                 ]);
             if ($updated) {
-                return redirect()->back()->with('success', 'Data updated successfully');
+                $updated = DB::table('kishan_credit_card')
+                        ->where($conditions)
+                        ->update([
+                                "user_code" => auth()->user()->id,
+                                "posted_date" => date("Y/m/d"),
+                                ]);
+                if($updated)                
+                  return redirect()->back()->with('success', 'Data updated successfully');
             } else {
                 return redirect()->back()->with('fail', 'No changes to made to existing  data');
             }

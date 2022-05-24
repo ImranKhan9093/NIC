@@ -84,10 +84,6 @@ class MgnregsController extends Controller
             'KCC_sponsored' => ['required', 'integer', 'min:1'],
         ]);
 
-
-        // $averageData = 2142.5;
-        // $percentageLabour = 69.69;
-
         $conditions = [
             "districtcd" => $request->post('district'),
             "subdivisioncd" => $request->post('subdivision'),
@@ -97,29 +93,28 @@ class MgnregsController extends Controller
         ];
 
         $dataAlreadyExists = DB::table('mgnregs')
-            ->where($conditions)
-            ->first();
+                            ->where($conditions)
+                            ->first();
 
         if ($dataAlreadyExists) {
 
             $updated = DB::table('mgnregs')
                 ->where($conditions)
                 ->update([
-                    "districtcd" => $request->post('district'),
-                    "subdivisioncd" => $request->post('subdivision'),
-                    "blockminicd" => $request->post('municipality'),
-                    "reporting_month" => $request->post('month'),
-                    "reporting_year" => $request->post('year'),
                     "tot_person_days_generate" => $request->post('tot_person_days_generate'),
                     "KCC_sponsored" => $request->post('KCC_sponsored'),
                     "avg_persondays_per_household" => $request->post('avg_persondays_per_household'),
                     "expenditure_made_under_mgnrega" => $request->post('expenditure_made_under_mgnrega'),
                     "percentage_of_labour_budget_achieved" => $request->post('percentage_of_labour_budget_achieved'),
-                    "user_code" => auth()->user()->id,
-                    "posted_date" => date("Y/m/d"),
-
                 ]);
             if ($updated) {
+                $updated = DB::table('mgnregs')
+                    ->where($conditions)
+                    ->update([
+                       "user_code" => auth()->user()->id,
+                       "posted_date" => date("Y/m/d"),
+                     ]);
+              if ($updated)
                 return redirect()->back()->with('success', 'Data updated successfully');
             } else {
                 return redirect()->back()->with('fail', 'No changes to made to existing  data');
