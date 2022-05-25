@@ -1,27 +1,12 @@
-<!--
 
-=========================================================
-* Now UI Dashboard - v1.5.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/now-ui-dashboard
-* Copyright 2019 Creative Tim (http://www.creative-tim.com)
-
-* Designed by www.invisionapp.com Coded by www.creative-tim.com
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
--->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name='csrf_token' content="{{ csrf_token() }}">
   <title>
     @yield('title')
   </title>
@@ -32,8 +17,6 @@
   <!-- CSS Files -->
   <link href="{{ URL('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
   <link href="{{ URL('assets/css/now-ui-dashboard.css?v=1.5.0') }}" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="{{ URL('assets/demo/demo.css') }}" rel="stylesheet" />
   <link rel="stylesheet" href="{{ URL('assets/css/dataTables.min.css') }}">
 </head>
 
@@ -54,35 +37,6 @@
               <p>Dashboard</p>
             </a>
           </li>
-          
-          <li>
-            <a href="#">
-              <i class="now-ui-icons location_map-big"></i>
-              <p>Add later</p>
-            </a>
-          </li>
-         
-          <li class="">
-             {{-- line above define route later --}}
-            <a href="#">
-               {{-- line above define route later --}}
-              <i class="now-ui-icons users_single-02"></i>
-              <p>User Profile</p>
-            </a>
-          </li>
-          <li >
-            <a href="#">
-              <i class="now-ui-icons design_bullet-list-67"></i>
-              <p>Add later</p>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="now-ui-icons text_caps-small"></i>
-              <p>Add later</p>
-            </a>
-          </li>
-         
         </ul>
       </div>
     </div>
@@ -149,27 +103,17 @@
           <nav>
             <ul>
               <li>
-                {{-- <a href="https://www.creative-tim.com">
-                  Creative Tim
-                </a> --}}
+             
               </li>
               <li>
-                {{-- <a href="http://presentation.creative-tim.com">
-                  About Us
-                </a> --}}
+          
               </li>
               <li>
-                {{-- <a href="http://blog.creative-tim.com">
-                  Blog
-                </a> --}}
+         
               </li>
             </ul>
           </nav>
-          {{-- <div class="copyright" id="copyright">
-            &copy; <script>
-              document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
-            </script>, Designed by <a href="https://www.invisionapp.com" target="_blank">Invision</a>. Coded by <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
-          </div> --}}
+  
         </div>
       </footer>
     </div>
