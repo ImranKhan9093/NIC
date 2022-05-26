@@ -36,7 +36,7 @@
         <button type="submit">Download pdf report</button>
     </form> 
     
-    <a href="{{ route('users.MGNREGSExcelReport') }}">Download Excel Report</a>
+    {{-- <a href="{{ route('users.MGNREGSExcelReport') }}">Download Excel Report</a> --}}
     <table>
         <tr>
             <th>District</th>
@@ -65,7 +65,7 @@
                 <td>{{ $report->KCC_sponsored }}</td>
                 <td>{{ $report->avg_persondays_per_household }}</td>
                 <td>{{ $report->expenditure_made_under_mgnrega }}</td>
-                <td>{{ number_format($report->percentage_of_labour_budget_achieved, 2) }}%</td>
+                <td>{{ number_format($report->percentage_of_labour_budget_achieved, 4) }}%</td>
                 <td>{{ $report->name }}</td>
                 <td>{{ $report->posted_date }}</td>
 

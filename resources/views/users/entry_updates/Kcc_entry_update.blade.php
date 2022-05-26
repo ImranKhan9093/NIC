@@ -14,8 +14,8 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="contact-info">
-                    <h2>KCC Entry Update</h2>
-                    <h4>Enter The following Details !</h4>
+                    <h2>Kisan Credit Card Entry Update</h2>
+                    <h4>Enter The following Details </h4>
                 </div>
             </div>
             <div class="col-md-9">

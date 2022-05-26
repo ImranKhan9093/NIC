@@ -39,7 +39,7 @@
         <button type="submit">Download pdf report</button>
     </form>
 
-    <a href="{{ route('users.KCCExcelReport') }}">Download Excel Report</a>
+    {{-- <a href="{{ route('users.KCCExcelReport') }}">Download Excel Report</a> --}}
     <table>
         <tr>
             <th>District</th>

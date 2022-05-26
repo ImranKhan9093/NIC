@@ -35,7 +35,7 @@
         @csrf
         <button type="submit">Download Pdf Report</button>
     </form>
-    <a href="{{ route('users.AnandharaExcelReport') }}">Download Excel Report</a>
+    {{-- <a href="{{ route('users.AnandharaExcelReport') }}">Download Excel Report</a> --}}
 
     <table>
         <tr>

@@ -15,7 +15,7 @@
             <div class="col-md-3">
                 <div class="contact-info">
                     <h2>Anandadhara Entry Update</h2>
-                    <h4>Enter The following Details !</h4>
+                    <h4>Enter The following Details</h4>
                 </div>
             </div>
             <div class="col-md-9">
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <button type="submit" value="Submit" id="submit"
-                                        style="float: right ; width:fit-content" class="btn btn-default">Submit</button>
+                                        style="float: right ; width:fit-content" class="btn btn-default">Insert</button>
                                 </div>
                             </div>
                         </div>

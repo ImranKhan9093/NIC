@@ -98,7 +98,7 @@
         @yield('content')
 
       </div>
-      <footer class="footer">
+      {{-- <footer class="footer">
         <div class=" container-fluid ">
           <nav>
             <ul>
@@ -115,7 +115,7 @@
           </nav>
   
         </div>
-      </footer>
+      </footer> --}}
     </div>
   </div>
   <!--   Core JS Files   -->
@@ -124,7 +124,7 @@
   <script src="{{ URL('assets/js/core/bootstrap.min.js') }}"></script>
   <script src="{{ URL('assets/js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
   <script src="{{ URL('assets/js/dataTables.min.js') }}"></script>
-  <script src="{{ URL('assets/js/sweet-alert.js') }}"></script>
+
   
   <!--  Google Maps Plugin    -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
