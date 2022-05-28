@@ -33,7 +33,6 @@ class PdfControlller extends Controller
                     ->join('subdivision', 'subdivision.subdivisioncd', '=', 'kishan_credit_card.subdivisioncd')
                     ->join('block_muni', 'block_muni.blockminicd', '=', 'kishan_credit_card.blockminicd')
                     ->join('month_tbl', 'month_tbl.month', '=', 'kishan_credit_card.reporting_month')
-                    //   ->where('reporting_month','=',$currentMonth)
                     ->where('user_code', '=', auth()->user()->id)
                     ->get();
     
@@ -43,7 +42,7 @@ class PdfControlller extends Controller
         return $this->pdf->stream('KccReport.pdf');
     }
     public function kmDownload(){
-        //for Kishan  mandi pdf
+     
         $kmReport = DB::table('kishan_mandi')
                         ->select('district.district', 'subdivision.subdivision', 'block_muni.blockmuni', 'month_tbl.month_name', 'kishan_mandi.reporting_year', 'kishan_mandi.KM_operational', 'kishan_mandi.KM_sanctioned', 'kishan_mandi.posted_date', 'users.name')
                         ->join('users', 'users.id', '=', 'kishan_mandi.user_code')
@@ -51,7 +50,7 @@ class PdfControlller extends Controller
                         ->join('subdivision', 'subdivision.subdivisioncd', '=', 'kishan_mandi.subdivisioncd')
                         ->join('block_muni', 'block_muni.blockminicd', '=', 'kishan_mandi.blockminicd')
                         ->join('month_tbl', 'month_tbl.month', '=', 'kishan_mandi.reporting_month')
-                        //   ->where('reporting_month','=',$currentMonth)
+                        
                         ->where('user_code', '=', auth()->user()->id)
                         ->get();
    
@@ -60,7 +59,7 @@ class PdfControlller extends Controller
         return $this->pdf->stream('KmReport.pdf');                 
     }
     public function mgnregsDownload(){
-        //for mfnregs mandi pdf
+        
         $mgnregsReport = DB::table('mgnregs')
                             ->select('district.district', 'subdivision.subdivision', 'block_muni.blockmuni', 'month_tbl.month_name', 'mgnregs.reporting_year', 'mgnregs.tot_person_days_generate', 'mgnregs.KCC_sponsored', 'mgnregs.avg_persondays_per_household', 'mgnregs.percentage_of_labour_budget_achieved', 'mgnregs.posted_date', 'users.name')
                             ->join('users', 'users.id', '=', 'mgnregs.user_code')
@@ -68,7 +67,6 @@ class PdfControlller extends Controller
                             ->join('subdivision', 'subdivision.subdivisioncd', '=', 'mgnregs.subdivisioncd')
                             ->join('block_muni', 'block_muni.blockminicd', '=', 'mgnregs.blockminicd')
                             ->join('month_tbl', 'month_tbl.month', '=', 'mgnregs.reporting_month')
-                            //   ->where('reporting_month','=',$currentMonth)
                             ->where('user_code', '=', auth()->user()->id)
                             ->get();
 
@@ -85,7 +83,6 @@ class PdfControlller extends Controller
                                 ->join('subdivision', 'subdivision.subdivisioncd', '=', 'anandadhara.subdivisioncd')
                                 ->join('block_muni', 'block_muni.blockminicd', '=', 'anandadhara.blockminicd')
                                 ->join('month_tbl', 'month_tbl.month', '=', 'anandadhara.reporting_month')
-                                //   ->where('reporting_month','=',$currentMonth)
                                 ->where('user_code', '=', auth()->user()->id)
                                 ->get();
         $this->pdf->loadView('users.report_downloads.anandadhara_pdf', compact('anandadharaReport'))
@@ -134,7 +131,6 @@ class PdfControlller extends Controller
                         $query->where('anandadhara.reporting_year','=',$reportingYear);
                     })
                     ->get();
-    //    dd($excelData);
         return view('users.excel_downloads.cm_excel',compact('excelData','reportingMonth','reportingYear'));
     }
     public function showExcelReportCritera(){

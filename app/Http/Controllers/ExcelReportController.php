@@ -16,7 +16,6 @@ class ExcelReportController extends Controller
     
     public function downloadCMSReport(Request $request){
          
-        //  dd($request->all());
          $reportingMonth=$request->month;
          $reportingYear=$request->year;
          $month=DB::table('month_tbl')

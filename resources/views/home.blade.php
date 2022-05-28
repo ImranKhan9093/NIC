@@ -8,7 +8,7 @@
         }
 
         .footer_item_size {
-            height: 85px;
+            height: 110px;
         }
 
 
@@ -39,19 +39,19 @@
      <br>
       <div class="row">
         <div class="col">
-          <img class="footer_item_size" alt="" src="{{ URL('assets/logos/kcc.png') }}" />
+         <a href="{{ route('index') }}"> <img class="footer_item_size" alt="" src="{{ URL('assets/logos/kcc.png') }}" /></a>
         </div>
         <div class="col">
-          <img class="footer_item_size" alt="" src="{{ URL('assets/logos/kisan_mandi.png') }}" />
+          <a href="{{ route('index') }}"><img class="footer_item_size" alt="" src="{{ URL('assets/logos/kisan_mandi.png') }}" /></a>
         </div>
         <div class="col">
           <a id="sign_in"  href="{{ route('index') }}" class="btn btn-primary">Sign In</a>
         </div>
         <div class="col">
-          <img class="footer_item_size" alt="" src="{{ URL('assets/logos/anandadhara.png') }}" />
+          <a href="{{ route('index') }}"><img class="footer_item_size" alt="" src="{{ URL('assets/logos/anandadhara.png') }}" /></a>
         </div>
         <div class="col">
-          <img class="footer_item_size" alt="" src="{{ URL('assets/logos/mgnrega.png') }}" />
+          <a href="{{ route('index') }}"><img class="footer_item_size" alt="" src="{{ URL('assets/logos/mgnrega.png') }}" /></a>
         </div>
       </div>
 

@@ -4,7 +4,7 @@
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body {
-    font-family: 'Open Sans', sans-serif;    
+    font-family: 'Open Sans', sans-serif;
     background: #f1f1f1;
 }
 
@@ -89,18 +89,19 @@ a:focus {
 
 /*-- main --*/
 .agileits {
-    padding: 26px 0;
+    padding-top: 10px;
+
 }
 .w3-agileits-info {
     width: 30%;
     margin: 0 auto;
 }
-.input-group-addon { 
-    color: #00BCD4; 
+.input-group-addon {
+    color: #00BCD4;
 }
 .form-header {
 	text-align: center;
-	color: white; 
+	color: white;
 }
 .form-header .fa {
     font-size: 48px;
@@ -110,20 +111,20 @@ a:focus {
     font-weight: 300;
     margin-bottom: 15px;
     letter-spacing: 0.3em;
-    font-size: 24px; 
+    font-size: 24px;
 }
 .form-header h2 {
     font-weight: 300;
     margin-bottom: 30px;
     letter-spacing: 0.3em;
-    font-size: 20px; 
+    font-size: 20px;
 }
 .has-feedback .form-control-feedback {
 	top: 4px;
 	width: 40px;
 	font-size: 18px;
 	color: #6fd653;
-	opacity: 0; 
+	opacity: 0;
 }
 .form-group {
     margin-bottom: 1.5em;
@@ -133,7 +134,7 @@ p.w3agileits {
     color: #fff;
     background:#3f96c9; border-radius:5px 5px 0 0; padding:10px 0; text-align:center; font-weight:bold;
 }
-form {  
+form {
 	background-color: #11547b;
 	padding: 2.5em;
 	-webkit-border-radius:0 0 5px 5px ;
@@ -142,8 +143,8 @@ form {
 	-ms-border-radius: 0 0 5px 5px ;
 	border-radius: 0 0 5px 5px ;
 	text-align: left;
-		
-} 
+
+}
 form label {
     margin: 0;
     padding-bottom: 5px;
@@ -157,10 +158,10 @@ form .form-group .input-group-addon {
 	left: 0;
 	top: 0;
 	border: 0;
-	background-color: transparent; 
+	background-color: transparent;
 }
 form .form-group .input-group-addon .glyphicon {
-    font-size: 15px; 
+    font-size: 15px;
 }
 form .form-group .form-control {
     height: 44px;
@@ -170,28 +171,28 @@ form .form-group .form-control {
     border-color: #00bcd4;
 }
 form .form-group.has-error label {
-	color: #d9534f; 
+	color: #d9534f;
 }
 form .form-group.has-error label.error {
 	margin-top: 10px;
 	margin-bottom: 0;
 	font-weight: 400;
-	font-size: 13px; 
+	font-size: 13px;
 }
 form .form-group.has-error input, form .form-group.has-error textarea {
 	border-color: #d9534f; }
 form .form-group.has-error input:focus, form .form-group.has-error textarea:focus {
 	border-color: #d9534f;
-	-webkit-box-shadow: 0 0 6px #d9534f; 
-	-moz-box-shadow: 0 0 6px #d9534f; 
+	-webkit-box-shadow: 0 0 6px #d9534f;
+	-moz-box-shadow: 0 0 6px #d9534f;
 	-o-box-shadow: 0 0 6px #d9534f;
-	-ms-box-shadow: 0 0 6px #d9534f; 	
-	box-shadow: 0 0 6px #d9534f; 
+	-ms-box-shadow: 0 0 6px #d9534f;
+	box-shadow: 0 0 6px #d9534f;
 }
 form .form-group.has-error .input-group-addon {
 	color: #d9534f; }
 form .form-group.has-success label {
-	color: #6fd653; 
+	color: #6fd653;
 }
 form .form-group.has-success input, form .form-group.has-success textarea {
 	border-color: #6fd653; }
@@ -201,14 +202,14 @@ form .form-group.has-success input:focus, form .form-group.has-success textarea:
 	-moz-box-shadow: 0 0 6px #6fd653;
 	-o-box-shadow: 0 0 6px #6fd653;
 	-ms-box-shadow: 0 0 6px #6fd653;
-	box-shadow: 0 0 6px #6fd653; 
+	box-shadow: 0 0 6px #6fd653;
 }
 form .form-group.has-success .input-group-addon {
-	color: #6fd653; 
+	color: #6fd653;
 }
 form .form-group.has-success .form-control-feedback {
-	opacity: 1; 
-} 
+	opacity: 1;
+}
 form .submit input[type="submit"] {
     display: block;
     width: 100%;
@@ -233,7 +234,7 @@ form .submit input[type="submit"]:hover {
     background-color: #6fd653;
 }
 form .submit input[type="submit"].disabled {
-	background-color: #999999; 
+	background-color: #999999;
 }
 form.animate-form .has-feedback .form-control-feedback {
 	opacity: 1;
@@ -244,16 +245,16 @@ form.animate-form .has-feedback .form-control-feedback {
 	transform: scale(0);
 	-webkit-transition: all 0.25s cubic-bezier(0.035, 1.22, 0.645, 1.385);
 	-moz-transition: all 0.25s cubic-bezier(0.035, 1.22, 0.645, 1.385);
-	-o-transition: all 0.25s cubic-bezier(0.035, 1.22, 0.645, 1.385); 
-	-ms-transition: all 0.25s cubic-bezier(0.035, 1.22, 0.645, 1.385); 
-	transition: all 0.25s cubic-bezier(0.035, 1.22, 0.645, 1.385); 
+	-o-transition: all 0.25s cubic-bezier(0.035, 1.22, 0.645, 1.385);
+	-ms-transition: all 0.25s cubic-bezier(0.035, 1.22, 0.645, 1.385);
+	transition: all 0.25s cubic-bezier(0.035, 1.22, 0.645, 1.385);
 }
 form.animate-form .form-group.has-success .form-control-feedback {
 	-webkit-transform: scale(1);
 	-moz-transform: scale(1);
 	-ms-transform: scale(1);
 	-o-transform: scale(1);
-	transform: scale(1); 
+	transform: scale(1);
 }
 /*-- //agileits --*/
 .widget.widget_categories{
@@ -457,7 +458,7 @@ padding: 0px; border-left:1px solid #363636; border-right:1px solid #363636;  bo
 }
 
 .top_header .phone-mail li {
-    list-style: none; 
+    list-style: none;
 	display:inline-block;
     margin: 8px 10px;
 }
