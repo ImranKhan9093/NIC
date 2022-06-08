@@ -29,13 +29,14 @@
         }
 
     </style>
+    <link href="{{ URL('css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all" />
 </head>
 <body>
     <form action="{{ route('users.downloadCMReport') }}" method="POST">
         @csrf
         <input type="hidden" value="{{ $reportingYear }}" name="year">
         <input type="hidden" value="{{ $reportingMonth }}" name="month">
-        <input type="submit" class="btn btn-primary" value="Download excel report">
+        <input type="submit" class="btn btn-success" value="Download excel report">
     </form>
     <table>
         <thead>

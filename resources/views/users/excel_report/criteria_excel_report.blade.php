@@ -18,7 +18,7 @@
             <div class="col-md-3">
                 <div class="contact-info">
                     <h2>Select Criteria for excel report</h2>
-                    <h4>Enter The following Details !</h4>
+                    
                 </div>
             </div>
             <div class="col-md-9">

@@ -25,6 +25,7 @@
     }
 
 </style>
+<link rel="stylesheet" href="{{ URL('css/bootstrap.min.css') }}">
 @endsection
 
 
@@ -33,7 +34,7 @@
     <form action="{{ route('users.mgnregsDownload') }}" method="POST" id="mgnregsDownload">
         @csrf
     
-        <button type="submit">Download pdf report</button>
+        <button type="submit" class="btn btn-success">Download pdf report</button>
     </form> 
     
     {{-- <a href="{{ route('users.MGNREGSExcelReport') }}">Download Excel Report</a> --}}

@@ -25,13 +25,14 @@
     }
 
 </style>
+<link rel="stylesheet" href="{{ URL('css/bootstrap.min.css') }}">
 @endsection
 @section('content')
     <h1>KM Report</h1>
     <form action="{{ route('users.kmDownload') }}" method="POST" id="kmDownload">
         @csrf
     
-        <button type="submit">Download pdf report</button>
+        <button type="submit" class="btn btn-success">Download pdf report</button>
     </form> 
     
     {{-- <a href="{{ route('users.KMExcelReport') }}">Download Excel Report</a> --}}
