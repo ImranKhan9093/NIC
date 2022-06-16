@@ -5,6 +5,8 @@
     Registererd roles
 @endsection
 
+{{-- CURRENTLY THIS PAGE IS NOT IN USE --}}
+
 @section('content')
     <div class="row">
         <div class="col-md-12">

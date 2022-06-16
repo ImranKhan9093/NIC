@@ -71,7 +71,7 @@
                 <div class="col-xl-3 col-lg-3  col-md-3 text-left"><img style="height:70%; width:15%;"
                         src="{{ URL('assets/img/Emblem_of_India.png') }}" class="emblem" /></div>
                 <div class="col-xl-6 col-lg-6  col-md-6 text-center  mt-3 mb-3">
-                    <h1 id="CM">Chief Minister's Report Generation System</h1>
+                    <h1 id="CM">Chief Minister  Report Generation System</h1>
                 </div>
                 <div class="col-xl-3 col-lg-3  col-md-3 text-right"><img style="height:80%; width:40%;"
                         src="{{ URL('assets/img/Mamata-Banerjee.png') }}" class="img-fluid wbimg" /></div>
@@ -80,8 +80,6 @@
     </div>
 
     @yield('content')
-
-
 
     <div class="copyright-w3layouts py-xl-3 py-2 mt-xl-5 mt-4 text-center footer_margin">
         <p>Designed and developed by-

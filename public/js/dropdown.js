@@ -8,7 +8,7 @@ $.ajaxSetup({
 
 $(document).ready(function () {
 
-    $('#district').on('change', function (e) {
+    $('#district').on('click change', function (e) {
 
         $('#municipality').empty();
         $('#municipality').append(

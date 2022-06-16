@@ -17,14 +17,15 @@
 
                     </div>
                     <div class="card-body">
-                        <h6>Current roles of the user</h6>
+                        
                        <div class="row">
-                         @if ($rolesForUser!=null)
+                         @if (!$rolesForUser->isEmpty())
+                         <h6>Current roles of the user</h6>
                             @foreach ( $rolesForUser as $role )
                                  <p style="margin-right: 20px; margin-left:15px;">{{ $role }}</p> 
                              @endforeach
                           @else
-                             <p>No roles assigned to the user</p>
+                             <p style="margin-left:5px;">No roles assigned to the user yet</p>
                         @endif
                        </div>
                         <div class="row">
