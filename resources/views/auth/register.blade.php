@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title','Login')
+@section('title','Register Page')
 @section('style')
 <style>
     .error{
@@ -80,7 +80,7 @@
     $(document).ready(function () {
         setTimeout(() => {
                $('div.alert').slideUp();
-            }, 1800);
+            }, 4000);
     });
 </script>
 

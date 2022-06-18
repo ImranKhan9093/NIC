@@ -3,9 +3,11 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Anandadhara\AnandadharaController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\UserAuthenticationController;
 use App\Http\Controllers\DropdownController;
 use App\Http\Controllers\ExcelReportController;
+
 use App\Http\Controllers\Kcc\KccController;
 use App\Http\Controllers\KishanMandi\KishanMandiController;
 use App\Http\Controllers\MenuController;
@@ -30,6 +32,13 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/showRegistrationForm',[UserAuthenticationController::class,'showRegistrationForm'])->name('showRegistrationForm');
     Route::post('/register',[UserAuthenticationController::class,'register'])->name('register');
     Route::post('/login',[UserAuthenticationController::class,'login'])->name('login');
+
+    // reset password
+
+    Route::get('/forgotPasswordPage',[ForgotPasswordController::class,'showForgotPasswordForm'])->name('forgotPasswordPage');
+    Route::post('/submitForgotPasswordForm',[ForgotPasswordController::class,'submitForgotPasswordForm'])->name('submitForgotPasswordForm');
+    Route::get('/showResetPasswordForm/{token}',[ForgotPasswordController::class,'showResetPasswordForm'])->name('showResetPasswordForm');
+    Route::post('/submitResetPasswordForm',[ForgotPasswordController::class,'submitResetPasswordForm'])->name('submitResetPasswordForm');
     
 });
 

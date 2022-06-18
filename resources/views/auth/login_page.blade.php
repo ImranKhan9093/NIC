@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title','Login')
+@section('title','Login Page')
 @section('style')
 <style>
     .error{
@@ -15,7 +15,7 @@
     {
         margin-top: 5%;
     }
-    #registerForm{
+    .hrefUnderline{
         text-decoration: underline;
     }
 
@@ -51,7 +51,8 @@
                 </div>
             </form>
         </div>
-        <a id="registerForm"  href="{{ route('showRegistrationForm') }}" style="color:black;">Dont have an account? Register here</a>
+        <a id="registerForm" class="hrefUnderline" href="{{ route('showRegistrationForm') }}" style="color:black;">Dont have an account? Register here</a><br>
+        <a id="forgotPasswordPage" class="hrefUnderline" href="{{ route('forgotPasswordPage') }}">Forgot password?Click here</a>
     </div>
 </div>
 
